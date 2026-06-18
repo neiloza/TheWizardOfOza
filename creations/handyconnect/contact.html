@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - HandyConnect</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .contact-section { padding: 6rem 0; background: var(--light); }
+        .contact-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 3rem; max-width: 1000px; margin: 0 auto; }
+        .contact-info { display: flex; flex-direction: column; gap: 2rem; }
+        .info-card { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .info-card i { font-size: 2rem; color: var(--primary); margin-bottom: 1rem; display: block; }
+        .info-card h3 { color: var(--dark); margin-bottom: 0.5rem; }
+        .contact-form { background: white; padding: 2.5rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--dark); }
+        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 0.8rem; border: 2px solid #e5e7eb; border-radius: 6px; font-family: inherit; transition: border-color 0.3s; }
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus { outline: none; border-color: var(--primary); }
+        .form-group textarea { min-height: 150px; }
+        @media (max-width: 768px) { .contact-grid { grid-template-columns: 1fr; } }
+    </style>
+    <link rel="stylesheet" href="hamburger-menu.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <i class="fas fa-tools"></i> HandyConnect
+            </div>
+        
+        <!-- Hamburger Menu Button -->
+        <button class="menu-toggle" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+                <li><a href="login.html" class="btn-login">Login</a></li>
+                <li><a href="signup.html" class="btn-signup">Sign Up</a></li>
+            </ul>
+        
+        
+        <!-- Mobile Slide-in Navigation -->
+        <div class="nav-menu-mobile">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+                <li><a href="login.html" class="btn-login">Login</a></li>
+                <li><a href="signup.html" class="btn-signup">Sign Up</a></li>
+            </ul>
+        </div></div>
+    </nav>
+
+    <section class="page-header">
+        <h1>Get In Touch</h1>
+        <p>We're here to help with any questions or concerns</p>
+    </section>
+
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <div class="info-card">
+                        <i class="fas fa-envelope"></i>
+                        <h3>Email Us</h3>
+                        <p>support@handyconnect.com</p>
+                        <p style="color: var(--gray); font-size: 0.9rem; margin-top: 0.5rem;">We respond within 24 hours</p>
+                    </div>
+                    <div class="info-card">
+                        <i class="fas fa-phone"></i>
+                        <h3>Call Us</h3>
+                        <p>(555) 123-4567</p>
+                        <p style="color: var(--gray); font-size: 0.9rem; margin-top: 0.5rem;">Mon-Fri: 8am - 8pm EST<br>Sat-Sun: 9am - 5pm EST</p>
+                    </div>
+                    <div class="info-card">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <h3>Visit Us</h3>
+                        <p>123 Main Street<br>Suite 100<br>Daytona Beach, FL 32118</p>
+                    </div>
+                </div>
+
+                <div class="contact-form">
+                    <h2 style="margin-bottom: 2rem; color: var(--dark);">Send Us a Message</h2>
+                    <form>
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number (Optional)</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <select id="subject" name="subject">
+                                <option>General Inquiry</option>
+                                <option>Technical Support</option>
+                                <option>Billing Question</option>
+                                <option>Contractor Application</option>
+                                <option>Partnership Opportunity</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%; background: var(--primary); color: white;">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h4><i class="fas fa-tools"></i> HandyConnect</h4>
+                    <p>Connecting homeowners with trusted professionals since 2024</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="#">For Contractors</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <p><i class="fas fa-envelope"></i> support@handyconnect.com</p>
+                    <p><i class="fas fa-phone"></i> (555) 123-4567</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 HandyConnect. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="hamburger-menu.js"></script>
+</body>
+</html>

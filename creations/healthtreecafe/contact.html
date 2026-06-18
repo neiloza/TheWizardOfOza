@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Health Tree Cafe</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="hamburger-menu.css">
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">
+                <a href="index.html"><img src="images/HTC_Logo.jpg" alt="Health Tree Cafe"></a>
+            </div>
+            <button class="hamburger mobile-menu-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="contact.html" class="active order-btn">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Contact Hero -->
+    <section class="hero" style="padding: 4rem 0;">
+        <div class="hero-content">
+            <div class="container">
+                <h1>Get In Touch</h1>
+                <p>We'd love to hear from you! Visit us, call, or send us a message</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section style="padding: 5rem 0;">
+        <div class="container">
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Visit Us</h3>
+                    
+                    <div class="info-item">
+                        <div class="info-icon">📍</div>
+                        <div class="info-text">
+                            <h4>Location</h4>
+                            <p>603 N Beach St<br>Daytona Beach, FL 32117</p>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">📞</div>
+                        <div class="info-text">
+                            <h4>Phone</h4>
+                            <p><a href="tel:3862813257">(386) 281-3257</a></p>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">✉️</div>
+                        <div class="info-text">
+                            <h4>Email</h4>
+                            <p><a href="mailto:info@healthtreecafe.com">info@healthtreecafe.com</a></p>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">🕒</div>
+                        <div class="info-text">
+                            <h4>Hours</h4>
+                            <p>Tuesday - Friday: 8:00 AM - 4:00 PM<br>
+                            Saturday - Sunday: 7:00 AM - 7:00 PM<br>
+                            Monday: Closed</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <h3 style="color: var(--primary-green); margin-bottom: 1.5rem;">Send Us a Message</h3>
+                    <form>
+                        <div class="form-group">
+                            <label for="name">Your Name *</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Your Email *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Your Phone</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message *</label>
+                            <textarea id="message" name="message" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="container">
+        <div class="map-container">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3495.1234567890!2d-81.0247!3d29.2108!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjnCsDEyJzM5LjMiTiA4McKwMDEnMjguOSJX!5e0!3m2!1sen!2sus!4v1234567890" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Health Tree Cafe</h3>
+                    <p>Fresh, organic, and delicious healthy food crafted with love.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <p><a href="index.html">Home</a></p>
+                    <p><a href="menu.html">Menu</a></p>
+                    <p><a href="about.html">About</a></p>
+                    <p><a href="contact.html">Contact</a></p>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <p>603 N Beach St<br>Daytona Beach, FL 32117</p>
+                    <p>Phone: (386) 281-3257</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Health Tree Cafe. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="hamburger-menu.js"></script>
+</body>
+</html>

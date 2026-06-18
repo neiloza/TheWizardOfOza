@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Word Search - Brain Training</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Fredoka+One&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body, #root { width: 100%; min-height: 100%; }
+    html { font-size: 16px; -webkit-text-size-adjust: 100%; }
+    body { 
+      font-family: 'Nunito', sans-serif; 
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      touch-action: manipulation;
+    }
+    /* Mobile-friendly tap targets */
+    button, [role="button"] { 
+      min-height: 44px; 
+      min-width: 44px; 
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+    input { 
+      font-size: 16px !important; /* Prevents iOS zoom on focus */
+      -webkit-appearance: none;
+      border-radius: 0;
+    }
+    /* Smooth scrolling */
+    * { -webkit-overflow-scrolling: touch; }
+    /* Prevent text selection on game elements */
+    .no-select { 
+      -webkit-user-select: none; 
+      user-select: none; 
+    }
+    /* Safe area insets for notched phones */
+    #root {
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+    /* Responsive text scaling */
+    @media (max-width: 380px) {
+      html { font-size: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
+  <script type="text/babel" data-type="module">
+
+const THEMES = {
+  cozy: { name: "Cozy Cream", emoji: "☕", bg: "#FFF8F0", card: "#FFFFFF", primary: "#7A8B6E", primaryLight: "#EEF3EA", accent: "#E8985E", accentLight: "#FFF0E5", text: "#3D3229", textLight: "#7A6E63", border: "#E8DDD0", success: "#5B8C7A", highlight: "#D4E8CA", selected: "#B8D4A8" },
+  ocean: { name: "Ocean Breeze", emoji: "🌊", bg: "#F0F7FA", card: "#FFFFFF", primary: "#3A7CA5", primaryLight: "#DCF0FA", accent: "#E8985E", accentLight: "#FFF0E5", text: "#1A3A4A", textLight: "#5A7A8A", border: "#C8DDE8", success: "#3A8A6A", highlight: "#C0E0F0", selected: "#80C0E0" },
+  garden: { name: "Garden Path", emoji: "🌸", bg: "#FBF7F0", card: "#FFFFFF", primary: "#7A8B6E", primaryLight: "#EEF3EA", accent: "#C4766E", accentLight: "#FCE8E5", text: "#3A3A2E", textLight: "#6A6E5A", border: "#DDE0D0", success: "#6A8E5A", highlight: "#E0ECD0", selected: "#C0D8A8" },
+  sunset: { name: "Warm Sunset", emoji: "🌅", bg: "#FFF5EE", card: "#FFFFFF", primary: "#C0785A", primaryLight: "#FFEEDD", accent: "#8B6FA3", accentLight: "#F0EAF5", text: "#3D2E29", textLight: "#8A6E63", border: "#E8D8C8", success: "#5B8C7A", highlight: "#FFE0C8", selected: "#FFC8A0" },
+  lavender: { name: "Soft Lavender", emoji: "💜", bg: "#F8F5FC", card: "#FFFFFF", primary: "#8B6FA3", primaryLight: "#F0EAF5", accent: "#E8985E", accentLight: "#FFF0E5", text: "#3A2E4A", textLight: "#7A6E8A", border: "#DDD5E8", success: "#6A8E6A", highlight: "#E0D0F0", selected: "#C8B0E0" },
+};
+
+function ThemePicker({ themeName, setThemeName, t }) {
+  const [open, setOpen] = React.useState(false);
+  return (
+    <div style={{ position: "relative", zIndex: 10 }}>
+      <button onClick={() => setOpen(!open)} style={{ background: t.card, border: `2px solid ${t.border}`, borderRadius: 12, padding: "8px 16px", fontSize: 14, fontWeight: 700, cursor: "pointer", fontFamily: "'Nunito', sans-serif", color: t.text, display: "flex", alignItems: "center", gap: 6 }}>
+        {THEMES[themeName].emoji} Theme
+      </button>
+      {open && (
+        <div style={{ position: "absolute", top: "100%", right: 0, marginTop: 8, background: t.card, borderRadius: 16, boxShadow: "0 8px 32px rgba(0,0,0,0.15)", border: `1px solid ${t.border}`, padding: 8, minWidth: 200 }}>
+          {Object.entries(THEMES).map(([key, th]) => (
+            <button key={key} onClick={() => { setThemeName(key); setOpen(false); }} style={{ display: "flex", alignItems: "center", gap: 10, width: "100%", padding: "10px 14px", border: "none", borderRadius: 10, cursor: "pointer", background: key === themeName ? t.primaryLight : "transparent", fontFamily: "'Nunito', sans-serif", fontSize: 15, fontWeight: 600, color: t.text }}>
+              <span style={{ fontSize: 20 }}>{th.emoji}</span><span>{th.name}</span>{key === themeName && <span style={{ marginLeft: "auto" }}>✓</span>}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+const CATEGORIES = {
+  animals: { name: "Animals", emoji: "🐾", words: ["ELEPHANT","GIRAFFE","DOLPHIN","PENGUIN","RABBIT","TURTLE","PARROT","TIGER","HORSE","EAGLE","WHALE","KOALA","SNAKE","PANDA","FROG"] },
+  astronomy: { name: "Astronomy", emoji: "🌟", words: ["PLANET","GALAXY","COMET","SATURN","LUNAR","ORBIT","SOLAR","VENUS","MARS","STAR","MOON","NEBULA","METEOR","PLUTO","ECLIPSE"] },
+  fruits: { name: "Fruits", emoji: "🍎", words: ["APPLE","BANANA","CHERRY","GRAPE","LEMON","MANGO","PEACH","MELON","PLUM","ORANGE","PEAR","FIG","KIWI","LIME","DATE"] },
+  objects: { name: "Objects", emoji: "🏠", words: ["CHAIR","TABLE","CLOCK","MIRROR","PILLOW","LAMP","PHONE","BRUSH","TOWEL","BASKET","CANDLE","PLATE","SPOON","BOOK","PENCIL"] },
+  nature: { name: "Nature", emoji: "🌿", words: ["FOREST","RIVER","MOUNTAIN","OCEAN","FLOWER","CLOUD","STORM","LEAF","RAIN","STONE","GRASS","WIND","LAKE","SAND","SEED"] },
+  colors_cat: { name: "Colors", emoji: "🎨", words: ["RED","BLUE","GREEN","YELLOW","PURPLE","ORANGE","PINK","WHITE","BLACK","BROWN","GRAY","GOLD","SILVER","TEAL","CORAL"] },
+};
+
+const DIRS = [[0,1],[1,0],[1,1],[-1,1],[0,-1],[1,-1],[-1,0],[-1,-1]];
+
+function generateWordSearch(wordList, size = 14) {
+  const grid = Array.from({ length: size }, () => Array(size).fill(""));
+  const placedWords = [];
+  for (const word of [...wordList].sort(() => Math.random() - 0.5)) {
+    if (word.length > size) continue;
+    let placed = false;
+    const dirOrder = [...DIRS].sort(() => Math.random() - 0.5);
+    for (let a = 0; a < 100 && !placed; a++) {
+      const dir = dirOrder[a % dirOrder.length];
+      const r = Math.floor(Math.random() * size), c = Math.floor(Math.random() * size);
+      let ok = true; const cells = [];
+      for (let i = 0; i < word.length; i++) {
+        const nr = r + dir[0] * i, nc = c + dir[1] * i;
+        if (nr < 0 || nr >= size || nc < 0 || nc >= size) { ok = false; break; }
+        if (grid[nr][nc] !== "" && grid[nr][nc] !== word[i]) { ok = false; break; }
+        cells.push([nr, nc]);
+      }
+      if (ok) { for (let i = 0; i < word.length; i++) grid[cells[i][0]][cells[i][1]] = word[i]; placedWords.push({ word, cells }); placed = true; }
+    }
+  }
+  const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  for (let r = 0; r < size; r++) for (let c = 0; c < size; c++) if (grid[r][c] === "") grid[r][c] = letters[Math.floor(Math.random() * 26)];
+  return { grid, words: placedWords };
+}
+
+function App() {
+  const [themeName, setThemeName] = React.useState("cozy");
+  const t = THEMES[themeName];
+  const [screen, setScreen] = React.useState("menu");
+  const [category, setCategory] = React.useState(null);
+  const [puzzle, setPuzzle] = React.useState(null);
+  const [foundWords, setFoundWords] = React.useState(new Set());
+  const [selecting, setSelecting] = React.useState(false);
+  const [selectedCells, setSelectedCells] = React.useState([]);
+  const [startCell, setStartCell] = React.useState(null);
+
+  const startGame = (cat) => {
+    setCategory(cat);
+    const shuffled = [...CATEGORIES[cat].words].sort(() => Math.random() - 0.5).slice(0, 10);
+    setPuzzle(generateWordSearch(shuffled)); setFoundWords(new Set()); setSelectedCells([]); setSelecting(false); setStartCell(null); setScreen("play");
+  };
+
+  const getCellsInLine = React.useCallback((start, end) => {
+    const [r1, c1] = start, [r2, c2] = end;
+    const dr = Math.sign(r2 - r1), dc = Math.sign(c2 - c1);
+    if (dr === 0 && dc === 0) return [start];
+    if (Math.abs(r2 - r1) !== 0 && Math.abs(c2 - c1) !== 0 && Math.abs(r2 - r1) !== Math.abs(c2 - c1)) return [start];
+    const dist = Math.max(Math.abs(r2 - r1), Math.abs(c2 - c1));
+    return Array.from({ length: dist + 1 }, (_, i) => [r1 + dr * i, c1 + dc * i]);
+  }, []);
+
+  const handlePointerDown = (r, c) => { setSelecting(true); setStartCell([r, c]); setSelectedCells([[r, c]]); };
+  const handlePointerMove = (r, c) => { if (!selecting || !startCell) return; setSelectedCells(getCellsInLine(startCell, [r, c])); };
+  const handlePointerUp = () => {
+    if (!selecting || !puzzle) { setSelecting(false); return; }
+    setSelecting(false);
+    const word = selectedCells.map(([r, c]) => puzzle.grid[r][c]).join("");
+    const rev = [...word].reverse().join("");
+    const found = puzzle.words.find(w => (w.word === word || w.word === rev) && !foundWords.has(w.word));
+    if (found) { const nf = new Set(foundWords); nf.add(found.word); setFoundWords(nf); if (nf.size === puzzle.words.length) setTimeout(() => setScreen("complete"), 500); }
+    setSelectedCells([]); setStartCell(null);
+  };
+
+  const isCellFound = (r, c) => puzzle?.words.some(w => foundWords.has(w.word) && w.cells.some(([wr, wc]) => wr === r && wc === c));
+  const isCellSel = (r, c) => selectedCells.some(([sr, sc]) => sr === r && sc === c);
+
+  return (
+    <>
+      
+      <style>{`* { margin: 0; padding: 0; box-sizing: border-box; } body { user-select: none; -webkit-user-select: none; }`}</style>
+      <div style={{ minHeight: "100%", background: t.bg, fontFamily: "'Nunito', sans-serif", color: t.text, display: "flex", flexDirection: "column", alignItems: "center", padding: "24px 16px" }}>
+        {screen === "menu" && (
+          <div style={{ maxWidth: 480, width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: 24, paddingTop: 16 }}>
+            <div style={{ alignSelf: "flex-end" }}><ThemePicker themeName={themeName} setThemeName={setThemeName} t={t} /></div>
+            <div style={{ fontSize: 48 }}>🔍</div>
+            <h1 style={{ fontFamily: "'Fredoka One', cursive", fontSize: 32, color: t.primary, textAlign: "center" }}>Word Search</h1>
+            <p style={{ fontSize: 18, color: t.textLight, textAlign: "center", lineHeight: 1.6, maxWidth: 360 }}>Find all the hidden words! Click and drag to select.</p>
+            <div style={{ display: "flex", flexDirection: "column", gap: 12, width: "100%" }}>
+              {Object.entries(CATEGORIES).map(([key, cat]) => (
+                <button key={key} onClick={() => startGame(key)} style={{ display: "flex", alignItems: "center", gap: 16, background: t.card, border: `1px solid ${t.border}`, borderRadius: 16, padding: "18px 24px", cursor: "pointer", boxShadow: "0 2px 16px rgba(0,0,0,0.06)", width: "100%", textAlign: "left" }}>
+                  <span style={{ fontSize: 32 }}>{cat.emoji}</span><span style={{ fontSize: 19, fontWeight: 700 }}>{cat.name}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {screen === "play" && puzzle && (
+          <div style={{ maxWidth: 560, width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: 14 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", width: "100%", alignItems: "center" }}>
+              <button onClick={() => setScreen("menu")} style={{ background: "none", border: "none", color: t.textLight, fontSize: 16, fontWeight: 600, cursor: "pointer", fontFamily: "'Nunito', sans-serif" }}>← Back</button>
+              <span style={{ fontWeight: 700, fontSize: 16, color: t.primary }}>{CATEGORIES[category].emoji} {CATEGORIES[category].name}</span>
+              <span style={{ fontSize: 15, fontWeight: 700, color: t.success }}>{foundWords.size}/{puzzle.words.length}</span>
+            </div>
+            <div style={{ width: "100%", height: 8, background: t.border, borderRadius: 4, overflow: "hidden" }}>
+              <div style={{ height: "100%", width: `${(foundWords.size / puzzle.words.length) * 100}%`, background: t.primary, borderRadius: 4, transition: "width 0.4s" }} />
+            </div>
+            <div style={{ background: t.card, borderRadius: 16, padding: 12, boxShadow: "0 2px 16px rgba(0,0,0,0.06)", border: `1px solid ${t.border}`, touchAction: "none", overflow: "auto" }}
+              onPointerUp={handlePointerUp} onPointerLeave={handlePointerUp}>
+              {puzzle.grid.map((row, r) => (
+                <div key={r} style={{ display: "flex" }}>
+                  {row.map((letter, c) => (
+                    <div key={c} onPointerDown={(e) => { e.preventDefault(); handlePointerDown(r, c); }} onPointerEnter={() => handlePointerMove(r, c)}
+                      style={{ width: 28, height: 28, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 15, fontWeight: 700, cursor: "pointer", borderRadius: 4, background: isCellFound(r, c) ? t.highlight : isCellSel(r, c) ? t.selected : "transparent", color: isCellFound(r, c) ? t.primary : isCellSel(r, c) ? "#fff" : t.text, transition: "background 0.1s" }}>
+                      {letter}
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
+            <div style={{ background: t.card, borderRadius: 16, padding: "16px 20px", width: "100%", boxShadow: "0 2px 16px rgba(0,0,0,0.06)", border: `1px solid ${t.border}` }}>
+              <p style={{ fontWeight: 700, fontSize: 16, marginBottom: 10 }}>Words to Find:</p>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+                {puzzle.words.map(w => (
+                  <span key={w.word} style={{ fontSize: 15, fontWeight: 600, padding: "5px 14px", borderRadius: 10, background: foundWords.has(w.word) ? t.highlight : t.bg, color: foundWords.has(w.word) ? t.primary : t.textLight, textDecoration: foundWords.has(w.word) ? "line-through" : "none" }}>{w.word}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {screen === "complete" && (
+          <div style={{ maxWidth: 480, width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: 24, paddingTop: 40 }}>
+            <div style={{ fontSize: 56 }}>🎉</div>
+            <h2 style={{ fontFamily: "'Fredoka One', cursive", fontSize: 28, color: t.primary }}>All Words Found!</h2>
+            <p style={{ fontSize: 18, color: t.textLight, textAlign: "center" }}>Great job! Your observation skills are sharp!</p>
+            <div style={{ display: "flex", gap: 12, width: "100%" }}>
+              <button onClick={() => startGame(category)} style={{ flex: 1, padding: 16, fontSize: 17, fontWeight: 700, fontFamily: "'Nunito', sans-serif", background: t.primary, color: "#fff", border: "none", borderRadius: 14, cursor: "pointer" }}>New Puzzle</button>
+              <button onClick={() => setScreen("menu")} style={{ flex: 1, padding: 16, fontSize: 17, fontWeight: 700, fontFamily: "'Nunito', sans-serif", background: t.card, color: t.text, border: `2px solid ${t.border}`, borderRadius: 14, cursor: "pointer" }}>Categories</button>
+            </div>
+          </div>
+        )}
+      </div>
+    </>
+  );
+}
+
+
+ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(App));
+  </script>
+</body>
+</html>

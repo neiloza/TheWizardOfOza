@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu - Health Tree Cafe</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="hamburger-menu.css">
+    <style>
+        .menu-page { padding: 3rem 0; }
+        .menu-category { margin-bottom: 4rem; }
+        .menu-category h2 {
+            font-size: 2.5rem;
+            color: var(--primary-green);
+            margin-bottom: 0.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--primary-green);
+        }
+        .menu-category-description {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+        }
+        .menu-items-list { display: grid; gap: 1.5rem; }
+        .menu-item-row {
+            background-color: var(--cream);
+            padding: 1.5rem;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            transition: all 0.3s ease;
+        }
+        .menu-item-row:hover {
+            transform: translateX(10px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .menu-item-info { flex: 1; }
+        .menu-item-row h3 {
+            font-size: 1.4rem;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+        .menu-item-row p {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+        .menu-item-row .price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-green);
+            margin-left: 2rem;
+            white-space: nowrap;
+        }
+        .menu-note {
+            background-color: var(--light-green);
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">
+                <a href="index.html"><img src="images/HTC_Logo.jpg" alt="Health Tree Cafe"></a>
+            </div>
+            <button class="hamburger mobile-menu-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html" class="active">Menu</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="contact.html" class="order-btn">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Menu Hero -->
+    <section class="hero" style="padding: 4rem 0;">
+        <div class="hero-content">
+            <div class="container">
+                <h1>Our Menu</h1>
+                <p>Fresh, organic ingredients prepared daily with love</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Content -->
+    <section class="menu-page">
+        <div class="container">
+            
+            <!-- Fruit Smoothies -->
+            <div class="menu-category">
+                <h2>Fruit Smoothies</h2>
+                <p class="menu-category-description">16 oz - $5.95 | 20 oz - $6.95</p>
+                <div class="menu-items-list">
+                    <div class="menu-item-row">
+                        <div class="menu-item-info">
+                            <h3>Morning Glory</h3>
+                            <p>Pineapple, strawberries, mango with a splash of OJ</p>
+                        </div>
+                    </div>
+                    <div class="menu-item-row">
+                        <div class="menu-item-info">
+                            <h3>Tropical</h3>
+                            <p>Pineapple, strawberries, banana, coconut milk</p>
+                        </div>
+                    </div>
+                    <div class="menu-item-row">
+                        <div class="menu-item-info">
+                            <h3>Mango Bango</h3>
+                            <p>Mango, banana, Greek yogurt, pineapple juice</p>
+                        </div>
+                    </div>
+                    <div class="menu-item-row">
+                        <div class="menu-item-info">
+                            <h3>Berry Good</h3>
+                            <p>Blueberries, bananas, strawberries, raspberries, honey, apple juice</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Signature Smoothies -->
+            <div class="menu-category">
+                <h2>Signature Smoothies</h2>
+                <p class="menu-category-description">16 oz - $6.45 | 20 oz - $7.95</p>
+                <div class="menu-items-list">
+                    <div class="menu-item-row">
+                        <div class="menu-item-info">
+                            <h3>Detox</h3>
+                            <p>Spinach, pineapple, banana, chia seeds, honey, unsweetened almond milk</p>
+                        </div>
+                    </div>
+                    <div class="menu-item-row">
+                        <div class="menu-item-info">
+                            <h3>Greens to the MAX</h3>
+                            <p>Spinach, kale, pineapple, mango, banana, pineapple juice</p>
+                        </div>
+                    </div>
+                    <div class="menu-item-row">
+                        <div class="menu-item-info">
+                            <h3>Elvis</h3>
+                            <p>Banana, peanut butter, almond milk, Greek yogurt</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-note">
+                    <strong>BOOSTERS AVAILABLE:</strong> Whey protein, Hemp protein, PB Protein, Energy, Immune with Zinc, Vanilla Protein, Keto Chocolate Protein - $1.49 each
+                </div>
+            </div>
+
+            <!-- Acai Bowls -->
+            <div class="menu-category">
+                <h2>Acai Bowls</h2>
+                <p class="menu-category-description">$10.95</p>
+                <div class="menu-items-list">
+                    <div class="menu-item-row">
+                        <div class="menu-item-info">
+                            <h3>Fruity</h3>
+                            <p>Acai, almond milk topped with mixed berries, granola, hemp seeds, honey</p>
+                        </div>
+                    </div>
+                    <div class="menu-item-row">
+                        <div class="menu-item-info">
+                            <h3>Elvis</h3>
+                            <p>Banana, peanut butter, almond milk topped with strawberries, banana, cashews, granola, flax seeds</p>
+                        </div>
+                    </div>
+                    <div class="menu-item-row">
+                        <div class="menu-item-info">
+                            <h3>Tropical</h3>
+                            <p>Acai, almond milk topped with kiwi, pineapple, banana, granola, coconut flakes, chia seeds, honey</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Breakfast -->
+            <div class="menu-category">
+                <h2>Breakfast</h2>
+                <div class="menu-items-list">
+                    <div class="menu-item-row">
+                        <div class="menu-item-info">
+                            <h3>Oatmeal</h3>
+                            <p>Organic steel cut oats, slow-cooked with soy milk. Choice of any 2 toppings</p>
+                        </div>
+                        <span class="price">$5.95</span>
+                    </div>
+                    <div class="menu-item-row">
+                        <div class="menu-item-info">
+                            <h3>Avocado Toast</h3>
+                            <p>Toasted wheatberry bread topped with our homemade Avocado Smash</p>
+                        </div>
+                        <span class="price">$5.95</span>
+                    </div>
+                    <div class="menu-item-row">
+                        <div class="menu-item-info">
+                            <h3>Egg-Cado</h3>
+                            <p>Fresh avocado, 2 fresh organic cage-free eggs, served with toasted wheatberry bread</p>
+                        </div>
+                        <span class="price">$7.95</span>
+                    </div>
+                    <div class="menu-item-row">
+                        <div class="menu-item-info">
+                            <h3>Greek Yogurt Parfait</h3>
+                            <p>Layered with mixed berries, topped with granola and honey</p>
+                        </div>
+                        <span class="price">$6.95</span>
+                    </div>
+                    <div class="menu-item-row">
+                        <div class="menu-item-info">
+                            <h3>Health Tree Avocado Delight</h3>
+                            <p>Toasted half bagel topped with goat cheese, our homemade Avocado Smash served open-faced. Topped with organic cage-free basted egg</p>
+                        </div>
+                        <span class="price">$7.95</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Salads -->
+            <div class="menu-category">
+                <h2>Fresh Salads</h2>
+                <div class="menu-items-list">
+                    <div class="menu-item-row">
+                        <div class="menu-item-info">
+                            <h3>Garden Salad</h3>
+                            <p>Organic mixed greens, tomatoes, cucumbers, carrots, with your choice of dressing</p>
+                        </div>
+                        <span class="price">$7.95</span>
+                    </div>
+                    <div class="menu-item-row">
+                        <div class="menu-item-info">
+                            <h3>Quinoa Power Salad</h3>
+                            <p>Organic quinoa, kale, roasted vegetables, avocado, tahini dressing</p>
+                        </div>
+                        <span class="price">$10.95</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Wraps & Sandwiches -->
+            <div class="menu-category">
+                <h2>Wraps & Sandwiches</h2>
+                <p class="menu-category-description">Served with choice of side: fruit salad, sweet potato fries, or chips</p>
+                <div class="menu-items-list">
+                    <div class="menu-item-row">
+                        <div class="menu-item-info">
+                            <h3>Veggie Wrap</h3>
+                            <p>Hummus, mixed greens, tomatoes, cucumbers, avocado on spinach tortilla</p>
+                        </div>
+                        <span class="price">$8.95</span>
+                    </div>
+                    <div class="menu-item-row">
+                        <div class="menu-item-info">
+                            <h3>Chicken Caesar Wrap</h3>
+                            <p>Grilled chicken, romaine, parmesan, Caesar dressing on wheat tortilla</p>
+                        </div>
+                        <span class="price">$9.95</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Juices -->
+            <div class="menu-category">
+                <h2>Fresh Juices</h2>
+                <p class="menu-category-description">16 oz - $6.95 | 20 oz - $8.95</p>
+                <div class="menu-items-list">
+                    <div class="menu-item-row">
+                        <div class="menu-item-info">
+                            <h3>Green Machine</h3>
+                            <p>Kale, spinach, cucumber, celery, apple, lemon, ginger</p>
+                        </div>
+                    </div>
+                    <div class="menu-item-row">
+                        <div class="menu-item-info">
+                            <h3>Energizer</h3>
+                            <p>Carrot, orange, pineapple, ginger</p>
+                        </div>
+                    </div>
+                    <div class="menu-item-row">
+                        <div class="menu-item-info">
+                            <h3>Detox Delight</h3>
+                            <p>Beet, carrot, apple, lemon, ginger</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section style="background: linear-gradient(135deg, var(--primary-green) 0%, var(--dark-green) 100%); color: white; text-align: center; padding: 4rem 0;">
+        <div class="container">
+            <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Ready to Order?</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 2rem;">Call us now to place your order for pickup or delivery!</p>
+            <a href="tel:3862813257" class="btn btn-primary">Call (386) 281-3257</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Health Tree Cafe</h3>
+                    <p>Fresh, organic, and delicious healthy food crafted with love.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <p><a href="index.html">Home</a></p>
+                    <p><a href="menu.html">Menu</a></p>
+                    <p><a href="about.html">About</a></p>
+                    <p><a href="contact.html">Contact</a></p>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <p>603 N Beach St<br>Daytona Beach, FL 32117</p>
+                    <p>Phone: (386) 281-3257</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Health Tree Cafe. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="hamburger-menu.js"></script>
+</body>
+</html>

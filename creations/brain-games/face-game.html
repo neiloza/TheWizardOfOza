@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Face Game - Brain Training</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Fredoka+One&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body, #root { width: 100%; min-height: 100%; }
+    html { font-size: 16px; -webkit-text-size-adjust: 100%; }
+    body { 
+      font-family: 'Nunito', sans-serif; 
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      touch-action: manipulation;
+    }
+    /* Mobile-friendly tap targets */
+    button, [role="button"] { 
+      min-height: 44px; 
+      min-width: 44px; 
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+    input { 
+      font-size: 16px !important; /* Prevents iOS zoom on focus */
+      -webkit-appearance: none;
+      border-radius: 0;
+    }
+    /* Smooth scrolling */
+    * { -webkit-overflow-scrolling: touch; }
+    /* Prevent text selection on game elements */
+    .no-select { 
+      -webkit-user-select: none; 
+      user-select: none; 
+    }
+    /* Safe area insets for notched phones */
+    #root {
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+    /* Responsive text scaling */
+    @media (max-width: 380px) {
+      html { font-size: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
+  <script type="text/babel" data-type="module">
+
+const THEMES = {
+  cozy: { name: "Cozy Cream", emoji: "☕", bg: "#FFF8F0", card: "#FFFFFF", primary: "#7A8B6E", primaryLight: "#EEF3EA", accent: "#E8985E", accentLight: "#FFF0E5", text: "#3D3229", textLight: "#7A6E63", border: "#E8DDD0", success: "#5B8C7A", successLight: "#E8F3EE", error: "#D4726A", errorLight: "#FDEAE8" },
+  ocean: { name: "Ocean Breeze", emoji: "🌊", bg: "#F0F7FA", card: "#FFFFFF", primary: "#3A7CA5", primaryLight: "#DCF0FA", accent: "#E8985E", accentLight: "#FFF0E5", text: "#1A3A4A", textLight: "#5A7A8A", border: "#C8DDE8", success: "#3A8A6A", successLight: "#E0F5EC", error: "#C45A5A", errorLight: "#FAE0E0" },
+  garden: { name: "Garden Path", emoji: "🌸", bg: "#FBF7F0", card: "#FFFFFF", primary: "#7A8B6E", primaryLight: "#EEF3EA", accent: "#C4766E", accentLight: "#FCE8E5", text: "#3A3A2E", textLight: "#6A6E5A", border: "#DDE0D0", success: "#6A8E5A", successLight: "#E8F0E5", error: "#C4766E", errorLight: "#FCE8E5" },
+  sunset: { name: "Warm Sunset", emoji: "🌅", bg: "#FFF5EE", card: "#FFFFFF", primary: "#C0785A", primaryLight: "#FFEEDD", accent: "#8B6FA3", accentLight: "#F0EAF5", text: "#3D2E29", textLight: "#8A6E63", border: "#E8D8C8", success: "#5B8C7A", successLight: "#E8F3EE", error: "#D4726A", errorLight: "#FDEAE8" },
+  lavender: { name: "Soft Lavender", emoji: "💜", bg: "#F8F5FC", card: "#FFFFFF", primary: "#8B6FA3", primaryLight: "#F0EAF5", accent: "#E8985E", accentLight: "#FFF0E5", text: "#3A2E4A", textLight: "#7A6E8A", border: "#DDD5E8", success: "#6A8E6A", successLight: "#E5F0E5", error: "#C45A6A", errorLight: "#FAE0E5" },
+};
+
+function ThemePicker({ themeName, setThemeName, t }) {
+  const [open, setOpen] = React.useState(false);
+  return (
+    <div style={{ position: "relative", zIndex: 10 }}>
+      <button onClick={() => setOpen(!open)} style={{ background: t.card, border: `2px solid ${t.border}`, borderRadius: 12, padding: "8px 16px", fontSize: 14, fontWeight: 700, cursor: "pointer", fontFamily: "'Nunito', sans-serif", color: t.text, display: "flex", alignItems: "center", gap: 6 }}>
+        {THEMES[themeName].emoji} Theme
+      </button>
+      {open && (
+        <div style={{ position: "absolute", top: "100%", right: 0, marginTop: 8, background: t.card, borderRadius: 16, boxShadow: "0 8px 32px rgba(0,0,0,0.15)", border: `1px solid ${t.border}`, padding: 8, minWidth: 200 }}>
+          {Object.entries(THEMES).map(([key, th]) => (
+            <button key={key} onClick={() => { setThemeName(key); setOpen(false); }} style={{ display: "flex", alignItems: "center", gap: 10, width: "100%", padding: "10px 14px", border: "none", borderRadius: 10, cursor: "pointer", background: key === themeName ? t.primaryLight : "transparent", fontFamily: "'Nunito', sans-serif", fontSize: 15, fontWeight: 600, color: t.text }}>
+              <span style={{ fontSize: 20 }}>{th.emoji}</span><span>{th.name}</span>{key === themeName && <span style={{ marginLeft: "auto" }}>✓</span>}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+const NAMES = ["Alice","Bob","Carol","David","Emma","Frank","Grace","Henry","Iris","Jack","Karen","Leo","Mary","Nick","Olive","Paul","Rita","Sam","Tina","Victor","Wendy","Oscar","Nora","Miles","Helen","George","Flora","Eddie","Diana","Carl","Betty","Arthur","Linda","James","Rose","Peter","Susan","Tom","Joan","Bill","Ruth","Ralph","Ethel","Earl","Pearl","Roy","Hazel","Glen"];
+const SKIN = ["#FDDBB4","#F1C27D","#E0AC69","#C68642","#8D5524","#FDE7D6"];
+const HAIR_C = ["#2C1810","#4A3728","#8B6914","#C4A35A","#D4D4D4","#E8E8E8","#8B4513","#654321"];
+const SHIRT_C = ["#6B7FA3","#7A8B6E","#C0785A","#8B6FA3","#5BA8A0","#E07A6E","#E8985E","#6A9FD4","#9B7EC4","#D4726A"];
+const EYE_C = ["#4A7A5B","#5B7FA3","#6B4F2E","#2C3E50","#5D4E37"];
+const STYLES = ["short","medium","long","bald","curly","parted"];
+const ACC = ["none","glasses","roundGlasses"];
+
+function genFace(seed) {
+  const r = (n) => { seed = (seed * 16807 + 7) % 2147483647; return seed % n; };
+  return { skin: SKIN[r(SKIN.length)], hair: HAIR_C[r(HAIR_C.length)], hairStyle: STYLES[r(STYLES.length)], eyes: EYE_C[r(EYE_C.length)], shirt: SHIRT_C[r(SHIRT_C.length)], acc: ACC[r(ACC.length)], fw: 58+r(14), nose: 4+r(4), mouth: 14+r(10), eyeS: 14+r(6), brow: 2+r(2), smile: r(3) };
+}
+
+function Avatar({ face, size = 90 }) {
+  const s = size, cx = s/2, cy = s/2, fw = face.fw*s/140, fh = fw*1.2;
+  return (
+    <svg width={s} height={s} viewBox={`0 0 ${s} ${s}`} style={{ borderRadius: "50%", background: "#F5EDE3" }}>
+      <ellipse cx={cx} cy={s+4} rx={fw*0.85} ry={s*0.32} fill={face.shirt}/>
+      <rect x={cx-fw*0.15} y={cy+fh*0.35} width={fw*0.3} height={fh*0.2} fill={face.skin}/>
+      <ellipse cx={cx} cy={cy-2} rx={fw*0.45} ry={fh*0.45} fill={face.skin}/>
+      <ellipse cx={cx-fw*0.44} cy={cy} rx={fw*0.07} ry={fh*0.1} fill={face.skin}/>
+      <ellipse cx={cx+fw*0.44} cy={cy} rx={fw*0.07} ry={fh*0.1} fill={face.skin}/>
+      {face.hairStyle==="short"&&<path d={`M ${cx-fw*0.44} ${cy-fh*0.15} Q ${cx-fw*0.45} ${cy-fh*0.5} ${cx} ${cy-fh*0.47} Q ${cx+fw*0.45} ${cy-fh*0.5} ${cx+fw*0.44} ${cy-fh*0.15}`} fill={face.hair}/>}
+      {face.hairStyle==="medium"&&<><path d={`M ${cx-fw*0.46} ${cy-fh*0.05} Q ${cx-fw*0.48} ${cy-fh*0.5} ${cx} ${cy-fh*0.48} Q ${cx+fw*0.48} ${cy-fh*0.5} ${cx+fw*0.46} ${cy-fh*0.05}`} fill={face.hair}/><rect x={cx-fw*0.47} y={cy-fh*0.1} width={fw*0.14} height={fh*0.35} rx={3} fill={face.hair}/><rect x={cx+fw*0.33} y={cy-fh*0.1} width={fw*0.14} height={fh*0.35} rx={3} fill={face.hair}/></>}
+      {face.hairStyle==="long"&&<><path d={`M ${cx-fw*0.46} ${cy+fh*0.1} Q ${cx-fw*0.5} ${cy-fh*0.5} ${cx} ${cy-fh*0.48} Q ${cx+fw*0.5} ${cy-fh*0.5} ${cx+fw*0.46} ${cy+fh*0.1}`} fill={face.hair}/><rect x={cx-fw*0.48} y={cy-fh*0.05} width={fw*0.15} height={fh*0.55} rx={4} fill={face.hair}/><rect x={cx+fw*0.33} y={cy-fh*0.05} width={fw*0.15} height={fh*0.55} rx={4} fill={face.hair}/></>}
+      {face.hairStyle==="curly"&&<>{[-0.4,-0.25,-0.1,0.05,0.2,0.35].map((o,i)=><circle key={i} cx={cx+fw*o} cy={cy-fh*0.38} r={fw*0.12} fill={face.hair}/>)}</>}
+      {face.hairStyle==="parted"&&<><path d={`M ${cx-fw*0.15} ${cy-fh*0.47} Q ${cx-fw*0.5} ${cy-fh*0.45} ${cx-fw*0.46} ${cy-fh*0.05}`} fill={face.hair} stroke={face.hair} strokeWidth={fw*0.12}/><path d={`M ${cx-fw*0.15} ${cy-fh*0.47} Q ${cx+fw*0.45} ${cy-fh*0.5} ${cx+fw*0.44} ${cy-fh*0.15}`} fill={face.hair} stroke={face.hair} strokeWidth={fw*0.1}/></>}
+      <ellipse cx={cx-face.eyeS*s/200} cy={cy-fh*0.05} rx={fw*0.07} ry={fw*0.08} fill="white"/><ellipse cx={cx+face.eyeS*s/200} cy={cy-fh*0.05} rx={fw*0.07} ry={fw*0.08} fill="white"/>
+      <circle cx={cx-face.eyeS*s/200} cy={cy-fh*0.04} r={fw*0.04} fill={face.eyes}/><circle cx={cx+face.eyeS*s/200} cy={cy-fh*0.04} r={fw*0.04} fill={face.eyes}/>
+      <circle cx={cx-face.eyeS*s/200+1} cy={cy-fh*0.05} r={fw*0.015} fill="white"/><circle cx={cx+face.eyeS*s/200+1} cy={cy-fh*0.05} r={fw*0.015} fill="white"/>
+      <line x1={cx-face.eyeS*s/200-fw*0.06} y1={cy-fh*0.15} x2={cx-face.eyeS*s/200+fw*0.06} y2={cy-fh*0.16} stroke={face.hair} strokeWidth={face.brow} strokeLinecap="round"/>
+      <line x1={cx+face.eyeS*s/200-fw*0.06} y1={cy-fh*0.16} x2={cx+face.eyeS*s/200+fw*0.06} y2={cy-fh*0.15} stroke={face.hair} strokeWidth={face.brow} strokeLinecap="round"/>
+      {face.smile===0&&<path d={`M ${cx-face.mouth*s/400} ${cy+fh*0.2} Q ${cx} ${cy+fh*0.28} ${cx+face.mouth*s/400} ${cy+fh*0.2}`} fill="none" stroke="#C4766E" strokeWidth={2} strokeLinecap="round"/>}
+      {face.smile===1&&<line x1={cx-face.mouth*s/500} y1={cy+fh*0.22} x2={cx+face.mouth*s/500} y2={cy+fh*0.22} stroke="#C4766E" strokeWidth={2} strokeLinecap="round"/>}
+      {face.smile===2&&<path d={`M ${cx-face.mouth*s/350} ${cy+fh*0.18} Q ${cx} ${cy+fh*0.3} ${cx+face.mouth*s/350} ${cy+fh*0.18}`} fill="#C4766E" stroke="#B06660" strokeWidth={1}/>}
+      {face.acc==="glasses"&&<><rect x={cx-face.eyeS*s/200-fw*0.1} y={cy-fh*0.12} width={fw*0.2} height={fw*0.16} rx={2} fill="none" stroke="#5A4A3A" strokeWidth={1.5}/><rect x={cx+face.eyeS*s/200-fw*0.1} y={cy-fh*0.12} width={fw*0.2} height={fw*0.16} rx={2} fill="none" stroke="#5A4A3A" strokeWidth={1.5}/><line x1={cx-face.eyeS*s/200+fw*0.1} y1={cy-fh*0.05} x2={cx+face.eyeS*s/200-fw*0.1} y2={cy-fh*0.05} stroke="#5A4A3A" strokeWidth={1.2}/></>}
+      {face.acc==="roundGlasses"&&<><circle cx={cx-face.eyeS*s/200} cy={cy-fh*0.04} r={fw*0.11} fill="none" stroke="#5A4A3A" strokeWidth={1.5}/><circle cx={cx+face.eyeS*s/200} cy={cy-fh*0.04} r={fw*0.11} fill="none" stroke="#5A4A3A" strokeWidth={1.5}/><line x1={cx-face.eyeS*s/200+fw*0.11} y1={cy-fh*0.04} x2={cx+face.eyeS*s/200-fw*0.11} y2={cy-fh*0.04} stroke="#5A4A3A" strokeWidth={1.2}/></>}
+    </svg>
+  );
+}
+
+function App() {
+  const [themeName, setThemeName] = React.useState("cozy");
+  const t = THEMES[themeName];
+  const [screen, setScreen] = React.useState("menu");
+  const [faceCount, setFaceCount] = React.useState(3);
+  const [faces, setFaces] = React.useState([]);
+  const [answers, setAnswers] = React.useState({});
+  const [results, setResults] = React.useState(null);
+
+  const startGame = () => {
+    const used = new Set(); const fl = [];
+    for (let i = 0; i < faceCount; i++) {
+      let name; do { name = NAMES[Math.floor(Math.random() * NAMES.length)]; } while (used.has(name)); used.add(name);
+      fl.push({ name, face: genFace(Math.floor(Math.random() * 100000) + i * 1000), id: i });
+    }
+    setFaces(fl); setAnswers({}); setResults(null); setScreen("study");
+  };
+
+  const check = () => {
+    let correct = 0;
+    const res = faces.map(f => { const ok = (answers[f.id]||"").trim().toLowerCase() === f.name.toLowerCase(); if (ok) correct++; return { ...f, userAnswer: answers[f.id]||"", isCorrect: ok }; });
+    setResults({ details: res, correct, total: faces.length }); setScreen("results");
+  };
+
+  const cols = faceCount <= 4 ? 2 : 3;
+
+  return (
+    <>
+      
+      <style>{`* { margin: 0; padding: 0; box-sizing: border-box; }`}</style>
+      <div style={{ minHeight: "100%", background: t.bg, fontFamily: "'Nunito', sans-serif", color: t.text, display: "flex", flexDirection: "column", alignItems: "center", padding: "24px 16px" }}>
+        {screen === "menu" && (
+          <div style={{ maxWidth: 480, width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: 24, paddingTop: 16 }}>
+            <div style={{ alignSelf: "flex-end" }}><ThemePicker themeName={themeName} setThemeName={setThemeName} t={t} /></div>
+            <div style={{ fontSize: 48 }}>👤</div>
+            <h1 style={{ fontFamily: "'Fredoka One', cursive", fontSize: 32, color: t.primary, textAlign: "center" }}>Face Game</h1>
+            <p style={{ fontSize: 18, color: t.textLight, textAlign: "center", lineHeight: 1.6, maxWidth: 380 }}>Study faces and names, then recall who's who!</p>
+            <div style={{ background: t.card, borderRadius: 20, padding: "28px 32px", width: "100%", boxShadow: "0 2px 16px rgba(0,0,0,0.06)", border: `1px solid ${t.border}` }}>
+              <label style={{ fontSize: 18, fontWeight: 700, display: "block", marginBottom: 16, textAlign: "center" }}>How many faces?</label>
+              <div style={{ display: "flex", alignItems: "center", gap: 16, justifyContent: "center" }}>
+                <button onClick={() => setFaceCount(Math.max(2, faceCount-1))} style={{ width: 52, height: 52, borderRadius: 14, border: `2px solid ${t.border}`, background: t.card, fontSize: 24, fontWeight: 700, cursor: "pointer", color: t.text, display: "flex", alignItems: "center", justifyContent: "center" }}>−</button>
+                <span style={{ fontSize: 40, fontFamily: "'Fredoka One', cursive", color: t.primary, minWidth: 50, textAlign: "center" }}>{faceCount}</span>
+                <button onClick={() => setFaceCount(Math.min(12, faceCount+1))} style={{ width: 52, height: 52, borderRadius: 14, border: `2px solid ${t.border}`, background: t.card, fontSize: 24, fontWeight: 700, cursor: "pointer", color: t.text, display: "flex", alignItems: "center", justifyContent: "center" }}>+</button>
+              </div>
+            </div>
+            <button onClick={startGame} style={{ width: "100%", padding: "18px 32px", fontSize: 20, fontWeight: 700, fontFamily: "'Nunito', sans-serif", background: t.primary, color: "#fff", border: "none", borderRadius: 16, cursor: "pointer" }}>Start Game</button>
+          </div>
+        )}
+
+        {screen === "study" && (
+          <div style={{ maxWidth: 560, width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: 20 }}>
+            <h2 style={{ fontFamily: "'Fredoka One', cursive", fontSize: 24, color: t.primary }}>Study These Faces</h2>
+            <p style={{ fontSize: 16, color: t.textLight }}>Take your time to remember each name!</p>
+            <div style={{ display: "grid", gridTemplateColumns: `repeat(${cols}, 1fr)`, gap: 16, width: "100%" }}>
+              {faces.map(f => (
+                <div key={f.id} style={{ background: t.card, borderRadius: 16, padding: "16px 12px", boxShadow: "0 2px 16px rgba(0,0,0,0.06)", border: `1px solid ${t.border}`, display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
+                  <Avatar face={f.face} size={90} /><p style={{ fontSize: 18, fontWeight: 700, color: t.text, textAlign: "center" }}>{f.name}</p>
+                </div>
+              ))}
+            </div>
+            <button onClick={() => setScreen("recall")} style={{ width: "100%", padding: "18px", fontSize: 20, fontWeight: 700, fontFamily: "'Nunito', sans-serif", background: t.primary, color: "#fff", border: "none", borderRadius: 16, cursor: "pointer" }}>I'm Ready — Test Me!</button>
+            <button onClick={() => setScreen("menu")} style={{ background: "none", border: "none", color: t.textLight, fontSize: 16, fontWeight: 600, cursor: "pointer", fontFamily: "'Nunito', sans-serif" }}>← Back</button>
+          </div>
+        )}
+
+        {screen === "recall" && (
+          <div style={{ maxWidth: 560, width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: 20 }}>
+            <h2 style={{ fontFamily: "'Fredoka One', cursive", fontSize: 24, color: t.accent }}>Who Are They?</h2>
+            <div style={{ display: "grid", gridTemplateColumns: `repeat(${cols}, 1fr)`, gap: 16, width: "100%" }}>
+              {faces.map(f => (
+                <div key={f.id} style={{ background: t.card, borderRadius: 16, padding: "16px 12px", boxShadow: "0 2px 16px rgba(0,0,0,0.06)", border: `1px solid ${t.border}`, display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
+                  <Avatar face={f.face} size={90} />
+                  <input type="text" value={answers[f.id]||""} onChange={(e) => setAnswers({...answers, [f.id]: e.target.value})} placeholder="Name?"
+                    style={{ width: "100%", padding: "10px 12px", fontSize: 16, fontWeight: 600, border: `2px solid ${t.border}`, borderRadius: 10, textAlign: "center", outline: "none", color: t.text, background: t.bg, fontFamily: "'Nunito', sans-serif" }}
+                    onFocus={e => e.target.style.borderColor = t.primary} onBlur={e => e.target.style.borderColor = t.border} />
+                </div>
+              ))}
+            </div>
+            <button onClick={check} style={{ width: "100%", padding: "18px", fontSize: 20, fontWeight: 700, fontFamily: "'Nunito', sans-serif", background: t.accent, color: "#fff", border: "none", borderRadius: 16, cursor: "pointer" }}>Check My Answers</button>
+          </div>
+        )}
+
+        {screen === "results" && results && (
+          <div style={{ maxWidth: 560, width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: 20 }}>
+            <div style={{ fontSize: 56 }}>{results.correct === results.total ? "🌟" : results.correct >= results.total/2 ? "👏" : "💪"}</div>
+            <h2 style={{ fontFamily: "'Fredoka One', cursive", fontSize: 28, color: t.primary }}>{results.correct}/{results.total} Correct!</h2>
+            <div style={{ display: "grid", gridTemplateColumns: `repeat(${cols}, 1fr)`, gap: 16, width: "100%" }}>
+              {results.details.map(f => (
+                <div key={f.id} style={{ background: f.isCorrect ? t.successLight : t.errorLight, borderRadius: 16, padding: "16px 12px", border: `2px solid ${f.isCorrect ? t.success : t.error}`, display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
+                  <Avatar face={f.face} size={80} />
+                  <p style={{ fontSize: 16, fontWeight: 700, color: f.isCorrect ? t.success : t.error }}>{f.name}</p>
+                  {!f.isCorrect && f.userAnswer && <p style={{ fontSize: 13, color: t.error }}>You said: {f.userAnswer}</p>}
+                  <span style={{ fontSize: 20 }}>{f.isCorrect ? "✓" : "✗"}</span>
+                </div>
+              ))}
+            </div>
+            <div style={{ display: "flex", gap: 12, width: "100%" }}>
+              <button onClick={startGame} style={{ flex: 1, padding: 16, fontSize: 17, fontWeight: 700, fontFamily: "'Nunito', sans-serif", background: t.primary, color: "#fff", border: "none", borderRadius: 14, cursor: "pointer" }}>Play Again</button>
+              <button onClick={() => setScreen("menu")} style={{ flex: 1, padding: 16, fontSize: 17, fontWeight: 700, fontFamily: "'Nunito', sans-serif", background: t.card, color: t.text, border: `2px solid ${t.border}`, borderRadius: 14, cursor: "pointer" }}>Menu</button>
+            </div>
+          </div>
+        )}
+      </div>
+    </>
+  );
+}
+
+
+ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(App));
+  </script>
+</body>
+</html>

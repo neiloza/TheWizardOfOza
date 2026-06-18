@@ -1,0 +1,1224 @@
+/*
+Author: The Wizard of Oza
+License: GNU General Public License v2 or later
+*/
+
+/* ===========================
+   CSS Variables & Reset
+   =========================== */
+:root {
+    /* Bright Gold & Blue Color Palette */
+    --royal-blue: #2563eb;
+    --sky-blue: #3b82f6;
+    --light-blue: #60a5fa;
+    --sunshine-gold: #f59e0b;
+    --bright-gold: #fbbf24;
+    --amber: #f97316;
+    --teal: #14b8a6;
+    --cyan: #06b6d4;
+    
+    /* Background & Text */
+    --white-bg: #ffffff;
+    --off-white: #fafafa;
+    --card-bg: #ffffff;
+    --text-dark: #2d3748;
+    --text-medium: #4a5568;
+    --text-light: #718096;
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, #2563eb 0%, #f59e0b 50%, #3b82f6 100%);
+    --gradient-secondary: linear-gradient(135deg, #06b6d4 0%, #fbbf24 50%, #14b8a6 100%);
+    
+    /* Effects */
+    --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.08);
+    --shadow-card: 0 8px 30px rgba(0, 0, 0, 0.12);
+    --shadow-hover: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--white-bg);
+    color: var(--text-dark);
+    line-height: 1.6;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Impressionist Background Shapes - Gold & Blue */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    background-image: 
+        radial-gradient(circle at 20% 30%, rgba(37, 99, 235, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(245, 158, 11, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 40% 70%, rgba(59, 130, 246, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at 90% 60%, rgba(251, 191, 36, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 10% 80%, rgba(6, 182, 212, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at 60% 40%, rgba(249, 115, 22, 0.13) 0%, transparent 50%),
+        radial-gradient(circle at 30% 50%, rgba(20, 184, 166, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 70% 80%, rgba(96, 165, 250, 0.12) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+/* Floating Colorful Shapes - Gold & Blue Circles */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    background-image:
+        /* Circles in Gold & Blue tones */
+        radial-gradient(circle at 15% 15%, var(--royal-blue) 0%, transparent 2%),
+        radial-gradient(circle at 85% 25%, var(--sunshine-gold) 0%, transparent 1.5%),
+        radial-gradient(circle at 45% 10%, var(--light-blue) 0%, transparent 2.5%),
+        radial-gradient(circle at 25% 85%, var(--bright-gold) 0%, transparent 2%),
+        radial-gradient(circle at 75% 75%, var(--cyan) 0%, transparent 1.8%),
+        radial-gradient(circle at 50% 50%, var(--amber) 0%, transparent 1.5%),
+        radial-gradient(circle at 10% 50%, var(--teal) 0%, transparent 2.2%),
+        radial-gradient(circle at 90% 90%, var(--sky-blue) 0%, transparent 1.6%);
+    background-size: 100% 100%;
+    animation: floatShapes 20s ease-in-out infinite;
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+@keyframes floatShapes {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(10px, -10px) rotate(5deg); }
+    50% { transform: translate(-5px, 10px) rotate(-3deg); }
+    75% { transform: translate(8px, 5px) rotate(4deg); }
+}
+
+/* ===========================
+   Typography
+   =========================== */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    color: var(--text-dark);
+}
+
+h1 {
+    font-size: 3.5rem;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+h2 {
+    font-size: 2.5rem;
+    color: var(--royal-blue);
+}
+
+h3 {
+    font-size: 1.8rem;
+    color: var(--sunshine-gold);
+}
+
+p {
+    margin-bottom: 1rem;
+    color: var(--text-medium);
+}
+
+a {
+    color: var(--royal-blue);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+a:hover {
+    color: var(--sunshine-gold);
+    transform: translateY(-1px);
+}
+
+/* ===========================
+   Navigation
+   =========================== */
+.main-navigation {
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(10px);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    box-shadow: var(--shadow-soft);
+    border-bottom: 3px solid transparent;
+    border-image: var(--gradient-primary) 1;
+}
+
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    position: relative; /* Needed for absolute positioned mobile menu */
+}
+
+.site-logo-centered {
+    font-family: 'Cinzel', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-decoration: none;
+    text-align: center;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+    margin: 0;
+}
+
+/* Show desktop menu, hide mobile menu on desktop */
+.nav-menu-desktop {
+    display: flex;
+    list-style: none;
+    align-items: center;
+    gap: 2rem;
+    margin: 0;
+}
+
+.nav-menu-desktop a {
+    color: var(--text-dark);
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.nav-menu-desktop a::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 3px;
+    background: var(--gradient-primary);
+    transform: translateX(-50%);
+    transition: width 0.3s ease;
+}
+
+.nav-menu-desktop a:hover {
+    color: var(--royal-blue);
+    transform: translateY(-2px);
+}
+
+.nav-menu-desktop a:hover::before {
+    width: 80%;
+}
+
+/* Mobile Menu Toggle Button - Working version from Jeel theme */
+.menu-toggle {
+    display: none; /* Hidden on desktop, shown on mobile */
+    flex-direction: column;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    z-index: 1001;
+    position: absolute;
+    right: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.menu-toggle span {
+    width: 28px;
+    height: 3px;
+    background: var(--royal-blue);
+    margin: 3px 0;
+    transition: all 0.3s ease;
+    border-radius: 2px;
+}
+
+.menu-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(7px, 7px);
+}
+
+.menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
+}
+
+/* Mobile Slide-in Navigation Menu - Working version from Jeel theme */
+/* Hide on desktop, only show on mobile */
+@media (min-width: 769px) {
+    .nav-menu {
+        display: none !important;
+    }
+}
+
+/* Mobile menu styles */
+.nav-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 300px;
+    height: 100vh;
+    background: linear-gradient(135deg, var(--royal-blue) 0%, #1e3a8a 100%);
+    padding: 6rem 2rem 2rem;
+    transition: right 0.3s ease;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+}
+
+.nav-menu.active {
+    right: 0;
+}
+
+.nav-menu ul {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    gap: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-menu li {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nav-menu li:last-child {
+    border-bottom: none;
+}
+
+.nav-menu a {
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: color 0.3s;
+    display: block;
+    padding: 1.2rem 0;
+}
+
+.nav-menu a:hover {
+    color: var(--sunshine-gold);
+}
+
+/* Overlay when menu is open */
+body.menu-open::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+
+/* ===========================
+   Hero Section
+   =========================== */
+.hero-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 6rem 2rem 4rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(ellipse at 30% 40%, rgba(37, 99, 235, 0.15) 0%, transparent 60%),
+        radial-gradient(ellipse at 70% 30%, rgba(245, 158, 11, 0.18) 0%, transparent 60%),
+        radial-gradient(ellipse at 50% 60%, rgba(59, 130, 246, 0.15) 0%, transparent 60%),
+        radial-gradient(ellipse at 20% 70%, rgba(251, 191, 36, 0.15) 0%, transparent 60%);
+    animation: heroFloat 8s ease-in-out infinite;
+}
+
+@keyframes heroFloat {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(10px, -10px) scale(1.05); }
+}
+
+.hero-content {
+    max-width: 800px;
+    position: relative;
+    z-index: 1;
+}
+
+.hero-title {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+    animation: fadeInUp 1s ease;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.hero-subtitle {
+    font-size: 1.5rem;
+    color: var(--text-medium);
+    margin-bottom: 2rem;
+    animation: fadeInUp 1s ease 0.2s backwards;
+}
+
+.hero-description {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 3rem;
+    color: var(--text-medium);
+    animation: fadeInUp 1s ease 0.4s backwards;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    background: var(--gradient-primary);
+    color: white;
+    font-weight: 600;
+    border-radius: 50px;
+    box-shadow: var(--shadow-card);
+    transition: all 0.3s ease;
+    animation: fadeInUp 1s ease 0.6s backwards;
+    border: none;
+}
+
+.cta-button:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: var(--shadow-hover);
+    color: white;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===========================
+   Container & Sections
+   =========================== */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+}
+
+.section {
+    margin-bottom: 6rem;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 100px;
+    height: 4px;
+    background: var(--gradient-primary);
+    margin: 1rem auto;
+    border-radius: 2px;
+}
+
+/* ===========================
+   Cards
+   =========================== */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.card {
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: var(--shadow-card);
+    transition: all 0.3s ease;
+    border: 3px solid transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, 
+        rgba(37, 99, 235, 0.08) 0%, 
+        rgba(245, 158, 11, 0.08) 25%,
+        transparent 50%);
+    transform: rotate(45deg);
+    transition: all 0.6s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--royal-blue);
+}
+
+.card:hover::before {
+    top: -100%;
+    right: -100%;
+}
+
+.card-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.card-title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--sunshine-gold);
+}
+
+.card-description {
+    color: var(--text-medium);
+    line-height: 1.6;
+}
+
+/* ===========================
+   Chronicles (Blog)
+   =========================== */
+.chronicles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+}
+
+.chronicle-card {
+    background: var(--card-bg);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+    transition: all 0.3s ease;
+}
+
+.chronicle-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px rgba(107, 70, 193, 0.4);
+}
+
+.chronicle-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.chronicle-content {
+    padding: 1.5rem;
+}
+
+.chronicle-date {
+    color: var(--mystical-purple);
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.chronicle-title {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+}
+
+.chronicle-excerpt {
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+}
+
+.read-more {
+    display: inline-block;
+    padding: 0.9rem 2rem;
+    background: linear-gradient(135deg, var(--royal-blue), #1e40af);
+    color: white;
+    font-weight: 600;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+    margin-top: 1rem;
+}
+
+.read-more:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+    background: linear-gradient(135deg, #1e40af, var(--royal-blue));
+}
+
+/* ===========================
+   Portfolio Gallery
+   =========================== */
+.portfolio-section {
+    margin-bottom: 4rem;
+}
+
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.portfolio-item {
+    background: var(--card-bg);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 3px solid transparent;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.portfolio-item:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--sunshine-gold);
+}
+
+.portfolio-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.portfolio-image:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+}
+
+/* Make entire portfolio item clickable */
+.portfolio-item-link {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.portfolio-info {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.portfolio-description {
+    color: var(--text-medium);
+    flex-grow: 1;
+    margin-bottom: 1rem;
+}
+
+
+.portfolio-title {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    color: var(--royal-blue);
+}
+
+/* ===========================
+   Contact Form
+   =========================== */
+.contact-form {
+    max-width: 600px;
+    margin: 0 auto;
+    background: var(--card-bg);
+    padding: 3rem;
+    border-radius: 20px;
+    box-shadow: var(--shadow-card);
+    border: 3px solid transparent;
+    background-image: 
+        linear-gradient(white, white),
+        var(--gradient-primary);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--royal-blue);
+    font-weight: 600;
+}
+
+.form-input,
+.form-textarea {
+    width: 100%;
+    padding: 0.8rem;
+    background: var(--off-white);
+    border: 2px solid rgba(37, 99, 235, 0.2);
+    border-radius: 12px;
+    color: var(--text-dark);
+    font-family: inherit;
+    transition: all 0.3s ease;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+    outline: none;
+    border-color: var(--sunshine-gold);
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+    background: white;
+}
+
+.form-textarea {
+    min-height: 150px;
+    resize: vertical;
+}
+
+.submit-button {
+    width: 100%;
+    padding: 1rem;
+    background: var(--gradient-primary);
+    color: white;
+    font-weight: 600;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.submit-button:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+}
+
+/* ===========================
+   Social Links
+   =========================== */
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.social-link {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border-radius: 50%;
+    color: var(--royal-blue);
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-soft);
+    border: 2px solid transparent;
+}
+
+.social-link:hover {
+    background: var(--gradient-primary);
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-card);
+}
+
+/* ===========================
+   Footer
+   =========================== */
+.site-footer {
+    background: var(--off-white);
+    padding: 3rem 2rem 2rem;
+    text-align: center;
+    border-top: 3px solid transparent;
+    border-image: var(--gradient-primary) 1;
+}
+
+.footer-text {
+    color: var(--text-medium);
+}
+    outline: none;
+    border-color: var(--mystical-purple);
+    box-shadow: 0 0 10px rgba(107, 70, 193, 0.3);
+}
+
+.form-textarea {
+    min-height: 150px;
+    resize: vertical;
+}
+
+/* ===========================
+   Magical Effects
+   =========================== */
+.sparkle {
+    position: fixed;
+    pointer-events: none;
+    animation: sparkleFloat 3s ease-in-out infinite;
+    font-size: 2rem;
+    filter: drop-shadow(0 0 5px currentColor);
+}
+
+@keyframes sparkleFloat {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100px) rotate(180deg);
+    }
+}
+
+/* ===========================
+   Page-Specific Color Schemes
+   =========================== */
+
+/* Home Page - Gold Theme */
+body.page-home {
+    background: linear-gradient(135deg, #fef9e7 0%, #fde68a 50%, #fbbf24 100%);
+    background-attachment: fixed;
+}
+
+body.page-home .nav-menu {
+    background: linear-gradient(135deg, #f59e0b 0%, #b45309 100%);
+}
+
+body.page-home .menu-toggle span {
+    background: #f59e0b;
+}
+
+body.page-home .section-title {
+    background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Creations (Vault) Page - Blue Theme */
+body.page-creations::before {
+    background-image: 
+        radial-gradient(circle at 20% 30%, rgba(30, 64, 175, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.18) 0%, transparent 50%),
+        radial-gradient(circle at 40% 70%, rgba(96, 165, 250, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 90% 60%, rgba(147, 197, 253, 0.18) 0%, transparent 50%),
+        radial-gradient(circle at 10% 80%, rgba(30, 58, 138, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 60% 40%, rgba(37, 99, 235, 0.16) 0%, transparent 50%),
+        radial-gradient(circle at 30% 50%, rgba(59, 130, 246, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at 70% 80%, rgba(96, 165, 250, 0.15) 0%, transparent 50%);
+}
+
+body.page-creations::after {
+    background-image:
+        radial-gradient(circle at 15% 15%, #1e40af 0%, transparent 2%),
+        radial-gradient(circle at 85% 25%, #3b82f6 0%, transparent 1.5%),
+        radial-gradient(circle at 45% 10%, #60a5fa 0%, transparent 2.5%),
+        radial-gradient(circle at 25% 85%, #2563eb 0%, transparent 2%),
+        radial-gradient(circle at 75% 75%, #3b82f6 0%, transparent 1.8%),
+        radial-gradient(circle at 50% 50%, #60a5fa 0%, transparent 1.5%),
+        radial-gradient(circle at 10% 50%, #1e40af 0%, transparent 2.2%),
+        radial-gradient(circle at 90% 90%, #3b82f6 0%, transparent 1.6%);
+}
+
+body.page-creations .nav-menu {
+    background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+}
+
+body.page-creations .menu-toggle span {
+    background: #1e40af;
+}
+
+body.page-creations .section-title {
+    background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Arcana Page - Orange Theme */
+body.page-arcana {
+    background: linear-gradient(135deg, #fff7ed 0%, #fed7aa 50%, #fb923c 100%);
+    background-attachment: fixed;
+}
+
+body.page-arcana::before {
+    background-image:
+        radial-gradient(circle at 20% 30%, rgba(234, 88, 12, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(249, 115, 22, 0.18) 0%, transparent 50%),
+        radial-gradient(circle at 40% 70%, rgba(251, 146, 60, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 90% 60%, rgba(194, 65, 12, 0.18) 0%, transparent 50%),
+        radial-gradient(circle at 10% 80%, rgba(234, 88, 12, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 60% 40%, rgba(249, 115, 22, 0.16) 0%, transparent 50%),
+        radial-gradient(circle at 30% 50%, rgba(251, 146, 60, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at 70% 80%, rgba(234, 88, 12, 0.15) 0%, transparent 50%);
+}
+
+body.page-arcana::after {
+    background-image:
+        radial-gradient(circle at 15% 15%, #ea580c 0%, transparent 2%),
+        radial-gradient(circle at 85% 25%, #f97316 0%, transparent 1.5%),
+        radial-gradient(circle at 45% 10%, #fb923c 0%, transparent 2.5%),
+        radial-gradient(circle at 25% 85%, #ea580c 0%, transparent 2%),
+        radial-gradient(circle at 75% 75%, #f97316 0%, transparent 1.8%),
+        radial-gradient(circle at 50% 50%, #fb923c 0%, transparent 1.5%),
+        radial-gradient(circle at 10% 50%, #c2410c 0%, transparent 2.2%),
+        radial-gradient(circle at 90% 90%, #ea580c 0%, transparent 1.6%);
+}
+
+body.page-arcana .nav-menu {
+    background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%);
+}
+
+body.page-arcana .menu-toggle span {
+    background: #ea580c;
+}
+
+body.page-arcana .section-title {
+    background: linear-gradient(135deg, #ea580c 0%, #f97316 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+body.page-arcana h2 {
+    color: #ea580c;
+}
+
+body.page-arcana .card h3 {
+    color: #f97316;
+}
+
+body.page-arcana .service-card:hover {
+    border-color: #ea580c;
+}
+
+/* Origins Page - Red Theme */
+body.page-origins {
+    background: linear-gradient(135deg, #fef2f2 0%, #fecaca 50%, #f87171 100%);
+    background-attachment: fixed;
+}
+
+body.page-origins::before {
+    background-image:
+        radial-gradient(circle at 20% 30%, rgba(185, 28, 28, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(220, 38, 38, 0.18) 0%, transparent 50%),
+        radial-gradient(circle at 40% 70%, rgba(239, 68, 68, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 90% 60%, rgba(127, 29, 29, 0.18) 0%, transparent 50%),
+        radial-gradient(circle at 10% 80%, rgba(153, 27, 27, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 60% 40%, rgba(200, 30, 30, 0.16) 0%, transparent 50%),
+        radial-gradient(circle at 30% 50%, rgba(220, 38, 38, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at 70% 80%, rgba(185, 28, 28, 0.15) 0%, transparent 50%);
+}
+
+body.page-origins::after {
+    background-image:
+        radial-gradient(circle at 15% 15%, #b91c1c 0%, transparent 2%),
+        radial-gradient(circle at 85% 25%, #dc2626 0%, transparent 1.5%),
+        radial-gradient(circle at 45% 10%, #ef4444 0%, transparent 2.5%),
+        radial-gradient(circle at 25% 85%, #991b1b 0%, transparent 2%),
+        radial-gradient(circle at 75% 75%, #b91c1c 0%, transparent 1.8%),
+        radial-gradient(circle at 50% 50%, #dc2626 0%, transparent 1.5%),
+        radial-gradient(circle at 10% 50%, #7f1d1d 0%, transparent 2.2%),
+        radial-gradient(circle at 90% 90%, #b91c1c 0%, transparent 1.6%);
+}
+
+body.page-origins .nav-menu {
+    background: linear-gradient(135deg, #b91c1c 0%, #7f1d1d 100%);
+}
+
+body.page-origins .menu-toggle span {
+    background: #b91c1c;
+}
+
+body.page-origins .section-title {
+    background: linear-gradient(135deg, #b91c1c 0%, #dc2626 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+body.page-origins h2 {
+    color: #b91c1c;
+}
+
+/* Owlery Page - Green Theme */
+body.page-owlery::before {
+    background-image: 
+        radial-gradient(circle at 20% 30%, rgba(5, 150, 105, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.18) 0%, transparent 50%),
+        radial-gradient(circle at 40% 70%, rgba(52, 211, 153, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 90% 60%, rgba(110, 231, 183, 0.18) 0%, transparent 50%),
+        radial-gradient(circle at 10% 80%, rgba(4, 120, 87, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 60% 40%, rgba(5, 150, 105, 0.16) 0%, transparent 50%),
+        radial-gradient(circle at 30% 50%, rgba(16, 185, 129, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at 70% 80%, rgba(52, 211, 153, 0.15) 0%, transparent 50%);
+}
+
+body.page-owlery::after {
+    background-image:
+        radial-gradient(circle at 15% 15%, #059669 0%, transparent 2%),
+        radial-gradient(circle at 85% 25%, #10b981 0%, transparent 1.5%),
+        radial-gradient(circle at 45% 10%, #34d399 0%, transparent 2.5%),
+        radial-gradient(circle at 25% 85%, #059669 0%, transparent 2%),
+        radial-gradient(circle at 75% 75%, #10b981 0%, transparent 1.8%),
+        radial-gradient(circle at 50% 50%, #34d399 0%, transparent 1.5%),
+        radial-gradient(circle at 10% 50%, #047857 0%, transparent 2.2%),
+        radial-gradient(circle at 90% 90%, #059669 0%, transparent 1.6%);
+}
+
+body.page-owlery .nav-menu {
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+}
+
+body.page-owlery .menu-toggle span {
+    background: #059669;
+}
+
+body.page-owlery .section-title {
+    background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+body.page-owlery h2 {
+    color: #059669;
+}
+
+/* ===========================
+   Bulletin Board Styles
+   =========================== */
+.bulletin-posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.bulletin-post-card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: var(--shadow-card);
+    transition: all 0.3s ease;
+    border-left: 4px solid var(--royal-blue);
+}
+
+.bulletin-post-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover);
+}
+
+.bulletin-post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.bulletin-category {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.bulletin-category.service-offered {
+    background: rgba(34, 197, 94, 0.1);
+    color: #16a34a;
+}
+
+.bulletin-category.trade-proposed {
+    background: rgba(59, 130, 246, 0.1);
+    color: #2563eb;
+}
+
+.bulletin-category.help-wanted {
+    background: rgba(245, 158, 11, 0.1);
+    color: #d97706;
+}
+
+.bulletin-category.items-for-sale {
+    background: rgba(168, 85, 247, 0.1);
+    color: #9333ea;
+}
+
+.bulletin-category.community-event {
+    background: rgba(236, 72, 153, 0.1);
+    color: #db2777;
+}
+
+.bulletin-category.other {
+    background: rgba(107, 114, 128, 0.1);
+    color: #6b7280;
+}
+
+.bulletin-date {
+    color: var(--text-light);
+    font-size: 0.85rem;
+}
+
+.bulletin-post-title {
+    color: var(--text-dark);
+    font-size: 1.3rem;
+    margin-bottom: 0.75rem;
+    font-weight: 700;
+}
+
+.bulletin-post-content {
+    color: var(--text-medium);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.bulletin-post-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.bulletin-author {
+    color: var(--text-medium);
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.bulletin-contact {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: var(--royal-blue);
+    color: white;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.bulletin-contact:hover {
+    background: var(--sky-blue);
+    transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+    .bulletin-posts-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .bulletin-post-footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+    }
+}
+
+/* ===========================
+   Responsive Design
+   =========================== */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.2rem;
+    }
+    
+    /* Show hamburger menu button on mobile */
+    .menu-toggle {
+        display: flex;
+    }
+    
+    /* Hide desktop menu on mobile */
+    .nav-menu-desktop {
+        display: none !important;
+    }
+    
+    .site-logo-centered {
+        font-size: 1.5rem;
+    }
+    
+    .card-grid,
+    .chronicles-grid,
+    .portfolio-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    h1 {
+        font-size: 2.5rem;
+    }
+    
+    h2 {
+        font-size: 2rem;
+    }
+}
+
+/* ===========================
+   Utility Classes
+   =========================== */
+.text-center {
+    text-align: center;
+}
+
+.mt-4 {
+    margin-top: 2rem;
+}
+
+.mb-4 {
+    margin-bottom: 2rem;
+}
+
+.hidden {
+    display: none;
+}

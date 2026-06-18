@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal - HandyConnect</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { background: var(--light); }
+        .portal-header { background: white; border-bottom: 1px solid #e5e7eb; padding: 1rem 0; }
+        .portal-nav { display: flex; justify-content: space-between; align-items: center; }
+        .portal-nav .nav-brand { font-size: 1.5rem; font-weight: 700; color: var(--primary); }
+        .portal-nav .user-menu { display: flex; align-items: center; gap: 1.5rem; }
+        .portal-nav .user-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; font-weight: 600; }
+        .portal-main { padding: 3rem 0; }
+        .welcome-banner { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; padding: 3rem; border-radius: 12px; margin-bottom: 3rem; }
+        .welcome-banner h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .dashboard-card { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .dashboard-card h3 { color: var(--dark); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+        .dashboard-card .card-icon { font-size: 2rem; color: var(--primary); }
+        .btn-action { display: inline-block; margin-top: 1rem; padding: 0.7rem 1.5rem; background: var(--primary); color: white; text-decoration: none; border-radius: 6px; font-weight: 600; transition: background 0.3s; }
+        .btn-action:hover { background: var(--primary-dark); }
+        .coming-soon { background: var(--secondary); color: white; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600; display: inline-block; }
+    </style>
+    <link rel="stylesheet" href="hamburger-menu.css">
+</head>
+<body>
+    <header class="portal-header">
+        <div class="container">
+            <nav class="portal-nav">
+                <div class="nav-brand">
+                    <i class="fas fa-tools"></i> HandyConnect
+                </div>
+                <div class="user-menu">
+                    <a href="#" style="color: var(--gray); text-decoration: none;"><i class="fas fa-bell"></i></a>
+                    <a href="#" style="color: var(--gray); text-decoration: none;"><i class="fas fa-cog"></i></a>
+                    <div class="user-avatar">JD</div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="portal-main">
+        <div class="container">
+            <div class="welcome-banner">
+                <h1>Welcome to Your Dashboard!</h1>
+                <p style="font-size: 1.2rem; opacity: 0.95;">Your portal to connect with trusted home service professionals</p>
+            </div>
+
+            <div class="dashboard-grid">
+                <div class="dashboard-card">
+                    <h3><span class="card-icon"><i class="fas fa-plus-circle"></i></span> Post a Project</h3>
+                    <p style="color: var(--gray); line-height: 1.7;">Describe your home service needs and get matched with qualified contractors in your area.</p>
+                    <span class="coming-soon">Coming Soon</span>
+                </div>
+
+                <div class="dashboard-card">
+                    <h3><span class="card-icon"><i class="fas fa-folder"></i></span> My Projects</h3>
+                    <p style="color: var(--gray); line-height: 1.7;">View and manage all your active and completed projects in one place.</p>
+                    <span class="coming-soon">Coming Soon</span>
+                </div>
+
+                <div class="dashboard-card">
+                    <h3><span class="card-icon"><i class="fas fa-search"></i></span> Find Contractors</h3>
+                    <p style="color: var(--gray); line-height: 1.7;">Browse vetted professionals by specialty, location, and availability.</p>
+                    <span class="coming-soon">Coming Soon</span>
+                </div>
+
+                <div class="dashboard-card">
+                    <h3><span class="card-icon"><i class="fas fa-calendar"></i></span> Appointments</h3>
+                    <p style="color: var(--gray); line-height: 1.7;">Schedule and track upcoming service appointments with your contractors.</p>
+                    <span class="coming-soon">Coming Soon</span>
+                </div>
+
+                <div class="dashboard-card">
+                    <h3><span class="card-icon"><i class="fas fa-comments"></i></span> Messages</h3>
+                    <p style="color: var(--gray); line-height: 1.7;">Communicate directly with contractors. Share photos and project details.</p>
+                    <span class="coming-soon">Coming Soon</span>
+                </div>
+
+                <div class="dashboard-card">
+                    <h3><span class="card-icon"><i class="fas fa-receipt"></i></span> Payments & Invoices</h3>
+                    <p style="color: var(--gray); line-height: 1.7;">View payment history and manage billing information securely.</p>
+                    <span class="coming-soon">Coming Soon</span>
+                </div>
+            </div>
+
+            <div style="margin-top: 3rem; padding: 2rem; background: white; border-radius: 12px; text-align: center;">
+                <h2 style="color: var(--dark); margin-bottom: 1rem;">Web App Coming Soon</h2>
+                <p style="color: var(--gray); max-width: 600px; margin: 0 auto 2rem; line-height: 1.7;">
+                    We're building a powerful platform to connect homeowners with trusted professionals. Full functionality will be available soon!
+                </p>
+                <a href="index.html" class="btn-action">Return to Home</a>
+            </div>
+        </div>
+    </main>
+    <script src="hamburger-menu.js"></script>
+</body>
+</html>

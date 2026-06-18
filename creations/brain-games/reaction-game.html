@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Reaction Game - Brain Training</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Fredoka+One&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body, #root { width: 100%; min-height: 100%; }
+    html { font-size: 16px; -webkit-text-size-adjust: 100%; }
+    body { 
+      font-family: 'Nunito', sans-serif; 
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      touch-action: manipulation;
+    }
+    /* Mobile-friendly tap targets */
+    button, [role="button"] { 
+      min-height: 44px; 
+      min-width: 44px; 
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+    input { 
+      font-size: 16px !important; /* Prevents iOS zoom on focus */
+      -webkit-appearance: none;
+      border-radius: 0;
+    }
+    /* Smooth scrolling */
+    * { -webkit-overflow-scrolling: touch; }
+    /* Prevent text selection on game elements */
+    .no-select { 
+      -webkit-user-select: none; 
+      user-select: none; 
+    }
+    /* Safe area insets for notched phones */
+    #root {
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+    /* Responsive text scaling */
+    @media (max-width: 380px) {
+      html { font-size: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
+  <script type="text/babel" data-type="module">
+
+const THEMES = {
+  cozy: { name: "Cozy Cream", emoji: "☕", bg: "#FFF8F0", card: "#FFFFFF", primary: "#C0785A", primaryLight: "#FFF0E5", text: "#3D3229", textLight: "#7A6E63", border: "#E8DDD0", red: "#D4726A", redBg: "#FDEAE8", green: "#5B8C7A", greenBg: "#E8F3EE", waiting: "#E8985E" },
+  ocean: { name: "Ocean Breeze", emoji: "🌊", bg: "#F0F7FA", card: "#FFFFFF", primary: "#3A7CA5", primaryLight: "#DCF0FA", text: "#1A3A4A", textLight: "#5A7A8A", border: "#C8DDE8", red: "#C45A5A", redBg: "#FAE0E0", green: "#3A8A6A", greenBg: "#E0F5EC", waiting: "#E8985E" },
+  garden: { name: "Garden Path", emoji: "🌸", bg: "#FBF7F0", card: "#FFFFFF", primary: "#7A8B6E", primaryLight: "#EEF3EA", text: "#3A3A2E", textLight: "#6A6E5A", border: "#DDE0D0", red: "#C4766E", redBg: "#FCE8E5", green: "#6A8E5A", greenBg: "#E8F0E5", waiting: "#C4766E" },
+  sunset: { name: "Warm Sunset", emoji: "🌅", bg: "#FFF5EE", card: "#FFFFFF", primary: "#C0785A", primaryLight: "#FFEEDD", text: "#3D2E29", textLight: "#8A6E63", border: "#E8D8C8", red: "#D4726A", redBg: "#FDEAE8", green: "#5B8C7A", greenBg: "#E8F3EE", waiting: "#E8985E" },
+  lavender: { name: "Soft Lavender", emoji: "💜", bg: "#F8F5FC", card: "#FFFFFF", primary: "#8B6FA3", primaryLight: "#F0EAF5", text: "#3A2E4A", textLight: "#7A6E8A", border: "#DDD5E8", red: "#C45A6A", redBg: "#FAE0E5", green: "#6A8E6A", greenBg: "#E5F0E5", waiting: "#8B6FA3" },
+};
+
+function ThemePicker({ themeName, setThemeName, t }) {
+  const [open, setOpen] = React.useState(false);
+  return (
+    <div style={{ position: "relative", zIndex: 10 }}>
+      <button onClick={() => setOpen(!open)} style={{ background: t.card, border: `2px solid ${t.border}`, borderRadius: 12, padding: "8px 16px", fontSize: 14, fontWeight: 700, cursor: "pointer", fontFamily: "'Nunito', sans-serif", color: t.text, display: "flex", alignItems: "center", gap: 6 }}>
+        {THEMES[themeName].emoji} Theme
+      </button>
+      {open && (
+        <div style={{ position: "absolute", top: "100%", right: 0, marginTop: 8, background: t.card, borderRadius: 16, boxShadow: "0 8px 32px rgba(0,0,0,0.15)", border: `1px solid ${t.border}`, padding: 8, minWidth: 200 }}>
+          {Object.entries(THEMES).map(([key, th]) => (
+            <button key={key} onClick={() => { setThemeName(key); setOpen(false); }} style={{ display: "flex", alignItems: "center", gap: 10, width: "100%", padding: "10px 14px", border: "none", borderRadius: 10, cursor: "pointer", background: key === themeName ? t.primaryLight : "transparent", fontFamily: "'Nunito', sans-serif", fontSize: 15, fontWeight: 600, color: t.text }}>
+              <span style={{ fontSize: 20 }}>{th.emoji}</span><span>{th.name}</span>{key === themeName && <span style={{ marginLeft: "auto" }}>✓</span>}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function App() {
+  const [themeName, setThemeName] = React.useState("cozy");
+  const t = THEMES[themeName];
+  const [screen, setScreen] = React.useState("menu");
+  const [phase, setPhase] = React.useState("waiting");
+  const [startTime, setStartTime] = React.useState(null);
+  const [reactionTime, setReactionTime] = React.useState(null);
+  const [results, setResults] = React.useState([]);
+  const [round, setRound] = React.useState(1);
+  const [totalRounds] = React.useState(5);
+  const [bestTime, setBestTime] = React.useState(null);
+  const timerRef = React.useRef(null);
+
+  const startRound = () => {
+    setPhase("waiting"); setReactionTime(null);
+    timerRef.current = setTimeout(() => { setPhase("go"); setStartTime(Date.now()); }, 2000 + Math.random() * 4000);
+  };
+
+  const startGame = () => { setResults([]); setRound(1); setScreen("play"); startRound(); };
+
+  React.useEffect(() => () => { if (timerRef.current) clearTimeout(timerRef.current); }, []);
+
+  const handleClick = () => {
+    if (phase === "waiting") { clearTimeout(timerRef.current); setPhase("tooEarly"); }
+    else if (phase === "go") {
+      const rt = Date.now() - startTime; setReactionTime(rt); setPhase("result");
+      const nr = [...results, rt]; setResults(nr);
+      if (round >= totalRounds) { const best = Math.min(...nr); if (!bestTime || best < bestTime) setBestTime(best); }
+    }
+    else if (phase === "result") { if (round >= totalRounds) setScreen("summary"); else { setRound(round + 1); startRound(); } }
+    else if (phase === "tooEarly") startRound();
+  };
+
+  const getAvg = () => results.length ? Math.round(results.reduce((a, b) => a + b, 0) / results.length) : 0;
+  const getBest = () => results.length ? Math.min(...results) : 0;
+  const getColor = (ms) => ms < 250 ? t.green : ms < 400 ? t.waiting : t.red;
+  const getMsg = (ms) => ms < 200 ? "Lightning fast! ⚡" : ms < 300 ? "Excellent! 🌟" : ms < 400 ? "Nice! 👍" : ms < 500 ? "Good! 😊" : "Keep practicing! 💪";
+
+  return (
+    <>
+      
+      <style>{`* { margin: 0; padding: 0; box-sizing: border-box; } @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.03); } }`}</style>
+      <div style={{ minHeight: "100%", background: t.bg, fontFamily: "'Nunito', sans-serif", color: t.text, display: "flex", flexDirection: "column", alignItems: "center", padding: "24px 16px" }}>
+        {screen === "menu" && (
+          <div style={{ maxWidth: 480, width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: 24, paddingTop: 16 }}>
+            <div style={{ alignSelf: "flex-end" }}><ThemePicker themeName={themeName} setThemeName={setThemeName} t={t} /></div>
+            <div style={{ fontSize: 48 }}>⚡</div>
+            <h1 style={{ fontFamily: "'Fredoka One', cursive", fontSize: 32, color: t.primary, textAlign: "center" }}>Reaction Game</h1>
+            <p style={{ fontSize: 18, color: t.textLight, textAlign: "center", lineHeight: 1.6, maxWidth: 360 }}>Wait for green, then tap as fast as you can!</p>
+            <div style={{ background: t.card, borderRadius: 20, padding: 24, width: "100%", boxShadow: "0 2px 16px rgba(0,0,0,0.06)", border: `1px solid ${t.border}` }}>
+              <h3 style={{ fontSize: 18, fontWeight: 700, marginBottom: 12, textAlign: "center" }}>How to Play</h3>
+              {[{ e: "🔴", t: "Wait while the screen is red" }, { e: "🟢", t: "Tap quickly when it turns green!" }, { e: "⏱️", t: "See how fast your reaction was" }].map((s, i) => (
+                <div key={i} style={{ display: "flex", alignItems: "center", gap: 12, fontSize: 16, color: t.textLight, marginBottom: 8 }}>
+                  <span style={{ fontSize: 24 }}>{s.e}</span><span>{s.t}</span>
+                </div>
+              ))}
+            </div>
+            {bestTime && <div style={{ background: t.primaryLight, borderRadius: 16, padding: "16px 24px", width: "100%", textAlign: "center" }}><p style={{ fontWeight: 700, fontSize: 16 }}>🏆 Personal Best: {bestTime}ms</p></div>}
+            <button onClick={startGame} style={{ width: "100%", padding: "18px 32px", fontSize: 20, fontWeight: 700, fontFamily: "'Nunito', sans-serif", background: t.primary, color: "#fff", border: "none", borderRadius: 16, cursor: "pointer" }}>Start Game</button>
+          </div>
+        )}
+
+        {screen === "play" && (
+          <div style={{ maxWidth: 520, width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: 16, paddingTop: 12 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", width: "100%", alignItems: "center" }}>
+              <span style={{ fontSize: 16, color: t.textLight, fontWeight: 600 }}>Round {round}/{totalRounds}</span>
+              {results.length > 0 && <span style={{ fontSize: 16, color: t.primary, fontWeight: 700 }}>Avg: {getAvg()}ms</span>}
+            </div>
+            <div style={{ width: "100%", height: 8, background: t.border, borderRadius: 4, overflow: "hidden" }}>
+              <div style={{ height: "100%", width: `${(round / totalRounds) * 100}%`, background: t.primary, borderRadius: 4, transition: "width 0.3s" }} />
+            </div>
+            <div onClick={handleClick} style={{
+              width: "100%", minHeight: 340, borderRadius: 24, display: "flex", flexDirection: "column",
+              alignItems: "center", justifyContent: "center", cursor: "pointer", userSelect: "none", gap: 16, padding: 32,
+              background: phase === "waiting" ? t.redBg : phase === "go" ? t.greenBg : phase === "tooEarly" ? "#FFF5E5" : t.card,
+              border: `3px solid ${phase === "waiting" ? t.red : phase === "go" ? t.green : phase === "tooEarly" ? t.waiting : t.border}`,
+              animation: phase === "go" ? "pulse 0.6s ease infinite" : "none", transition: "background 0.15s",
+            }}>
+              {phase === "waiting" && <><div style={{ fontSize: 64 }}>🔴</div><p style={{ fontSize: 24, fontFamily: "'Fredoka One', cursive", color: t.red }}>Wait for green...</p></>}
+              {phase === "go" && <><div style={{ fontSize: 64 }}>🟢</div><p style={{ fontSize: 28, fontFamily: "'Fredoka One', cursive", color: t.green }}>TAP NOW!</p></>}
+              {phase === "tooEarly" && <><div style={{ fontSize: 56 }}>😅</div><p style={{ fontSize: 22, fontFamily: "'Fredoka One', cursive", color: t.waiting }}>Too early!</p><p style={{ fontSize: 16, color: t.textLight }}>Tap to try again</p></>}
+              {phase === "result" && <>
+                <div style={{ fontSize: 48 }}>{reactionTime < 300 ? "🌟" : reactionTime < 500 ? "👍" : "😊"}</div>
+                <p style={{ fontSize: 52, fontFamily: "'Fredoka One', cursive", color: getColor(reactionTime) }}>{reactionTime}ms</p>
+                <p style={{ fontSize: 18, color: t.textLight, fontWeight: 600 }}>{getMsg(reactionTime)}</p>
+                <p style={{ fontSize: 16, color: t.textLight, marginTop: 8, background: t.bg, padding: "10px 20px", borderRadius: 12 }}>Tap to {round >= totalRounds ? "see results" : "continue"}</p>
+              </>}
+            </div>
+            {results.length > 0 && (
+              <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "center" }}>
+                {results.map((r, i) => <span key={i} style={{ background: t.card, border: `1px solid ${t.border}`, borderRadius: 10, padding: "6px 14px", fontSize: 14, fontWeight: 600, color: getColor(r) }}>R{i + 1}: {r}ms</span>)}
+              </div>
+            )}
+            <button onClick={() => { clearTimeout(timerRef.current); setScreen("menu"); }} style={{ background: "none", border: "none", color: t.textLight, fontSize: 16, fontWeight: 600, cursor: "pointer", fontFamily: "'Nunito', sans-serif" }}>← Back to Menu</button>
+          </div>
+        )}
+
+        {screen === "summary" && (
+          <div style={{ maxWidth: 480, width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: 24, paddingTop: 40 }}>
+            <div style={{ fontSize: 56 }}>⚡</div>
+            <h2 style={{ fontFamily: "'Fredoka One', cursive", fontSize: 28, color: t.primary }}>Your Results</h2>
+            <div style={{ background: t.card, borderRadius: 20, padding: "28px 32px", width: "100%", display: "flex", justifyContent: "space-around", textAlign: "center", boxShadow: "0 2px 16px rgba(0,0,0,0.06)", border: `1px solid ${t.border}` }}>
+              <div><p style={{ fontSize: 14, color: t.textLight, marginBottom: 6 }}>Average</p><p style={{ fontSize: 36, fontFamily: "'Fredoka One', cursive", color: getColor(getAvg()) }}>{getAvg()}ms</p></div>
+              <div style={{ width: 1, background: t.border }} />
+              <div><p style={{ fontSize: 14, color: t.textLight, marginBottom: 6 }}>Best</p><p style={{ fontSize: 36, fontFamily: "'Fredoka One', cursive", color: getColor(getBest()) }}>{getBest()}ms</p></div>
+            </div>
+            <div style={{ background: t.card, borderRadius: 20, padding: "20px 24px", width: "100%", boxShadow: "0 2px 16px rgba(0,0,0,0.06)", border: `1px solid ${t.border}` }}>
+              {results.map((r, i) => (
+                <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "10px 16px", background: i % 2 === 0 ? t.bg : "transparent", borderRadius: 12 }}>
+                  <span style={{ fontSize: 16, fontWeight: 600 }}>Round {i + 1}</span>
+                  <span style={{ fontSize: 18, fontWeight: 700, color: getColor(r), fontFamily: "'Fredoka One', cursive" }}>{r}ms</span>
+                </div>
+              ))}
+            </div>
+            <div style={{ display: "flex", gap: 12, width: "100%" }}>
+              <button onClick={startGame} style={{ flex: 1, padding: 16, fontSize: 17, fontWeight: 700, fontFamily: "'Nunito', sans-serif", background: t.primary, color: "#fff", border: "none", borderRadius: 14, cursor: "pointer" }}>Play Again</button>
+              <button onClick={() => setScreen("menu")} style={{ flex: 1, padding: 16, fontSize: 17, fontWeight: 700, fontFamily: "'Nunito', sans-serif", background: t.card, color: t.text, border: `2px solid ${t.border}`, borderRadius: 14, cursor: "pointer" }}>Menu</button>
+            </div>
+          </div>
+        )}
+      </div>
+    </>
+  );
+}
+
+
+ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(App));
+  </script>
+</body>
+</html>

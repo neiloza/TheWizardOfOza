@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Mastermind - Brain Training</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Fredoka+One&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body, #root { width: 100%; min-height: 100%; }
+    html { font-size: 16px; -webkit-text-size-adjust: 100%; }
+    body { 
+      font-family: 'Nunito', sans-serif; 
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      touch-action: manipulation;
+    }
+    /* Mobile-friendly tap targets */
+    button, [role="button"] { 
+      min-height: 44px; 
+      min-width: 44px; 
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+    input { 
+      font-size: 16px !important; /* Prevents iOS zoom on focus */
+      -webkit-appearance: none;
+      border-radius: 0;
+    }
+    /* Smooth scrolling */
+    * { -webkit-overflow-scrolling: touch; }
+    /* Prevent text selection on game elements */
+    .no-select { 
+      -webkit-user-select: none; 
+      user-select: none; 
+    }
+    /* Safe area insets for notched phones */
+    #root {
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+    /* Responsive text scaling */
+    @media (max-width: 380px) {
+      html { font-size: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
+  <script type="text/babel" data-type="module">
+
+const THEMES = {
+  cozy: { name: "Cozy Cream", emoji: "☕", bg: "#FFF8F0", card: "#FFFFFF", primary: "#8B6FA3", primaryLight: "#F0EAF5", accent: "#E8985E", accentLight: "#FFF0E5", text: "#3D3229", textLight: "#7A6E63", border: "#E8DDD0", success: "#5B8C7A", error: "#D4726A" },
+  ocean: { name: "Ocean Breeze", emoji: "🌊", bg: "#F0F7FA", card: "#FFFFFF", primary: "#3A7CA5", primaryLight: "#DCF0FA", accent: "#E8985E", accentLight: "#FFF0E5", text: "#1A3A4A", textLight: "#5A7A8A", border: "#C8DDE8", success: "#3A8A6A", error: "#C45A5A" },
+  garden: { name: "Garden Path", emoji: "🌸", bg: "#FBF7F0", card: "#FFFFFF", primary: "#7A8B6E", primaryLight: "#EEF3EA", accent: "#C4766E", accentLight: "#FCE8E5", text: "#3A3A2E", textLight: "#6A6E5A", border: "#DDE0D0", success: "#6A8E5A", error: "#C4766E" },
+  sunset: { name: "Warm Sunset", emoji: "🌅", bg: "#FFF5EE", card: "#FFFFFF", primary: "#C0785A", primaryLight: "#FFEEDD", accent: "#8B6FA3", accentLight: "#F0EAF5", text: "#3D2E29", textLight: "#8A6E63", border: "#E8D8C8", success: "#5B8C7A", error: "#D4726A" },
+  lavender: { name: "Soft Lavender", emoji: "💜", bg: "#F8F5FC", card: "#FFFFFF", primary: "#8B6FA3", primaryLight: "#F0EAF5", accent: "#E8985E", accentLight: "#FFF0E5", text: "#3A2E4A", textLight: "#7A6E8A", border: "#DDD5E8", success: "#6A8E6A", error: "#C45A6A" },
+};
+
+const ALL_COLORS = [
+  { name: "Red", color: "#E07A6E" }, { name: "Blue", color: "#6A9FD4" },
+  { name: "Green", color: "#7AB87A" }, { name: "Yellow", color: "#E8C84A" },
+  { name: "Purple", color: "#9B7EC4" }, { name: "Orange", color: "#E8985E" },
+  { name: "Pink", color: "#E0889E" }, { name: "Teal", color: "#5BA8A0" },
+];
+
+const CODE_LENGTH = 4;
+const MAX_GUESSES = 10;
+
+function ThemePicker({ themeName, setThemeName, t }) {
+  const [open, setOpen] = React.useState(false);
+  return (
+    <div style={{ position: "relative", zIndex: 10 }}>
+      <button onClick={() => setOpen(!open)} style={{ background: t.card, border: `2px solid ${t.border}`, borderRadius: 12, padding: "8px 16px", fontSize: 14, fontWeight: 700, cursor: "pointer", fontFamily: "'Nunito', sans-serif", color: t.text, display: "flex", alignItems: "center", gap: 6 }}>
+        {THEMES[themeName].emoji} Theme
+      </button>
+      {open && (
+        <div style={{ position: "absolute", top: "100%", right: 0, marginTop: 8, background: t.card, borderRadius: 16, boxShadow: "0 8px 32px rgba(0,0,0,0.15)", border: `1px solid ${t.border}`, padding: 8, minWidth: 200 }}>
+          {Object.entries(THEMES).map(([key, th]) => (
+            <button key={key} onClick={() => { setThemeName(key); setOpen(false); }} style={{ display: "flex", alignItems: "center", gap: 10, width: "100%", padding: "10px 14px", border: "none", borderRadius: 10, cursor: "pointer", background: key === themeName ? t.primaryLight : "transparent", fontFamily: "'Nunito', sans-serif", fontSize: 15, fontWeight: 600, color: t.text }}>
+              <span style={{ fontSize: 20 }}>{th.emoji}</span><span>{th.name}</span>{key === themeName && <span style={{ marginLeft: "auto" }}>✓</span>}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function App() {
+  const [themeName, setThemeName] = React.useState("cozy");
+  const t = THEMES[themeName];
+
+  const [screen, setScreen] = React.useState("menu");
+  const [numColors, setNumColors] = React.useState(6);
+  const [secret, setSecret] = React.useState([]);
+  const [guesses, setGuesses] = React.useState([]);
+  const [currentGuess, setCurrentGuess] = React.useState([null, null, null, null]);
+  const [activeSlot, setActiveSlot] = React.useState(0);
+
+  const availableColors = ALL_COLORS.slice(0, numColors);
+
+  const startGame = () => {
+    const code = Array.from({ length: CODE_LENGTH }, () => Math.floor(Math.random() * numColors));
+    setSecret(code); setGuesses([]); setCurrentGuess([null, null, null, null]); setActiveSlot(0); setScreen("play");
+  };
+
+  const getFeedback = (guess) => {
+    const sc = [...secret]; const gc = [...guess]; let exact = 0; let misplaced = 0;
+    for (let i = 0; i < CODE_LENGTH; i++) { if (gc[i] === sc[i]) { exact++; sc[i] = -1; gc[i] = -2; } }
+    for (let i = 0; i < CODE_LENGTH; i++) { if (gc[i] === -2) continue; const idx = sc.indexOf(gc[i]); if (idx !== -1) { misplaced++; sc[idx] = -1; } }
+    return { exact, misplaced };
+  };
+
+  const selectColor = (colorIdx) => {
+    const g = [...currentGuess]; g[activeSlot] = colorIdx; setCurrentGuess(g);
+    if (activeSlot < CODE_LENGTH - 1) setActiveSlot(activeSlot + 1);
+  };
+
+  const submitGuess = () => {
+    if (currentGuess.some(c => c === null)) return;
+    const feedback = getFeedback(currentGuess);
+    const newGuesses = [...guesses, { guess: [...currentGuess], feedback }];
+    setGuesses(newGuesses);
+    setCurrentGuess([null, null, null, null]); setActiveSlot(0);
+    if (feedback.exact === CODE_LENGTH) setTimeout(() => setScreen("win"), 400);
+    else if (newGuesses.length >= MAX_GUESSES) setTimeout(() => setScreen("gameover"), 400);
+  };
+
+  const isGameActive = screen === "play";
+  const endScreen = screen === "win" || screen === "gameover";
+
+  const Peg = ({ colorIdx, size = 40, onClick, active }) => (
+    <div onClick={onClick} style={{
+      width: size, height: size, borderRadius: "50%",
+      background: colorIdx !== null && colorIdx !== undefined ? availableColors[colorIdx]?.color : t.border,
+      border: active ? `3px solid ${t.primary}` : colorIdx !== null && colorIdx !== undefined ? "2px solid rgba(0,0,0,0.1)" : `2px dashed ${t.border}`,
+      cursor: onClick ? "pointer" : "default",
+      boxShadow: active ? `0 0 0 3px ${t.primaryLight}` : colorIdx !== null && colorIdx !== undefined ? "0 2px 6px rgba(0,0,0,0.1)" : "none",
+      transition: "all 0.15s",
+    }} />
+  );
+
+  const Feedback = ({ exact, misplaced }) => (
+    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 3, width: 28, height: 28 }}>
+      {Array.from({ length: CODE_LENGTH }).map((_, i) => (
+        <div key={i} style={{
+          width: 10, height: 10, borderRadius: "50%",
+          background: i < exact ? t.text : i < exact + misplaced ? t.border : "transparent",
+          border: i < exact + misplaced ? "none" : `1px solid ${t.border}`,
+        }} />
+      ))}
+    </div>
+  );
+
+  return (
+    <>
+      
+      <style>{`* { margin: 0; padding: 0; box-sizing: border-box; }`}</style>
+      <div style={{ minHeight: "100%", background: t.bg, fontFamily: "'Nunito', sans-serif", color: t.text, display: "flex", flexDirection: "column", alignItems: "center", padding: "24px 16px" }}>
+        {screen === "menu" && (
+          <div style={{ maxWidth: 480, width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: 24, paddingTop: 16 }}>
+            <div style={{ alignSelf: "flex-end" }}><ThemePicker themeName={themeName} setThemeName={setThemeName} t={t} /></div>
+            <div style={{ fontSize: 48 }}>🎯</div>
+            <h1 style={{ fontFamily: "'Fredoka One', cursive", fontSize: 32, color: t.primary, textAlign: "center" }}>Mastermind</h1>
+            <p style={{ fontSize: 18, color: t.textLight, textAlign: "center", lineHeight: 1.6, maxWidth: 380 }}>
+              Crack the secret color code! You have {MAX_GUESSES} guesses.
+            </p>
+            <div style={{ background: t.card, borderRadius: 20, padding: 24, width: "100%", boxShadow: "0 2px 16px rgba(0,0,0,0.06)", border: `1px solid ${t.border}` }}>
+              <h3 style={{ fontSize: 18, fontWeight: 700, marginBottom: 16, textAlign: "center" }}>How Clues Work</h3>
+              <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                  <div style={{ width: 20, height: 20, borderRadius: "50%", background: t.text, flexShrink: 0 }} />
+                  <span style={{ fontSize: 16, color: t.textLight }}><strong>Dark peg</strong> = right color, right spot</span>
+                </div>
+                <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                  <div style={{ width: 20, height: 20, borderRadius: "50%", background: t.border, flexShrink: 0 }} />
+                  <span style={{ fontSize: 16, color: t.textLight }}><strong>Light peg</strong> = right color, wrong spot</span>
+                </div>
+                <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                  <div style={{ width: 20, height: 20, borderRadius: "50%", border: `1px solid ${t.border}`, flexShrink: 0 }} />
+                  <span style={{ fontSize: 16, color: t.textLight }}><strong>Empty</strong> = color not in code</span>
+                </div>
+              </div>
+            </div>
+            <div style={{ background: t.card, borderRadius: 20, padding: 24, width: "100%", boxShadow: "0 2px 16px rgba(0,0,0,0.06)", border: `1px solid ${t.border}` }}>
+              <label style={{ fontSize: 18, fontWeight: 700, display: "block", marginBottom: 16, textAlign: "center" }}>Number of Colors</label>
+              <div style={{ display: "flex", alignItems: "center", gap: 16, justifyContent: "center", marginBottom: 12 }}>
+                <button onClick={() => setNumColors(Math.max(4, numColors - 1))} style={{ width: 52, height: 52, borderRadius: 14, border: `2px solid ${t.border}`, background: t.card, fontSize: 24, fontWeight: 700, cursor: "pointer", color: t.text, display: "flex", alignItems: "center", justifyContent: "center" }}>−</button>
+                <span style={{ fontSize: 40, fontFamily: "'Fredoka One', cursive", color: t.primary, minWidth: 50, textAlign: "center" }}>{numColors}</span>
+                <button onClick={() => setNumColors(Math.min(8, numColors + 1))} style={{ width: 52, height: 52, borderRadius: 14, border: `2px solid ${t.border}`, background: t.card, fontSize: 24, fontWeight: 700, cursor: "pointer", color: t.text, display: "flex", alignItems: "center", justifyContent: "center" }}>+</button>
+              </div>
+              <div style={{ display: "flex", gap: 8, justifyContent: "center", flexWrap: "wrap" }}>
+                {availableColors.map((c, i) => <div key={i} style={{ width: 28, height: 28, borderRadius: "50%", background: c.color, border: "2px solid rgba(0,0,0,0.1)" }} />)}
+              </div>
+            </div>
+            <button onClick={startGame} style={{ width: "100%", padding: "18px 32px", fontSize: 20, fontWeight: 700, fontFamily: "'Nunito', sans-serif", background: t.primary, color: "#fff", border: "none", borderRadius: 16, cursor: "pointer" }}>Start Game</button>
+          </div>
+        )}
+
+        {isGameActive && (
+          <div style={{ maxWidth: 480, width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: 16 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", width: "100%", alignItems: "center" }}>
+              <button onClick={() => setScreen("menu")} style={{ background: "none", border: "none", color: t.textLight, fontSize: 16, fontWeight: 600, cursor: "pointer", fontFamily: "'Nunito', sans-serif" }}>← Back</button>
+              <span style={{ fontWeight: 700, fontSize: 16, color: t.primary }}>Guess {guesses.length + 1} of {MAX_GUESSES}</span>
+            </div>
+            <div style={{ background: t.card, borderRadius: 20, padding: 20, width: "100%", boxShadow: "0 2px 16px rgba(0,0,0,0.06)", border: `1px solid ${t.border}` }}>
+              {guesses.map((g, gi) => (
+                <div key={gi} style={{ display: "flex", alignItems: "center", gap: 12, padding: "8px 0", borderBottom: `1px solid ${t.border}`, justifyContent: "center" }}>
+                  <span style={{ fontSize: 14, color: t.textLight, fontWeight: 600, minWidth: 24 }}>{gi + 1}</span>
+                  <div style={{ display: "flex", gap: 8 }}>{g.guess.map((c, ci) => <Peg key={ci} colorIdx={c} size={36} />)}</div>
+                  <Feedback exact={g.feedback.exact} misplaced={g.feedback.misplaced} />
+                </div>
+              ))}
+              <div style={{ display: "flex", alignItems: "center", gap: 12, padding: "12px 0", justifyContent: "center", background: t.primaryLight, borderRadius: 12, marginTop: 8 }}>
+                <span style={{ fontSize: 14, color: t.textLight, fontWeight: 600, minWidth: 24 }}>{guesses.length + 1}</span>
+                <div style={{ display: "flex", gap: 8 }}>
+                  {currentGuess.map((c, ci) => <Peg key={ci} colorIdx={c} size={36} active={ci === activeSlot} onClick={() => setActiveSlot(ci)} />)}
+                </div>
+                <div style={{ width: 28 }} />
+              </div>
+            </div>
+            <div style={{ background: t.card, borderRadius: 16, padding: "16px 20px", width: "100%", boxShadow: "0 2px 16px rgba(0,0,0,0.06)", border: `1px solid ${t.border}` }}>
+              <p style={{ fontSize: 15, fontWeight: 700, marginBottom: 12, textAlign: "center" }}>Tap a color to place it:</p>
+              <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap" }}>
+                {availableColors.map((c, i) => (
+                  <div key={i} onClick={() => selectColor(i)} style={{ width: 48, height: 48, borderRadius: "50%", background: c.color, cursor: "pointer", border: "3px solid rgba(0,0,0,0.1)", boxShadow: "0 2px 8px rgba(0,0,0,0.15)", transition: "transform 0.15s" }}
+                    onMouseOver={e => e.currentTarget.style.transform = "scale(1.15)"}
+                    onMouseOut={e => e.currentTarget.style.transform = "scale(1)"}
+                  />
+                ))}
+              </div>
+            </div>
+            <div style={{ display: "flex", gap: 12, width: "100%" }}>
+              <button onClick={() => { setCurrentGuess([null, null, null, null]); setActiveSlot(0); }} style={{ flex: 1, padding: 14, fontSize: 16, fontWeight: 700, fontFamily: "'Nunito', sans-serif", background: t.card, color: t.text, border: `2px solid ${t.border}`, borderRadius: 14, cursor: "pointer" }}>Clear</button>
+              <button onClick={submitGuess} disabled={currentGuess.some(c => c === null)} style={{ flex: 2, padding: 14, fontSize: 17, fontWeight: 700, fontFamily: "'Nunito', sans-serif", background: currentGuess.some(c => c === null) ? t.border : t.primary, color: "#fff", border: "none", borderRadius: 14, cursor: currentGuess.some(c => c === null) ? "default" : "pointer" }}>Check Guess</button>
+            </div>
+          </div>
+        )}
+
+        {endScreen && (
+          <div style={{ maxWidth: 480, width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: 24, paddingTop: 40 }}>
+            <div style={{ fontSize: 56 }}>{screen === "win" ? "🎉" : "🤔"}</div>
+            <h2 style={{ fontFamily: "'Fredoka One', cursive", fontSize: 28, color: t.primary }}>{screen === "win" ? "You Cracked It!" : "Nice Try!"}</h2>
+            <div style={{ background: t.card, borderRadius: 20, padding: 24, width: "100%", boxShadow: "0 2px 16px rgba(0,0,0,0.06)", border: `1px solid ${t.border}`, textAlign: "center" }}>
+              <p style={{ fontSize: 16, color: t.textLight, marginBottom: 12 }}>The secret code was:</p>
+              <div style={{ display: "flex", gap: 10, justifyContent: "center" }}>{secret.map((c, i) => <Peg key={i} colorIdx={c} size={48} />)}</div>
+              {screen === "win" && <p style={{ fontSize: 16, color: t.textLight, marginTop: 12 }}>Solved in {guesses.length} {guesses.length === 1 ? "guess" : "guesses"}!</p>}
+            </div>
+            <div style={{ display: "flex", gap: 12, width: "100%" }}>
+              <button onClick={startGame} style={{ flex: 1, padding: 16, fontSize: 17, fontWeight: 700, fontFamily: "'Nunito', sans-serif", background: t.primary, color: "#fff", border: "none", borderRadius: 14, cursor: "pointer" }}>Play Again</button>
+              <button onClick={() => setScreen("menu")} style={{ flex: 1, padding: 16, fontSize: 17, fontWeight: 700, fontFamily: "'Nunito', sans-serif", background: t.card, color: t.text, border: `2px solid ${t.border}`, borderRadius: 14, cursor: "pointer" }}>Menu</button>
+            </div>
+          </div>
+        )}
+      </div>
+    </>
+  );
+}
+
+
+ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(App));
+  </script>
+</body>
+</html>

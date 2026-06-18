@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Crossword - Brain Training</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Fredoka+One&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body, #root { width: 100%; min-height: 100%; }
+    html { font-size: 16px; -webkit-text-size-adjust: 100%; }
+    body { 
+      font-family: 'Nunito', sans-serif; 
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      touch-action: manipulation;
+    }
+    /* Mobile-friendly tap targets */
+    button, [role="button"] { 
+      min-height: 44px; 
+      min-width: 44px; 
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+    input { 
+      font-size: 16px !important; /* Prevents iOS zoom on focus */
+      -webkit-appearance: none;
+      border-radius: 0;
+    }
+    /* Smooth scrolling */
+    * { -webkit-overflow-scrolling: touch; }
+    /* Prevent text selection on game elements */
+    .no-select { 
+      -webkit-user-select: none; 
+      user-select: none; 
+    }
+    /* Safe area insets for notched phones */
+    #root {
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+    /* Responsive text scaling */
+    @media (max-width: 380px) {
+      html { font-size: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
+  <script type="text/babel" data-type="module">
+
+const THEMES = {
+  cozy: { name: "Cozy Cream", emoji: "☕", bg: "#FFF8F0", card: "#FFFFFF", primary: "#6B7FA3", primaryLight: "#EDF1F7", accent: "#E8985E", accentLight: "#FFF0E5", text: "#3D3229", textLight: "#7A6E63", border: "#E8DDD0", success: "#5B8C7A", highlight: "#FFF3CC" },
+  ocean: { name: "Ocean Breeze", emoji: "🌊", bg: "#F0F7FA", card: "#FFFFFF", primary: "#3A7CA5", primaryLight: "#DCF0FA", accent: "#E8985E", accentLight: "#FFF0E5", text: "#1A3A4A", textLight: "#5A7A8A", border: "#C8DDE8", success: "#3A8A6A", highlight: "#E0F0FF" },
+  garden: { name: "Garden Path", emoji: "🌸", bg: "#FBF7F0", card: "#FFFFFF", primary: "#7A8B6E", primaryLight: "#EEF3EA", accent: "#C4766E", accentLight: "#FCE8E5", text: "#3A3A2E", textLight: "#6A6E5A", border: "#DDE0D0", success: "#6A8E5A", highlight: "#F5F0DC" },
+  sunset: { name: "Warm Sunset", emoji: "🌅", bg: "#FFF5EE", card: "#FFFFFF", primary: "#C0785A", primaryLight: "#FFEEDD", accent: "#8B6FA3", accentLight: "#F0EAF5", text: "#3D2E29", textLight: "#8A6E63", border: "#E8D8C8", success: "#5B8C7A", highlight: "#FFF0DD" },
+  lavender: { name: "Soft Lavender", emoji: "💜", bg: "#F8F5FC", card: "#FFFFFF", primary: "#8B6FA3", primaryLight: "#F0EAF5", accent: "#E8985E", accentLight: "#FFF0E5", text: "#3A2E4A", textLight: "#7A6E8A", border: "#DDD5E8", success: "#6A8E6A", highlight: "#F0E8FA" },
+};
+
+function ThemePicker({ themeName, setThemeName, t }) {
+  const [open, setOpen] = React.useState(false);
+  return (
+    <div style={{ position: "relative", zIndex: 10 }}>
+      <button onClick={() => setOpen(!open)} style={{ background: t.card, border: `2px solid ${t.border}`, borderRadius: 12, padding: "8px 16px", fontSize: 14, fontWeight: 700, cursor: "pointer", fontFamily: "'Nunito', sans-serif", color: t.text, display: "flex", alignItems: "center", gap: 6 }}>
+        {THEMES[themeName].emoji} Theme
+      </button>
+      {open && (
+        <div style={{ position: "absolute", top: "100%", right: 0, marginTop: 8, background: t.card, borderRadius: 16, boxShadow: "0 8px 32px rgba(0,0,0,0.15)", border: `1px solid ${t.border}`, padding: 8, minWidth: 200 }}>
+          {Object.entries(THEMES).map(([key, th]) => (
+            <button key={key} onClick={() => { setThemeName(key); setOpen(false); }} style={{ display: "flex", alignItems: "center", gap: 10, width: "100%", padding: "10px 14px", border: "none", borderRadius: 10, cursor: "pointer", background: key === themeName ? t.primaryLight : "transparent", fontFamily: "'Nunito', sans-serif", fontSize: 15, fontWeight: 600, color: t.text }}>
+              <span style={{ fontSize: 20 }}>{th.emoji}</span><span>{th.name}</span>{key === themeName && <span style={{ marginLeft: "auto" }}>✓</span>}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+const CATEGORIES = {
+  animals: { name: "Animals", emoji: "🐾", words: [{ word: "ELEPHANT", clue: "Large gray animal with a trunk" }, { word: "GIRAFFE", clue: "Tallest land animal" }, { word: "DOLPHIN", clue: "Smart ocean mammal" }, { word: "PENGUIN", clue: "Flightless bird in a tuxedo" }, { word: "RABBIT", clue: "Fluffy hopping animal" }, { word: "TURTLE", clue: "Slow reptile with a shell" }, { word: "PARROT", clue: "Colorful talking bird" }, { word: "TIGER", clue: "Striped big cat" }, { word: "HORSE", clue: "Animal you can ride" }, { word: "EAGLE", clue: "Majestic bird of prey" }, { word: "WHALE", clue: "Largest ocean animal" }, { word: "KOALA", clue: "Australian tree hugger" }, { word: "SNAKE", clue: "Legless reptile" }, { word: "PANDA", clue: "Black and white bear" }, { word: "FROG", clue: "Jumping amphibian" }] },
+  astronomy: { name: "Astronomy", emoji: "🌟", words: [{ word: "PLANET", clue: "Orbits a star" }, { word: "GALAXY", clue: "Billions of stars together" }, { word: "COMET", clue: "Icy space traveler with a tail" }, { word: "SATURN", clue: "Planet with famous rings" }, { word: "LUNAR", clue: "Related to the moon" }, { word: "ORBIT", clue: "Path around a body in space" }, { word: "SOLAR", clue: "Related to our sun" }, { word: "VENUS", clue: "Second planet from the sun" }, { word: "MARS", clue: "The red planet" }, { word: "STAR", clue: "Shining ball of gas" }, { word: "MOON", clue: "Earth's natural satellite" }, { word: "NEBULA", clue: "Cloud of gas in space" }, { word: "METEOR", clue: "Shooting star" }, { word: "PLUTO", clue: "Former ninth planet" }, { word: "ECLIPSE", clue: "Sun or moon blocked from view" }] },
+  fruits: { name: "Fruits", emoji: "🍎", words: [{ word: "APPLE", clue: "Red or green crunchy fruit" }, { word: "BANANA", clue: "Yellow curved fruit" }, { word: "CHERRY", clue: "Small red fruit with a pit" }, { word: "GRAPE", clue: "Grows in bunches on vines" }, { word: "LEMON", clue: "Sour yellow citrus" }, { word: "MANGO", clue: "Tropical sweet orange fruit" }, { word: "PEACH", clue: "Fuzzy skinned stone fruit" }, { word: "MELON", clue: "Large juicy summer fruit" }, { word: "PLUM", clue: "Small purple stone fruit" }, { word: "ORANGE", clue: "Citrus named after a color" }, { word: "PEAR", clue: "Bell shaped green fruit" }, { word: "KIWI", clue: "Fuzzy brown, green inside" }, { word: "LIME", clue: "Small green citrus fruit" }, { word: "DATE", clue: "Sweet dried palm fruit" }, { word: "FIG", clue: "Sweet fruit often dried" }] },
+  objects: { name: "Everyday Objects", emoji: "🏠", words: [{ word: "CHAIR", clue: "You sit on this" }, { word: "TABLE", clue: "You eat meals at this" }, { word: "CLOCK", clue: "Tells you the time" }, { word: "MIRROR", clue: "Shows your reflection" }, { word: "PILLOW", clue: "Soft head rest for sleeping" }, { word: "LAMP", clue: "Lights up a room" }, { word: "PHONE", clue: "Device for calling people" }, { word: "BRUSH", clue: "Used on hair or teeth" }, { word: "TOWEL", clue: "Used to dry off" }, { word: "BASKET", clue: "Woven container" }, { word: "CANDLE", clue: "Burns with a flame for light" }, { word: "PLATE", clue: "You put food on this" }, { word: "SPOON", clue: "Utensil for soup" }, { word: "BOOK", clue: "You read this" }, { word: "PENCIL", clue: "Writing tool with graphite" }] },
+  nature: { name: "Nature", emoji: "🌿", words: [{ word: "FOREST", clue: "Dense area of trees" }, { word: "RIVER", clue: "Flowing body of water" }, { word: "MOUNTAIN", clue: "Very tall land formation" }, { word: "OCEAN", clue: "Vast body of salt water" }, { word: "FLOWER", clue: "Blooming part of a plant" }, { word: "CLOUD", clue: "White puff in the sky" }, { word: "STORM", clue: "Severe weather event" }, { word: "LEAF", clue: "Green part of a tree" }, { word: "RAIN", clue: "Water falling from sky" }, { word: "STONE", clue: "Small piece of rock" }, { word: "GRASS", clue: "Green ground cover" }, { word: "WIND", clue: "Moving air" }, { word: "LAKE", clue: "Water surrounded by land" }, { word: "SAND", clue: "Tiny grains on a beach" }, { word: "SEED", clue: "A plant grows from this" }] },
+};
+
+function generateCrossword(wordList) {
+  const sorted = [...wordList].sort((a, b) => b.word.length - a.word.length);
+  const gs = 15;
+  const grid = Array.from({ length: gs }, () => Array(gs).fill(null));
+  const placed = [];
+  const canPlace = (w, r, c, d) => { for (let i = 0; i < w.length; i++) { const nr = d === "across" ? r : r + i; const nc = d === "across" ? c + i : c; if (nr < 0 || nr >= gs || nc < 0 || nc >= gs) return false; if (grid[nr][nc] !== null && grid[nr][nc] !== w[i]) return false; } return true; };
+  const placeW = (w, r, c, d) => { for (let i = 0; i < w.length; i++) { const nr = d === "across" ? r : r + i; const nc = d === "across" ? c + i : c; grid[nr][nc] = w[i]; } };
+  const f = sorted[0]; const sc = Math.floor((gs - f.word.length) / 2); const sr = Math.floor(gs / 2);
+  placeW(f.word, sr, sc, "across"); placed.push({ ...f, row: sr, col: sc, dir: "across", number: 1 });
+  for (let wi = 1; wi < sorted.length && placed.length < 8; wi++) {
+    const entry = sorted[wi]; let bestPos = null; let bestScore = -1;
+    for (const p of placed) { for (let pi = 0; pi < p.word.length; pi++) { for (let ei = 0; ei < entry.word.length; ei++) {
+      if (p.word[pi] === entry.word[ei]) { const d = p.dir === "across" ? "down" : "across"; let r, c;
+        if (d === "across") { r = p.row + pi; c = p.col - ei; } else { r = p.row - ei; c = p.col + pi; }
+        if (canPlace(entry.word, r, c, d)) { const s = Math.random(); if (s > bestScore) { bestScore = s; bestPos = { row: r, col: c, dir: d }; } } } } } }
+    if (bestPos) { placeW(entry.word, bestPos.row, bestPos.col, bestPos.dir); placed.push({ ...entry, ...bestPos, number: placed.length + 1 }); }
+  }
+  let minR = gs, maxR = 0, minC = gs, maxC = 0;
+  for (let r = 0; r < gs; r++) for (let c = 0; c < gs; c++) if (grid[r][c] !== null) { minR = Math.min(minR, r); maxR = Math.max(maxR, r); minC = Math.min(minC, c); maxC = Math.max(maxC, c); }
+  const trimmed = []; for (let r = minR; r <= maxR; r++) { const row = []; for (let c = minC; c <= maxC; c++) row.push(grid[r][c]); trimmed.push(row); }
+  return { grid: trimmed, words: placed.map(p => ({ ...p, row: p.row - minR, col: p.col - minC })) };
+}
+
+function App() {
+  const [themeName, setThemeName] = React.useState("cozy");
+  const t = THEMES[themeName];
+  const [screen, setScreen] = React.useState("menu");
+  const [category, setCategory] = React.useState(null);
+  const [puzzle, setPuzzle] = React.useState(null);
+  const [userGrid, setUserGrid] = React.useState([]);
+  const [selectedCell, setSelectedCell] = React.useState(null);
+  const [selectedWord, setSelectedWord] = React.useState(null);
+  const [direction, setDirection] = React.useState("across");
+  const inputRef = React.useRef(null);
+
+  const startGame = (cat) => {
+    setCategory(cat);
+    const shuffled = [...CATEGORIES[cat].words].sort(() => Math.random() - 0.5);
+    const p = generateCrossword(shuffled);
+    setPuzzle(p); setUserGrid(p.grid.map(r => r.map(c => c === null ? null : "")));
+    setSelectedCell(null); setSelectedWord(null); setScreen("play");
+  };
+
+  const checkCompletion = React.useCallback((ug) => {
+    if (!puzzle) return false;
+    for (let r = 0; r < puzzle.grid.length; r++) for (let c = 0; c < puzzle.grid[r].length; c++)
+      if (puzzle.grid[r][c] !== null && (ug[r][c] || "").toUpperCase() !== puzzle.grid[r][c]) return false;
+    return true;
+  }, [puzzle]);
+
+  const handleCellClick = (r, c) => {
+    if (!puzzle || puzzle.grid[r][c] === null) return;
+    if (selectedCell && selectedCell[0] === r && selectedCell[1] === c) setDirection(d => d === "across" ? "down" : "across");
+    setSelectedCell([r, c]);
+    const w = puzzle.words.find(w => { if (direction === "across" && w.dir === "across" && w.row === r && c >= w.col && c < w.col + w.word.length) return true; if (direction === "down" && w.dir === "down" && w.col === c && r >= w.row && r < w.row + w.word.length) return true; return false; })
+      || puzzle.words.find(w => { if (w.dir === "across" && w.row === r && c >= w.col && c < w.col + w.word.length) return true; if (w.dir === "down" && w.col === c && r >= w.row && r < w.row + w.word.length) return true; return false; });
+    setSelectedWord(w || null);
+    setTimeout(() => inputRef.current?.focus(), 50);
+  };
+
+  const handleKey = (e) => {
+    if (!selectedCell || !puzzle) return;
+    const [r, c] = selectedCell;
+    if (e.key === "Backspace") {
+      const ng = userGrid.map(r => [...r]); ng[r][c] = ""; setUserGrid(ng);
+      const pr = direction === "down" ? r - 1 : r; const pc = direction === "across" ? c - 1 : c;
+      if (pr >= 0 && pc >= 0 && puzzle.grid[pr]?.[pc] !== null) setSelectedCell([pr, pc]);
+      return;
+    }
+    if (/^[a-zA-Z]$/.test(e.key)) {
+      const ng = userGrid.map(r => [...r]); ng[r][c] = e.key.toUpperCase(); setUserGrid(ng);
+      if (checkCompletion(ng)) { setScreen("complete"); return; }
+      const nr = direction === "down" ? r + 1 : r; const nc = direction === "across" ? c + 1 : c;
+      if (nr < puzzle.grid.length && nc < puzzle.grid[0].length && puzzle.grid[nr]?.[nc] !== null) setSelectedCell([nr, nc]);
+    }
+  };
+
+  const getWordNumber = (r, c) => { const w = puzzle?.words.find(w => w.row === r && w.col === c); return w ? w.number : null; };
+  const isCellInWord = (r, c) => { if (!selectedWord) return false; if (selectedWord.dir === "across") return r === selectedWord.row && c >= selectedWord.col && c < selectedWord.col + selectedWord.word.length; return c === selectedWord.col && r >= selectedWord.row && r < selectedWord.row + selectedWord.word.length; };
+  const acrossClues = puzzle?.words.filter(w => w.dir === "across").sort((a, b) => a.number - b.number) || [];
+  const downClues = puzzle?.words.filter(w => w.dir === "down").sort((a, b) => a.number - b.number) || [];
+  const cellSize = puzzle ? Math.min(36, Math.floor(340 / Math.max(puzzle.grid[0]?.length || 1, puzzle.grid.length))) : 36;
+
+  return (
+    <>
+      
+      <style>{`* { margin: 0; padding: 0; box-sizing: border-box; }`}</style>
+      <div style={{ minHeight: "100%", background: t.bg, fontFamily: "'Nunito', sans-serif", color: t.text, display: "flex", flexDirection: "column", alignItems: "center", padding: "24px 16px" }}>
+        {screen === "menu" && (
+          <div style={{ maxWidth: 480, width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: 24, paddingTop: 16 }}>
+            <div style={{ alignSelf: "flex-end" }}><ThemePicker themeName={themeName} setThemeName={setThemeName} t={t} /></div>
+            <div style={{ fontSize: 48 }}>📝</div>
+            <h1 style={{ fontFamily: "'Fredoka One', cursive", fontSize: 32, color: t.primary, textAlign: "center" }}>Crossword</h1>
+            <p style={{ fontSize: 18, color: t.textLight, textAlign: "center", lineHeight: 1.6, maxWidth: 360 }}>Choose a category and solve the crossword puzzle!</p>
+            <div style={{ display: "flex", flexDirection: "column", gap: 12, width: "100%" }}>
+              {Object.entries(CATEGORIES).map(([key, cat]) => (
+                <button key={key} onClick={() => startGame(key)} style={{ display: "flex", alignItems: "center", gap: 16, background: t.card, border: `1px solid ${t.border}`, borderRadius: 16, padding: "18px 24px", cursor: "pointer", boxShadow: "0 2px 16px rgba(0,0,0,0.06)", width: "100%", textAlign: "left" }}>
+                  <span style={{ fontSize: 32 }}>{cat.emoji}</span><span style={{ fontSize: 19, fontWeight: 700 }}>{cat.name}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {screen === "play" && puzzle && (
+          <div style={{ maxWidth: 560, width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: 14, paddingTop: 8 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", width: "100%", alignItems: "center" }}>
+              <button onClick={() => setScreen("menu")} style={{ background: "none", border: "none", color: t.textLight, fontSize: 16, fontWeight: 600, cursor: "pointer", fontFamily: "'Nunito', sans-serif" }}>← Back</button>
+              <span style={{ fontWeight: 700, fontSize: 16, color: t.primary }}>{CATEGORIES[category].emoji} {CATEGORIES[category].name}</span>
+              <button onClick={() => { setUserGrid(puzzle.grid.map(r => [...r])); setScreen("complete"); }} style={{ background: t.accentLight, border: `1px solid ${t.accent}`, color: t.accent, fontSize: 14, fontWeight: 700, cursor: "pointer", fontFamily: "'Nunito', sans-serif", padding: "6px 14px", borderRadius: 10 }}>Reveal</button>
+            </div>
+            <input ref={inputRef} style={{ position: "absolute", opacity: 0, pointerEvents: "none" }} onKeyDown={handleKey} autoFocus />
+            <div style={{ background: t.card, borderRadius: 16, padding: 16, boxShadow: "0 2px 16px rgba(0,0,0,0.06)", border: `1px solid ${t.border}`, overflow: "auto" }}>
+              <div style={{ display: "inline-block" }}>
+                {puzzle.grid.map((row, r) => (
+                  <div key={r} style={{ display: "flex" }}>
+                    {row.map((cell, c) => {
+                      const num = getWordNumber(r, c);
+                      const isSel = selectedCell && selectedCell[0] === r && selectedCell[1] === c;
+                      const inW = isCellInWord(r, c);
+                      return (
+                        <div key={c} onClick={() => cell !== null && handleCellClick(r, c)} style={{
+                          width: cellSize, height: cellSize,
+                          border: cell === null ? "none" : `1.5px solid ${isSel ? t.primary : t.border}`,
+                          background: cell === null ? "transparent" : isSel ? t.primaryLight : inW ? t.highlight : "#fff",
+                          display: "flex", alignItems: "center", justifyContent: "center",
+                          position: "relative", cursor: cell === null ? "default" : "pointer",
+                          fontSize: Math.max(14, cellSize * 0.45), fontWeight: 700, color: t.text,
+                        }}>
+                          {num && <span style={{ position: "absolute", top: 1, left: 2, fontSize: Math.max(8, cellSize * 0.25), color: t.textLight, fontWeight: 600, lineHeight: 1 }}>{num}</span>}
+                          {userGrid[r]?.[c] || ""}
+                        </div>
+                      );
+                    })}
+                  </div>
+                ))}
+              </div>
+            </div>
+            {selectedWord && (
+              <div style={{ background: t.highlight, borderRadius: 12, padding: "12px 20px", width: "100%", fontSize: 16 }}>
+                <strong>{selectedWord.number} {selectedWord.dir.toUpperCase()}:</strong> {selectedWord.clue}
+              </div>
+            )}
+            <div style={{ display: "flex", gap: 16, width: "100%" }}>
+              <div style={{ flex: 1 }}>
+                <h3 style={{ fontSize: 16, fontWeight: 700, marginBottom: 8, color: t.primary }}>Across</h3>
+                {acrossClues.map(w => (
+                  <p key={w.number} onClick={() => { setDirection("across"); handleCellClick(w.row, w.col); }} style={{ fontSize: 14, marginBottom: 6, cursor: "pointer", lineHeight: 1.5, fontWeight: selectedWord?.number === w.number && selectedWord?.dir === "across" ? 700 : 400, color: selectedWord?.number === w.number && selectedWord?.dir === "across" ? t.primary : t.textLight }}>
+                    <strong>{w.number}.</strong> {w.clue}
+                  </p>
+                ))}
+              </div>
+              <div style={{ flex: 1 }}>
+                <h3 style={{ fontSize: 16, fontWeight: 700, marginBottom: 8, color: t.primary }}>Down</h3>
+                {downClues.map(w => (
+                  <p key={w.number} onClick={() => { setDirection("down"); handleCellClick(w.row, w.col); }} style={{ fontSize: 14, marginBottom: 6, cursor: "pointer", lineHeight: 1.5, fontWeight: selectedWord?.number === w.number && selectedWord?.dir === "down" ? 700 : 400, color: selectedWord?.number === w.number && selectedWord?.dir === "down" ? t.primary : t.textLight }}>
+                    <strong>{w.number}.</strong> {w.clue}
+                  </p>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {screen === "complete" && (
+          <div style={{ maxWidth: 480, width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: 24, paddingTop: 40 }}>
+            <div style={{ fontSize: 56 }}>🎉</div>
+            <h2 style={{ fontFamily: "'Fredoka One', cursive", fontSize: 28, color: t.primary }}>Puzzle Complete!</h2>
+            <p style={{ fontSize: 18, color: t.textLight, textAlign: "center", lineHeight: 1.6 }}>Wonderful job completing the {CATEGORIES[category]?.name} crossword!</p>
+            <div style={{ display: "flex", gap: 12, width: "100%" }}>
+              <button onClick={() => startGame(category)} style={{ flex: 1, padding: 16, fontSize: 17, fontWeight: 700, fontFamily: "'Nunito', sans-serif", background: t.primary, color: "#fff", border: "none", borderRadius: 14, cursor: "pointer" }}>New Puzzle</button>
+              <button onClick={() => setScreen("menu")} style={{ flex: 1, padding: 16, fontSize: 17, fontWeight: 700, fontFamily: "'Nunito', sans-serif", background: t.card, color: t.text, border: `2px solid ${t.border}`, borderRadius: 14, cursor: "pointer" }}>Categories</button>
+            </div>
+          </div>
+        )}
+      </div>
+    </>
+  );
+}
+
+
+ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(App));
+  </script>
+</body>
+</html>

@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Memory Tiles - Brain Training</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Fredoka+One&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body, #root { width: 100%; min-height: 100%; }
+    html { font-size: 16px; -webkit-text-size-adjust: 100%; }
+    body { 
+      font-family: 'Nunito', sans-serif; 
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      touch-action: manipulation;
+    }
+    /* Mobile-friendly tap targets */
+    button, [role="button"] { 
+      min-height: 44px; 
+      min-width: 44px; 
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+    input { 
+      font-size: 16px !important; /* Prevents iOS zoom on focus */
+      -webkit-appearance: none;
+      border-radius: 0;
+    }
+    /* Smooth scrolling */
+    * { -webkit-overflow-scrolling: touch; }
+    /* Prevent text selection on game elements */
+    .no-select { 
+      -webkit-user-select: none; 
+      user-select: none; 
+    }
+    /* Safe area insets for notched phones */
+    #root {
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+    /* Responsive text scaling */
+    @media (max-width: 380px) {
+      html { font-size: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
+  <script type="text/babel" data-type="module">
+
+const THEMES = {
+  cozy: { name: "Cozy Cream", emoji: "☕", bg: "#FFF8F0", card: "#FFFFFF", primary: "#6B7FA3", primaryLight: "#EDF1F7", accent: "#E8985E", accentLight: "#FFF0E5", text: "#3D3229", textLight: "#7A6E63", border: "#E8DDD0", success: "#5B8C7A", successLight: "#E8F3EE", error: "#D4726A", errorLight: "#FDEAE8", highlight: "#6B7FA3", highlightGlow: "#A8BCD8" },
+  ocean: { name: "Ocean Breeze", emoji: "🌊", bg: "#F0F7FA", card: "#FFFFFF", primary: "#3A7CA5", primaryLight: "#DCF0FA", accent: "#E8985E", accentLight: "#FFF0E5", text: "#1A3A4A", textLight: "#5A7A8A", border: "#C8DDE8", success: "#3A8A6A", successLight: "#E0F5EC", error: "#C45A5A", errorLight: "#FAE0E0", highlight: "#3A7CA5", highlightGlow: "#8AC0E0" },
+  garden: { name: "Garden Path", emoji: "🌸", bg: "#FBF7F0", card: "#FFFFFF", primary: "#7A8B6E", primaryLight: "#EEF3EA", accent: "#C4766E", accentLight: "#FCE8E5", text: "#3A3A2E", textLight: "#6A6E5A", border: "#DDE0D0", success: "#6A8E5A", successLight: "#E8F0E5", error: "#C4766E", errorLight: "#FCE8E5", highlight: "#7A8B6E", highlightGlow: "#B0C4A0" },
+  sunset: { name: "Warm Sunset", emoji: "🌅", bg: "#FFF5EE", card: "#FFFFFF", primary: "#C0785A", primaryLight: "#FFEEDD", accent: "#8B6FA3", accentLight: "#F0EAF5", text: "#3D2E29", textLight: "#8A6E63", border: "#E8D8C8", success: "#5B8C7A", successLight: "#E8F3EE", error: "#D4726A", errorLight: "#FDEAE8", highlight: "#C0785A", highlightGlow: "#E0A88A" },
+  lavender: { name: "Soft Lavender", emoji: "💜", bg: "#F8F5FC", card: "#FFFFFF", primary: "#8B6FA3", primaryLight: "#F0EAF5", accent: "#E8985E", accentLight: "#FFF0E5", text: "#3A2E4A", textLight: "#7A6E8A", border: "#DDD5E8", success: "#6A8E6A", successLight: "#E5F0E5", error: "#C45A6A", errorLight: "#FAE0E5", highlight: "#8B6FA3", highlightGlow: "#C0A8D8" },
+};
+
+function ThemePicker({ themeName, setThemeName, t }) {
+  const [open, setOpen] = React.useState(false);
+  return (
+    <div style={{ position: "relative", zIndex: 10 }}>
+      <button onClick={() => setOpen(!open)} style={{ background: t.card, border: `2px solid ${t.border}`, borderRadius: 12, padding: "8px 16px", fontSize: 14, fontWeight: 700, cursor: "pointer", fontFamily: "'Nunito', sans-serif", color: t.text, display: "flex", alignItems: "center", gap: 6 }}>
+        {THEMES[themeName].emoji} Theme
+      </button>
+      {open && (
+        <div style={{ position: "absolute", top: "100%", right: 0, marginTop: 8, background: t.card, borderRadius: 16, boxShadow: "0 8px 32px rgba(0,0,0,0.15)", border: `1px solid ${t.border}`, padding: 8, minWidth: 200 }}>
+          {Object.entries(THEMES).map(([key, th]) => (
+            <button key={key} onClick={() => { setThemeName(key); setOpen(false); }} style={{ display: "flex", alignItems: "center", gap: 10, width: "100%", padding: "10px 14px", border: "none", borderRadius: 10, cursor: "pointer", background: key === themeName ? t.primaryLight : "transparent", fontFamily: "'Nunito', sans-serif", fontSize: 15, fontWeight: 600, color: t.text }}>
+              <span style={{ fontSize: 20 }}>{th.emoji}</span><span>{th.name}</span>{key === themeName && <span style={{ marginLeft: "auto" }}>✓</span>}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function generatePath(rows, cols, length) {
+  const directions = [[0,1],[1,0],[0,-1],[-1,0],[1,1],[-1,1],[1,-1],[-1,-1]];
+  let bestPath = [];
+  for (let attempt = 0; attempt < 80; attempt++) {
+    const sr = Math.floor(Math.random() * rows);
+    const sc = Math.floor(Math.random() * cols);
+    const path = [[sr, sc]];
+    const visited = new Set([`${sr},${sc}`]);
+    while (path.length < length) {
+      const [cr, cc] = path[path.length - 1];
+      const sd = [...directions].sort(() => Math.random() - 0.5);
+      let ext = false;
+      for (const [dr, dc] of sd) {
+        const nr = cr + dr, nc = cc + dc;
+        if (nr >= 0 && nr < rows && nc >= 0 && nc < cols && !visited.has(`${nr},${nc}`)) {
+          path.push([nr, nc]); visited.add(`${nr},${nc}`); ext = true; break;
+        }
+      }
+      if (!ext) break;
+    }
+    if (path.length > bestPath.length) bestPath = path;
+    if (bestPath.length >= length) break;
+  }
+  return bestPath;
+}
+
+function App() {
+  const [themeName, setThemeName] = React.useState("cozy");
+  const t = THEMES[themeName];
+
+  const [screen, setScreen] = React.useState("menu");
+  const [gridRows, setGridRows] = React.useState(5);
+  const [gridCols, setGridCols] = React.useState(5);
+  const [tileCount, setTileCount] = React.useState(6);
+  const [targetTiles, setTargetTiles] = React.useState([]);
+  const [phase, setPhase] = React.useState("show");
+  const [selectedTiles, setSelectedTiles] = React.useState(new Set());
+  const [showCountdown, setShowCountdown] = React.useState(0);
+  const [round, setRound] = React.useState(1);
+  const [score, setScore] = React.useState(0);
+  const [totalRounds] = React.useState(5);
+  const [result, setResult] = React.useState(null);
+
+  const maxTiles = Math.min(25, Math.floor(gridRows * gridCols * 0.6));
+  const effectiveTileCount = Math.min(tileCount, maxTiles);
+
+  const startGame = () => {
+    setRound(1); setScore(0); startRound(); setScreen("play");
+  };
+
+  const startRound = React.useCallback(() => {
+    const tc = Math.min(tileCount, Math.min(25, Math.floor(gridRows * gridCols * 0.6)));
+    const path = generatePath(gridRows, gridCols, tc);
+    setTargetTiles(path); setSelectedTiles(new Set()); setPhase("show"); setResult(null);
+    setShowCountdown(Math.max(3, Math.ceil(tc * 0.7)));
+  }, [gridRows, gridCols, tileCount]);
+
+  React.useEffect(() => {
+    if (phase === "show" && showCountdown > 0) {
+      const timer = setTimeout(() => setShowCountdown(showCountdown - 1), 1000);
+      return () => clearTimeout(timer);
+    }
+    if (phase === "show" && showCountdown === 0 && screen === "play") setPhase("recall");
+  }, [phase, showCountdown, screen]);
+
+  const toggleTile = (r, c) => {
+    if (phase !== "recall") return;
+    const key = `${r},${c}`;
+    const ns = new Set(selectedTiles);
+    if (ns.has(key)) ns.delete(key); else ns.add(key);
+    setSelectedTiles(ns);
+  };
+
+  const checkAnswer = () => {
+    const targetSet = new Set(targetTiles.map(([r, c]) => `${r},${c}`));
+    let correct = 0, incorrect = 0;
+    selectedTiles.forEach(k => { if (targetSet.has(k)) correct++; else incorrect++; });
+    const missed = targetSet.size - correct;
+    const isCorrect = correct === targetSet.size && incorrect === 0;
+    setScore(s => isCorrect ? s + 1 : s);
+    setResult({ correct, incorrect, missed, isCorrect, targetSet });
+    setPhase("result");
+  };
+
+  const nextRound = () => {
+    if (round >= totalRounds) { setScreen("summary"); return; }
+    setRound(r => r + 1); startRound();
+  };
+
+  const isTileTarget = (r, c) => targetTiles.some(([tr, tc]) => tr === r && tc === c);
+  const isTileSelected = (r, c) => selectedTiles.has(`${r},${c}`);
+
+  const getCellStyle = (r, c) => {
+    if (phase === "show" && isTileTarget(r, c)) return { bg: t.highlight, border: t.highlightGlow, glow: true };
+    if (phase === "recall") {
+      if (isTileSelected(r, c)) return { bg: t.primaryLight, border: t.primary };
+      return { bg: t.card, border: t.border };
+    }
+    if (phase === "result") {
+      const isT = isTileTarget(r, c), isS = isTileSelected(r, c);
+      if (isT && isS) return { bg: t.successLight, border: t.success };
+      if (isT && !isS) return { bg: t.accentLight, border: t.accent };
+      if (!isT && isS) return { bg: t.errorLight, border: t.error };
+    }
+    return { bg: t.card, border: t.border };
+  };
+
+  const cellSize = Math.min(48, Math.floor(Math.min(380, (typeof window !== "undefined" ? window.innerWidth : 400) - 80) / Math.max(gridRows, gridCols)));
+
+  return (
+    <>
+      
+      <style>{`* { margin: 0; padding: 0; box-sizing: border-box; }
+        @keyframes tileGlow { 0%, 100% { box-shadow: 0 0 6px rgba(107,127,163,0.3); } 50% { box-shadow: 0 0 14px rgba(107,127,163,0.5); } }`}</style>
+      <div style={{ minHeight: "100%", background: t.bg, fontFamily: "'Nunito', sans-serif", color: t.text, display: "flex", flexDirection: "column", alignItems: "center", padding: "24px 16px" }}>
+        {screen === "menu" && (
+          <div style={{ maxWidth: 480, width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: 20, paddingTop: 16 }}>
+            <div style={{ alignSelf: "flex-end" }}><ThemePicker themeName={themeName} setThemeName={setThemeName} t={t} /></div>
+            <div style={{ fontSize: 48 }}>🧩</div>
+            <h1 style={{ fontFamily: "'Fredoka One', cursive", fontSize: 32, color: t.primary, textAlign: "center" }}>Memory Tiles</h1>
+            <p style={{ fontSize: 18, color: t.textLight, textAlign: "center", lineHeight: 1.6, maxWidth: 380 }}>
+              Watch the path light up, then tap the same tiles from memory!
+            </p>
+
+            {/* Grid Size */}
+            <div style={{ background: t.card, borderRadius: 20, padding: "20px 24px", width: "100%", boxShadow: "0 2px 16px rgba(0,0,0,0.06)", border: `1px solid ${t.border}` }}>
+              <label style={{ fontSize: 17, fontWeight: 700, display: "block", marginBottom: 14, textAlign: "center" }}>Board Size</label>
+              <div style={{ display: "flex", gap: 20, justifyContent: "center", alignItems: "center" }}>
+                <div style={{ textAlign: "center" }}>
+                  <p style={{ fontSize: 13, color: t.textLight, marginBottom: 6 }}>Rows</p>
+                  <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                    <button onClick={() => setGridRows(Math.max(3, gridRows - 1))} style={{ width: 40, height: 40, borderRadius: 10, border: `2px solid ${t.border}`, background: t.card, fontSize: 20, fontWeight: 700, cursor: "pointer", color: t.text }}>−</button>
+                    <span style={{ fontSize: 28, fontFamily: "'Fredoka One', cursive", color: t.primary, minWidth: 36, textAlign: "center" }}>{gridRows}</span>
+                    <button onClick={() => setGridRows(Math.min(10, gridRows + 1))} style={{ width: 40, height: 40, borderRadius: 10, border: `2px solid ${t.border}`, background: t.card, fontSize: 20, fontWeight: 700, cursor: "pointer", color: t.text }}>+</button>
+                  </div>
+                </div>
+                <span style={{ fontSize: 24, fontWeight: 700, color: t.textLight }}>×</span>
+                <div style={{ textAlign: "center" }}>
+                  <p style={{ fontSize: 13, color: t.textLight, marginBottom: 6 }}>Cols</p>
+                  <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                    <button onClick={() => setGridCols(Math.max(3, gridCols - 1))} style={{ width: 40, height: 40, borderRadius: 10, border: `2px solid ${t.border}`, background: t.card, fontSize: 20, fontWeight: 700, cursor: "pointer", color: t.text }}>−</button>
+                    <span style={{ fontSize: 28, fontFamily: "'Fredoka One', cursive", color: t.primary, minWidth: 36, textAlign: "center" }}>{gridCols}</span>
+                    <button onClick={() => setGridCols(Math.min(10, gridCols + 1))} style={{ width: 40, height: 40, borderRadius: 10, border: `2px solid ${t.border}`, background: t.card, fontSize: 20, fontWeight: 700, cursor: "pointer", color: t.text }}>+</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Tile Count */}
+            <div style={{ background: t.card, borderRadius: 20, padding: "20px 24px", width: "100%", boxShadow: "0 2px 16px rgba(0,0,0,0.06)", border: `1px solid ${t.border}` }}>
+              <label style={{ fontSize: 17, fontWeight: 700, display: "block", marginBottom: 14, textAlign: "center" }}>Tiles to Remember</label>
+              <div style={{ display: "flex", alignItems: "center", gap: 16, justifyContent: "center" }}>
+                <button onClick={() => setTileCount(Math.max(3, tileCount - 1))} style={{ width: 48, height: 48, borderRadius: 14, border: `2px solid ${t.border}`, background: t.card, fontSize: 22, fontWeight: 700, cursor: "pointer", color: t.text, display: "flex", alignItems: "center", justifyContent: "center" }}>−</button>
+                <span style={{ fontSize: 36, fontFamily: "'Fredoka One', cursive", color: t.primary, minWidth: 50, textAlign: "center" }}>{effectiveTileCount}</span>
+                <button onClick={() => setTileCount(Math.min(25, tileCount + 1))} style={{ width: 48, height: 48, borderRadius: 14, border: `2px solid ${t.border}`, background: t.card, fontSize: 22, fontWeight: 700, cursor: "pointer", color: t.text, display: "flex", alignItems: "center", justifyContent: "center" }}>+</button>
+              </div>
+              <p style={{ textAlign: "center", fontSize: 14, color: t.textLight, marginTop: 8 }}>3 to {maxTiles} tiles (max 60% of board, max 25)</p>
+            </div>
+
+            <button onClick={startGame} style={{ width: "100%", padding: "18px 32px", fontSize: 20, fontWeight: 700, fontFamily: "'Nunito', sans-serif", background: t.primary, color: "#fff", border: "none", borderRadius: 16, cursor: "pointer" }}>Start Game</button>
+          </div>
+        )}
+
+        {screen === "play" && (
+          <div style={{ maxWidth: 520, width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: 14 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", width: "100%", alignItems: "center" }}>
+              <button onClick={() => setScreen("menu")} style={{ background: "none", border: "none", color: t.textLight, fontSize: 16, fontWeight: 600, cursor: "pointer", fontFamily: "'Nunito', sans-serif" }}>← Back</button>
+              <span style={{ fontWeight: 700, fontSize: 16, color: t.primary }}>Round {round}/{totalRounds}</span>
+              <span style={{ fontSize: 16, fontWeight: 700, color: t.success }}>Score: {score}</span>
+            </div>
+            <div style={{ width: "100%", height: 8, background: t.border, borderRadius: 4, overflow: "hidden" }}>
+              <div style={{ height: "100%", width: `${(round / totalRounds) * 100}%`, background: t.primary, borderRadius: 4, transition: "width 0.3s" }} />
+            </div>
+
+            <div style={{
+              background: phase === "show" ? t.primaryLight : phase === "result" ? (result?.isCorrect ? t.successLight : t.errorLight) : t.accentLight,
+              borderRadius: 14, padding: "10px 24px", textAlign: "center", width: "100%",
+            }}>
+              {phase === "show" && <p style={{ fontSize: 17, fontWeight: 700, color: t.primary }}>Remember the path! ⏱ {showCountdown}s</p>}
+              {phase === "recall" && <p style={{ fontSize: 17, fontWeight: 700, color: t.accent }}>Tap the tiles! ({selectedTiles.size}/{targetTiles.length})</p>}
+              {phase === "result" && <p style={{ fontSize: 17, fontWeight: 700, color: result?.isCorrect ? t.success : t.error }}>{result?.isCorrect ? "Perfect! 🎉" : `${result?.correct} right, ${result?.missed} missed`}</p>}
+            </div>
+
+            <div style={{ background: t.card, borderRadius: 20, padding: 16, boxShadow: "0 2px 16px rgba(0,0,0,0.06)", border: `1px solid ${t.border}`, display: "inline-flex", flexDirection: "column", gap: 3 }}>
+              {Array.from({ length: gridRows }).map((_, r) => (
+                <div key={r} style={{ display: "flex", gap: 3 }}>
+                  {Array.from({ length: gridCols }).map((_, c) => {
+                    const cs = getCellStyle(r, c);
+                    return (
+                      <div key={c} onClick={() => toggleTile(r, c)} style={{
+                        width: cellSize, height: cellSize, borderRadius: Math.max(6, cellSize * 0.2),
+                        background: cs.bg, border: `2.5px solid ${cs.border}`,
+                        cursor: phase === "recall" ? "pointer" : "default",
+                        transition: "all 0.2s", animation: cs.glow ? "tileGlow 1s ease infinite" : "none",
+                      }} />
+                    );
+                  })}
+                </div>
+              ))}
+            </div>
+
+            {phase === "result" && (
+              <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "center" }}>
+                {[{ bg: t.successLight, bd: t.success, label: "Correct" }, { bg: t.accentLight, bd: t.accent, label: "Missed" }, { bg: t.errorLight, bd: t.error, label: "Wrong" }].map(l => (
+                  <div key={l.label} style={{ display: "flex", alignItems: "center", gap: 5, fontSize: 13, color: t.textLight }}>
+                    <div style={{ width: 14, height: 14, borderRadius: 4, background: l.bg, border: `2px solid ${l.bd}` }} />{l.label}
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {phase === "recall" && (
+              <button onClick={checkAnswer} style={{ width: "100%", padding: 16, fontSize: 18, fontWeight: 700, fontFamily: "'Nunito', sans-serif", background: t.primary, color: "#fff", border: "none", borderRadius: 14, cursor: "pointer" }}>Check My Answer</button>
+            )}
+            {phase === "result" && (
+              <button onClick={nextRound} style={{ width: "100%", padding: 16, fontSize: 18, fontWeight: 700, fontFamily: "'Nunito', sans-serif", background: t.primary, color: "#fff", border: "none", borderRadius: 14, cursor: "pointer" }}>{round >= totalRounds ? "See Results" : "Next Round →"}</button>
+            )}
+          </div>
+        )}
+
+        {screen === "summary" && (
+          <div style={{ maxWidth: 480, width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: 24, paddingTop: 40 }}>
+            <div style={{ fontSize: 56 }}>{score >= totalRounds ? "🌟" : score >= totalRounds * 0.6 ? "👏" : "💪"}</div>
+            <h2 style={{ fontFamily: "'Fredoka One', cursive", fontSize: 28, color: t.primary }}>
+              {score >= totalRounds ? "Perfect Memory!" : score >= totalRounds * 0.6 ? "Great Job!" : "Good Try!"}
+            </h2>
+            <div style={{ background: t.card, borderRadius: 20, padding: "28px 32px", width: "100%", textAlign: "center", boxShadow: "0 2px 16px rgba(0,0,0,0.06)", border: `1px solid ${t.border}` }}>
+              <p style={{ fontSize: 16, color: t.textLight, marginBottom: 8 }}>Your Score</p>
+              <p style={{ fontSize: 48, fontFamily: "'Fredoka One', cursive", color: t.primary }}>{score}/{totalRounds}</p>
+              <p style={{ fontSize: 16, color: t.textLight, marginTop: 8 }}>{gridRows}×{gridCols} board, {effectiveTileCount} tiles</p>
+            </div>
+            <div style={{ display: "flex", gap: 12, width: "100%" }}>
+              <button onClick={startGame} style={{ flex: 1, padding: 16, fontSize: 17, fontWeight: 700, fontFamily: "'Nunito', sans-serif", background: t.primary, color: "#fff", border: "none", borderRadius: 14, cursor: "pointer" }}>Play Again</button>
+              <button onClick={() => setScreen("menu")} style={{ flex: 1, padding: 16, fontSize: 17, fontWeight: 700, fontFamily: "'Nunito', sans-serif", background: t.card, color: t.text, border: `2px solid ${t.border}`, borderRadius: 14, cursor: "pointer" }}>Settings</button>
+            </div>
+          </div>
+        )}
+      </div>
+    </>
+  );
+}
+
+
+ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(App));
+  </script>
+</body>
+</html>

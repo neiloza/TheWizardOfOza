@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brain Games - Complete Collection</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Fredoka+One&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: #FFF8F0;
+      color: #3D3229;
+      min-height: 100vh;
+      padding: 32px 16px;
+      padding-bottom: 80px;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    h1 {
+      font-family: 'Fredoka One', cursive;
+      font-size: clamp(28px, 5vw, 40px);
+      color: #5B8C7A;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+    .subtitle {
+      text-align: center;
+      color: #7A6E63;
+      font-size: 18px;
+      margin-bottom: 36px;
+      line-height: 1.6;
+    }
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 16px;
+      margin-bottom: 48px;
+    }
+    .game-card {
+      background: #FFFFFF;
+      border: 1px solid #E8DDD0;
+      border-radius: 20px;
+      padding: 24px;
+      text-decoration: none;
+      color: inherit;
+      box-shadow: 0 2px 16px rgba(61, 50, 41, 0.06);
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      text-align: center;
+      cursor: pointer;
+    }
+    .game-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 28px rgba(61, 50, 41, 0.12);
+    }
+    .game-emoji { font-size: 42px; }
+    .game-name {
+      font-family: 'Fredoka One', cursive;
+      font-size: 20px;
+      color: #5B8C7A;
+    }
+    .game-desc {
+      font-size: 14px;
+      color: #7A6E63;
+      line-height: 1.5;
+    }
+    .section-title {
+      font-family: 'Fredoka One', cursive;
+      font-size: 24px;
+      color: #C0785A;
+      margin-bottom: 16px;
+    }
+    .embed-section {
+      background: #FFFFFF;
+      border: 1px solid #E8DDD0;
+      border-radius: 20px;
+      padding: 28px;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 16px rgba(61, 50, 41, 0.06);
+    }
+    .embed-section p {
+      color: #7A6E63;
+      font-size: 16px;
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+    pre {
+      background: #3D3229;
+      color: #E8DDD0;
+      border-radius: 12px;
+      padding: 20px;
+      font-size: 14px;
+      overflow-x: auto;
+      line-height: 1.6;
+      margin: 12px 0;
+      -webkit-overflow-scrolling: touch;
+    }
+    code { font-family: 'SF Mono', 'Fira Code', monospace; }
+    .tag { color: #E07A6E; }
+    .attr { color: #E8C84A; }
+    .val { color: #7AB87A; }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .feature {
+      background: #E8F3EE;
+      border-radius: 12px;
+      padding: 14px 18px;
+      font-size: 15px;
+      font-weight: 600;
+      color: #3D6B5A;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    @media (max-width: 480px) {
+      .games-grid { grid-template-columns: 1fr; }
+      body { padding: 20px 12px; }
+      .embed-section { padding: 20px 16px; }
+      pre { font-size: 12px; padding: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div style="text-align: center; font-size: 56px; margin-bottom: 12px;">🧠</div>
+    <h1>Brain Games</h1>
+    <p class="subtitle">
+      9 cozy brain training games designed for all ages.<br>
+      Choose a game below to play, or scroll down for embedding instructions.
+    </p>
+
+    <div class="games-grid">
+      <a class="game-card" href="numbers-game.html">
+        <span class="game-emoji">🔢</span>
+        <span class="game-name">Numbers Game</span>
+        <span class="game-desc">Remember and recall digit sequences from 5 to 20 digits long</span>
+      </a>
+      <a class="game-card" href="reaction-game.html">
+        <span class="game-emoji">⚡</span>
+        <span class="game-name">Reaction Game</span>
+        <span class="game-desc">Test your reflexes — tap as fast as you can when the light turns green</span>
+      </a>
+      <a class="game-card" href="crossword-game.html">
+        <span class="game-emoji">📝</span>
+        <span class="game-name">Crossword</span>
+        <span class="game-desc">Solve crossword puzzles across 5 fun categories</span>
+      </a>
+      <a class="game-card" href="wordsearch-game.html">
+        <span class="game-emoji">🔍</span>
+        <span class="game-name">Word Search</span>
+        <span class="game-desc">Find hidden words in a letter grid — drag to select</span>
+      </a>
+      <a class="game-card" href="mastermind-game.html">
+        <span class="game-emoji">🎯</span>
+        <span class="game-name">Mastermind</span>
+        <span class="game-desc">Crack the secret color code using logic and deduction</span>
+      </a>
+      <a class="game-card" href="countup-game.html">
+        <span class="game-emoji">🧮</span>
+        <span class="game-name">Count Up</span>
+        <span class="game-desc">Combine 6 numbers with math operations to reach the target</span>
+      </a>
+      <a class="game-card" href="face-game.html">
+        <span class="game-emoji">👤</span>
+        <span class="game-name">Face Game</span>
+        <span class="game-desc">Study illustrated faces and remember their names</span>
+      </a>
+      <a class="game-card" href="memory-game.html">
+        <span class="game-emoji">🧩</span>
+        <span class="game-name">Memory Tiles</span>
+        <span class="game-desc">Watch a path light up, then recreate it from memory</span>
+      </a>
+      <a class="game-card" href="word-game.html">
+        <span class="game-emoji">💬</span>
+        <span class="game-name">Word Game</span>
+        <span class="game-desc">Memorize category words and recall them all</span>
+      </a>
+    </div>
+
+    <h2 class="section-title">📋 Embedding on Your Website</h2>
+
+    <div class="embed-section">
+      <p>
+        Each game is a self-contained HTML file. Embed any game on your website using an <code>&lt;iframe&gt;</code>:
+      </p>
+      <pre><code><span class="tag">&lt;iframe</span>
+  <span class="attr">src</span>=<span class="val">"numbers-game.html"</span>
+  <span class="attr">width</span>=<span class="val">"100%"</span>
+  <span class="attr">height</span>=<span class="val">"700"</span>
+  <span class="attr">style</span>=<span class="val">"border: none; border-radius: 16px; max-width: 600px;"</span>
+  <span class="attr">title</span>=<span class="val">"Numbers Game"</span>
+  <span class="attr">loading</span>=<span class="val">"lazy"</span>
+<span class="tag">&gt;&lt;/iframe&gt;</span></code></pre>
+
+      <p>
+        For a responsive container that adapts to the page:
+      </p>
+      <pre><code><span class="tag">&lt;div</span> <span class="attr">style</span>=<span class="val">"max-width: 600px; margin: 0 auto;"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;iframe</span>
+    <span class="attr">src</span>=<span class="val">"numbers-game.html"</span>
+    <span class="attr">width</span>=<span class="val">"100%"</span>
+    <span class="attr">height</span>=<span class="val">"700"</span>
+    <span class="attr">style</span>=<span class="val">"border: 1px solid #E8DDD0;
+           border-radius: 16px;
+           box-shadow: 0 4px 20px rgba(0,0,0,0.08);"</span>
+    <span class="attr">title</span>=<span class="val">"Numbers Game"</span>
+  <span class="tag">&gt;&lt;/iframe&gt;</span>
+<span class="tag">&lt;/div&gt;</span></code></pre>
+
+      <p style="margin-top: 16px; font-weight: 700; color: #3D3229;">
+        Recommended iframe heights per game:
+      </p>
+      <pre><code>Numbers Game    → 700px
+Reaction Game   → 750px
+Crossword       → 900px (more content)
+Word Search     → 850px
+Mastermind      → 850px
+Count Up        → 900px
+Face Game       → 800px
+Memory Tiles    → 800px
+Word Game       → 850px</code></pre>
+    </div>
+
+    <div class="embed-section">
+      <h3 style="font-family: 'Fredoka One', cursive; font-size: 20px; color: #5B8C7A; margin-bottom: 12px;">✨ Features</h3>
+      <div class="features">
+        <div class="feature">📱 Mobile-friendly</div>
+        <div class="feature">🎨 5 color themes</div>
+        <div class="feature">♿ Large tap targets</div>
+        <div class="feature">🔤 Readable fonts</div>
+        <div class="feature">🖼️ Embeddable iframes</div>
+        <div class="feature">📦 Self-contained files</div>
+        <div class="feature">⚡ No build step needed</div>
+        <div class="feature">🌐 Works offline (cached)</div>
+        <div class="feature">🧓 Elderly-friendly design</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
