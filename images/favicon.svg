@@ -6,6 +6,9 @@
     </linearGradient>
   </defs>
 
+  <!-- background -->
+  <rect width="64" height="64" fill="#FBE8A6"/>
+
   <!-- brim -->
   <ellipse cx="32" cy="53" rx="27" ry="7.5" fill="url(#hatGradient)"/>
   <ellipse cx="32" cy="54.5" rx="27" ry="6" fill="#000000" opacity="0.12"/>
