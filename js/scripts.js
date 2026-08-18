@@ -10,12 +10,13 @@
         $(this).toggleClass('active');
         $('.nav-menu').toggleClass('active');
         $('body').toggleClass('menu-open');
+        $(this).attr('aria-expanded', $(this).hasClass('active'));
     });
 
     // Close menu when clicking outside
     $(document).on('click', function (event) {
         if (!$(event.target).closest('nav').length) {
-            $('.menu-toggle').removeClass('active');
+            $('.menu-toggle').removeClass('active').attr('aria-expanded', false);
             $('.nav-menu').removeClass('active');
             $('body').removeClass('menu-open');
         }
@@ -23,7 +24,7 @@
 
     // Close menu when clicking a menu link
     $('.nav-menu a').on('click', function () {
-        $('.menu-toggle').removeClass('active');
+        $('.menu-toggle').removeClass('active').attr('aria-expanded', false);
         $('.nav-menu').removeClass('active');
         $('body').removeClass('menu-open');
     });
