@@ -1,118 +1,118 @@
 /**
- * The Wizard of Oza - Main JavaScript
+ * The Wizard of Oza — main JavaScript
  */
 
 (function ($) {
     'use strict';
 
-    // Mobile Menu Toggle
-    $('.menu-toggle').on('click', function () {
-        $(this).toggleClass('active');
-        $('.nav-menu').toggleClass('active');
-        $('body').toggleClass('menu-open');
-        $(this).attr('aria-expanded', $(this).hasClass('active'));
+    var $nav = $('.main-navigation');
+    var $toggle = $('.menu-toggle');
+    var $menu = $('.nav-menu');
+
+    function closeMenu() {
+        $toggle.removeClass('active').attr('aria-expanded', 'false');
+        $menu.removeClass('active');
+        $('body').removeClass('menu-open');
+    }
+
+    // Mobile sidebar
+    $toggle.on('click', function (event) {
+        event.stopPropagation();
+        var open = !$(this).hasClass('active');
+        $(this).toggleClass('active', open).attr('aria-expanded', String(open));
+        $menu.toggleClass('active', open);
+        $('body').toggleClass('menu-open', open);
     });
 
-    // Close menu when clicking outside
     $(document).on('click', function (event) {
         if (!$(event.target).closest('nav').length) {
-            $('.menu-toggle').removeClass('active').attr('aria-expanded', false);
-            $('.nav-menu').removeClass('active');
-            $('body').removeClass('menu-open');
+            closeMenu();
         }
     });
 
-    // Close menu when clicking a menu link
-    $('.nav-menu a').on('click', function () {
-        $('.menu-toggle').removeClass('active').attr('aria-expanded', false);
-        $('.nav-menu').removeClass('active');
-        $('body').removeClass('menu-open');
+    $(document).on('keydown', function (event) {
+        if (event.key === 'Escape') {
+            closeMenu();
+        }
     });
 
-    // Smooth Scrolling for anchor links
+    $('.nav-menu a').on('click', closeMenu);
+
+    // Condense the navigation bar once the page scrolls
+    function onScroll() {
+        $nav.toggleClass('is-scrolled', window.scrollY > 40);
+    }
+
+    $(window).on('scroll', onScroll);
+    onScroll();
+
+    // Smooth scrolling for in-page anchors
     $('a[href^="#"]').on('click', function (event) {
-        var target = $(this.getAttribute('href'));
+        var hash = this.getAttribute('href');
+        if (hash === '#' || hash.length < 2) {
+            return;
+        }
+        var target = $(hash);
         if (target.length) {
             event.preventDefault();
-            $('html, body').stop().animate({ scrollTop: target.offset().top - 100 }, 800);
+            $('html, body').stop().animate({ scrollTop: target.offset().top - 120 }, 700);
         }
     });
 
-    // Magical Sparkle Effect
-    function createSparkle(x, y) {
-        var sparkle = $('<div class="sparkle">✨</div>');
-        sparkle.css({
-            left: x + 'px',
-            top: y + 'px',
-            position: 'fixed',
-            fontSize: Math.random() * 20 + 10 + 'px',
-            zIndex: 9999
-        });
-        $('body').append(sparkle);
-        setTimeout(function () { sparkle.remove(); }, 3000);
-    }
-
-    $('.cta-button, .card, .portfolio-item, .chronicle-card').on('click', function (e) {
-        createSparkle(e.pageX - 10, e.pageY - 10);
-    });
-
-    // Intersection Observer fade-in animations
-    if ('IntersectionObserver' in window) {
-        var animateOnScroll = new IntersectionObserver(function (entries) {
+    // Reveal on scroll
+    var $reveals = $('.reveal');
+    if ('IntersectionObserver' in window && $reveals.length) {
+        document.documentElement.classList.add('reveal-ready');
+        var observer = new IntersectionObserver(function (entries) {
             entries.forEach(function (entry) {
                 if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
                 }
             });
-        }, { threshold: 0.1 });
+        }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
 
-        $('.card, .chronicle-card, .portfolio-item').each(function () {
-            $(this).css({
-                'opacity': '0',
-                'transform': 'translateY(30px)',
-                'transition': 'opacity 0.6s ease, transform 0.6s ease'
-            });
-            animateOnScroll.observe(this);
+        $reveals.each(function (index) {
+            this.style.transitionDelay = Math.min(index % 6, 5) * 70 + 'ms';
+            observer.observe(this);
         });
     }
 
-    // Show contact success/error messages from URL params
-    var params = new URLSearchParams(window.location.search);
-    if (params.get('contact') === 'success') {
-        $('#contact-success').show();
-    }
-    if (params.get('contact') === 'error') {
-        $('#contact-error').show();
-    }
-    if (params.get('bulletin') === 'success') {
-        $('#bulletin-success').show();
+    // A little sparkle when something is clicked
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (!reduceMotion) {
+        $(document).on('click', '.cta-button, .card, .portfolio-item, .bulletin-post-card, .source-card', function (e) {
+            var sparkle = $('<span class="sparkle" aria-hidden="true">✨</span>').css({
+                left: e.clientX - 8 + 'px',
+                top: e.clientY - 8 + 'px'
+            });
+            $('body').append(sparkle);
+            setTimeout(function () { sparkle.remove(); }, 2400);
+        });
     }
 
-    // Pre-select subject dropdown from URL param
+    // Form success messages driven by the ?contact= / ?bulletin= query strings
+    var params = new URLSearchParams(window.location.search);
+
+    if (params.get('contact') === 'success') {
+        $('#contact-success').removeClass('hidden');
+    }
+
+    if (params.get('bulletin') === 'success') {
+        $('#bulletin-success').removeClass('hidden');
+    }
+
+    // Pre-select a subject when arriving from the Incantations page
     var subject = params.get('subject');
     if (subject) {
-        $('#contact_subject').val(subject);
-    }
-
-    // Random floating particles
-    function createFloatingParticle() {
-        var particle = $('<div style="position:fixed;width:3px;height:3px;background:rgba(37,99,235,0.3);border-radius:50%;pointer-events:none;z-index:1;"></div>');
-        var startX = Math.random() * window.innerWidth;
-        var duration = Math.random() * 10000 + 10000;
-        var endX = startX + (Math.random() - 0.5) * 200;
-        particle.css({ left: startX + 'px', top: (window.innerHeight + 50) + 'px' });
-        $('body').append(particle);
-        particle.animate({ top: -50, left: endX, opacity: 0 }, duration, 'linear', function () {
-            $(this).remove();
+        $('#contact_subject option').each(function () {
+            if (this.value.toLowerCase() === subject.replace(/\+/g, ' ').toLowerCase()) {
+                this.selected = true;
+            }
         });
     }
 
-    setInterval(createFloatingParticle, 3000);
-
-    $(window).on('load', function () { $('.loader').fadeOut('slow'); });
-
-    console.log('%c✨ Welcome to The Wizard of Oza! ✨', 'color: #f59e0b; font-size: 20px; font-weight: bold;');
-    console.log('%cLooking for something magical? Check out the source code!', 'color: #6b46c1; font-size: 14px;');
-
+    // Keep the footer year current
+    $('[data-year]').text(new Date().getFullYear());
 })(jQuery);

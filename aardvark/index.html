@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aardvark – The Wizard of Oza</title>
+    <title>Aardvark &ndash; The Wizard of Oza</title>
+    <meta name="description" content="A picture of an aardvark. That is the entire purpose of this page.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="icon" type="image/svg+xml" href="../images/favicon.svg">
@@ -46,45 +47,120 @@
 </nav>
 
 <main id="main-content">
-
-<div class="container" style="padding-top: 8rem;">
-    <h1 class="section-title">Aardvark</h1>
-    <p class="text-center" style="max-width: 720px; margin: 0 auto 3rem; color: var(--text-medium); font-size: 1.15rem;">
-        This is a picture of an aardvark. That is the entire purpose of this page.
-    </p>
-
-    <figure style="max-width: 900px; margin: 0 auto 3rem; background: var(--card-bg); padding: 1.5rem; border-radius: 20px; box-shadow: var(--shadow-card);">
-        <img src="../images/aardvark.svg" alt="Illustration of an aardvark in profile with a long snout, tall ears and thick tail, standing on sandy ground under a starry sky" style="width: 100%; height: auto; border-radius: 12px; display: block;">
-        <figcaption style="margin-top: 1.25rem; text-align: center; color: var(--text-medium); font-size: 1rem;">
-            <em>Orycteropus afer</em> &mdash; the aardvark. First in the dictionary, last to be seen in daylight.
-        </figcaption>
-    </figure>
-
-    <div style="max-width: 800px; margin: 0 auto 5rem; background: var(--card-bg); padding: 2.5rem; border-radius: 16px; box-shadow: var(--shadow-card);">
-        <h2 style="margin-bottom: 1.5rem;"><i class="fas fa-paw"></i> Three True Facts</h2>
-        <ul style="color: var(--text-medium); line-height: 1.9; padding-left: 1.25rem;">
-            <li>The name comes from Afrikaans for &ldquo;earth pig,&rdquo; though the aardvark is not a pig and is not closely related to one.</li>
-            <li>It can dig itself out of sight in a matter of minutes, and it eats termites by the tens of thousands in a single night.</li>
-            <li>Its nearest living relatives include elephants and manatees, which says something about how strange the family tree really is.</li>
-        </ul>
-        <p style="color: var(--text-medium); margin-top: 1.5rem;">
-            Nothing else on this page. Go look at the <a href="../exhibits/" style="color: var(--page-deep); font-weight: 600;">Exhibits</a> if you want something interactive.
-        </p>
+<section class="page-hero">
+    <div class="hero-orbs" aria-hidden="true">
+        <span>&#129443;</span>
+        <span>&#127774;</span>
+        <span>&#127807;</span>
+        <span>&#129419;</span>
     </div>
-</div>
 
+    <div class="hero-inner">
+        <span class="eyebrow">A Page With One Job</span>
+        <h1 class="hero-title">Aardvark</h1>
+        <p class="hero-subtitle">Orycteropus afer, at your service</p>
+        <p class="hero-lead">This is a picture of an aardvark. That is the entire purpose of this page, and it fulfils it completely.</p>
+        <div class="hero-actions">
+            <a href="#portrait" class="cta-button">Behold It <i class="fas fa-arrow-down"></i></a>
+            <a href="../exhibits/" class="cta-button ghost">Something Interactive Instead</a>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="portrait">
+    <div class="container">
+        <figure class="portrait reveal">
+            <div class="portrait-frame">
+                <img src="../images/aardvark.svg" alt="Illustration of an aardvark standing in the sunlit red earth of the savanna, with long snout, tall ears and a thick tail">
+            </div>
+            <figcaption>
+                <strong>Orycteropus afer</strong> &mdash; the aardvark. First in the dictionary, last to be seen in daylight.
+            </figcaption>
+        </figure>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+    <div class="section-head reveal">
+        <span class="eyebrow">Three True Facts</span>
+        <h2 class="section-title">What You Are Looking At</h2>
+        <div class="rule"></div>
+        <p class="section-lead" style="margin-top: 1.5rem;">Everything below is true, which is more than most pages about aardvarks can claim.</p>
+    </div>
+        <div class="fact-grid">
+            <div class="fact reveal">
+                <span class="fact-num">01</span>
+                <h3>Not a pig</h3>
+                <p>The name is Afrikaans for &ldquo;earth pig,&rdquo; but the aardvark is not a pig and is not closely related to one.</p>
+            </div>
+            <div class="fact reveal">
+                <span class="fact-num">02</span>
+                <h3>Fast digger</h3>
+                <p>It can dig itself out of sight in minutes, and it eats termites by the tens of thousands in a single night.</p>
+            </div>
+            <div class="fact reveal">
+                <span class="fact-num">03</span>
+                <h3>Strange family</h3>
+                <p>Its nearest living relatives include elephants and manatees, which says something about how odd the family tree really is.</p>
+            </div>
+        </div>
+
+        <div class="panel panel-tinted text-center reveal" style="margin-top: 3.5rem;">
+            <span class="eyebrow">That&rsquo;s the whole page</span>
+            <h2 style="margin: 1.25rem 0 1rem;">Nothing else is happening here</h2>
+            <p class="section-lead" style="margin-bottom: 2rem;">
+                Go look at the Exhibits if you want something you can actually click on.
+            </p>
+            <a href="../exhibits/" class="cta-button">Visit the Exhibits <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </div>
+</section>
 </main>
 
 <footer class="site-footer">
     <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <a href="../" class="footer-brand">The Wizard of Oza</a>
+                <p class="footer-about">
+                    Games, enchanted websites and data stories, built by one person who believes
+                    software should feel like a little bit of magic.
+                </p>
+            </div>
+            <div class="footer-col">
+                <h4>The Realm</h4>
+                <ul class="footer-links">
+                    <li><a href="../exhibits/">Exhibits</a></li>
+                    <li><a href="../incantations/">Incantations</a></li>
+                    <li><a href="../lineage/">Lineage</a></li>
+                    <li><a href="../">Nexus</a></li>
+                    <li><a href="../owlery/">Owlery</a></li>
+                    <li><a href="../zephyr/">Zephyr</a></li>
+                    <li><a href="../aardvark/">Aardvark</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Get in Touch</h4>
+                <ul class="footer-links">
+                    <li><a href="../owlery/">Send a message</a></li>
+                    <li><a href="../incantations/">Hire the wizard</a></li>
+                    <li><a href="mailto:hello@thewizardofoza.com">hello@thewizardofoza.com</a></li>
+                </ul>
+            </div>
+        </div>
+
         <div class="social-links">
             <a href="https://twitter.com/wizardofoza" class="social-link" target="_blank" rel="noopener" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
             <a href="https://linkedin.com/in/wizardofoza" class="social-link" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
             <a href="https://github.com/neiloza" class="social-link" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
             <a href="https://instagram.com/wizardofoza" class="social-link" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
         </div>
-        <p class="footer-text" style="margin-top: 2rem;">&copy; 2026 The Wizard of Oza. All magic reserved.</p>
-        <p class="footer-text">Crafted with ✨ and a touch of wizardry</p>
+
+        <div class="footer-bottom">
+            <p class="footer-text">&copy; <span data-year>2026</span> The Wizard of Oza. All magic reserved.</p>
+            <p class="footer-text">Crafted with &#10024; and a touch of wizardry</p>
+        </div>
     </div>
 </footer>
 

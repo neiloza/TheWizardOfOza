@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Wizard of Oza – Where Imagination Meets Technology</title>
+    <title>The Wizard of Oza &ndash; Where Imagination Meets Technology</title>
+    <meta name="description" content="The bulletin board of The Wizard of Oza: games, enchanted websites and data stories, plus everything currently stirring in the tower.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
@@ -46,172 +47,215 @@
 </nav>
 
 <main id="main-content">
+<section class="page-hero">
+    <div class="hero-orbs" aria-hidden="true">
+        <span>&#10024;</span>
+        <span>&#127756;</span>
+        <span>&#128302;</span>
+        <span>&#9878;&#65039;</span>
+    </div>
 
-<!-- Hero -->
-<section class="hero-section">
-    <div class="hero-content">
+    <div class="hero-inner">
+        <span class="eyebrow">The Bulletin Board</span>
         <h1 class="hero-title">The Nexus</h1>
         <p class="hero-subtitle">Where Imagination Meets Technology</p>
-        <p class="hero-description">
-            Welcome to the bulletin board of The Wizard of Oza &mdash; the crossroads where every path in this realm
-            begins. Notices go up here first: new builds, spells for hire, and whatever else is stirring in the tower.
-        </p>
-        <a href="exhibits/" class="cta-button">Explore the Exhibits</a>
+        <p class="hero-lead">Welcome to the crossroads of the realm. Every notice goes up here first — new builds, spells for hire, and whatever else is stirring in the tower.</p>
+        <div class="hero-actions">
+            <a href="exhibits/" class="cta-button">Explore the Exhibits <i class="fas fa-arrow-right"></i></a>
+            <a href="incantations/" class="cta-button ghost">Hire the Wizard</a>
+        </div>
     </div>
 </section>
 
-<!-- Bulletin Board -->
-<section class="container section">
-    <h2 class="section-title">The Board</h2>
-    <p class="text-center" style="max-width: 760px; margin: 0 auto 1rem; color: var(--text-medium); font-size: 1.1rem;">
-        Pinned notices, freshest first.
-    </p>
-
-    <div class="bulletin-posts-grid">
-
-        <article class="bulletin-post-card">
+<section class="section">
+    <div class="container">
+    <div class="section-head reveal">
+        <span class="eyebrow">Pinned Today</span>
+        <h2 class="section-title">The Board</h2>
+        <div class="rule"></div>
+        <p class="section-lead" style="margin-top: 1.5rem;">Six notices, freshest first. Pull one down and follow it wherever it goes.</p>
+    </div>
+        <div class="bulletin-posts-grid">
+        <article class="bulletin-post-card reveal">
             <div class="bulletin-post-header">
                 <span class="bulletin-category service-offered">Now Building</span>
                 <span class="bulletin-date">Latest</span>
             </div>
             <h3 class="bulletin-post-title">New Exhibits in the Hall</h3>
-            <p class="bulletin-post-content">
-                Games, enchanted websites, and data stories &mdash; the full collection lives in the Exhibits hall,
-                sorted by craft. Brain games, story worlds, and client sites are all playable and browsable.
-            </p>
+            <p class="bulletin-post-content">Games, enchanted websites, and data stories — the full collection lives in the Exhibits hall, sorted by craft. Brain games, story worlds, and client sites are all playable and browsable.</p>
             <div class="bulletin-post-footer">
                 <span class="bulletin-author">The Wizard</span>
-                <a href="exhibits/" class="bulletin-contact">Visit Exhibits</a>
+                <a href="exhibits/" class="bulletin-contact">Visit Exhibits <i class="fas fa-arrow-right"></i></a>
             </div>
         </article>
-
-        <article class="bulletin-post-card">
+        <article class="bulletin-post-card reveal">
             <div class="bulletin-post-header">
                 <span class="bulletin-category help-wanted">For Hire</span>
                 <span class="bulletin-date">Open</span>
             </div>
             <h3 class="bulletin-post-title">Spells Available for Commission</h3>
-            <p class="bulletin-post-content">
-                Websites, games, data analysis, and tutoring. If you need something built, analyzed, or explained,
-                the price list and the details are posted in the Incantations chamber.
-            </p>
+            <p class="bulletin-post-content">Websites, games, data analysis, and tutoring. If you need something built, analyzed, or explained, the details are posted in the Incantations chamber.</p>
             <div class="bulletin-post-footer">
                 <span class="bulletin-author">Open for work</span>
-                <a href="incantations/" class="bulletin-contact">See Incantations</a>
+                <a href="incantations/" class="bulletin-contact">See Incantations <i class="fas fa-arrow-right"></i></a>
             </div>
         </article>
-
-        <article class="bulletin-post-card">
+        <article class="bulletin-post-card reveal">
             <div class="bulletin-post-header">
                 <span class="bulletin-category other">Backstory</span>
                 <span class="bulletin-date">Always</span>
             </div>
             <h3 class="bulletin-post-title">How the Wizard Got His Hat</h3>
-            <p class="bulletin-post-content">
-                Mathematician turned builder turned storyteller. The whole winding tale &mdash; the detours included &mdash;
-                is written down in the Lineage.
-            </p>
+            <p class="bulletin-post-content">Mathematician turned builder turned storyteller. The whole winding tale — the detours included — is written down in the Lineage.</p>
             <div class="bulletin-post-footer">
                 <span class="bulletin-author">Origin tale</span>
-                <a href="lineage/" class="bulletin-contact">Read Lineage</a>
+                <a href="lineage/" class="bulletin-contact">Read Lineage <i class="fas fa-arrow-right"></i></a>
             </div>
         </article>
-
-        <article class="bulletin-post-card">
+        <article class="bulletin-post-card reveal">
             <div class="bulletin-post-header">
                 <span class="bulletin-category community-event">Messages</span>
                 <span class="bulletin-date">Open</span>
             </div>
             <h3 class="bulletin-post-title">The Owls Are Flying</h3>
-            <p class="bulletin-post-content">
-                Questions, project ideas, collaborations, or plain hellos &mdash; send one up through the Owlery
-                and it will reach the tower.
-            </p>
+            <p class="bulletin-post-content">Questions, project ideas, collaborations, or plain hellos — send one up through the Owlery and it will reach the tower.</p>
             <div class="bulletin-post-footer">
                 <span class="bulletin-author">Inbox open</span>
-                <a href="owlery/" class="bulletin-contact">Send a Message</a>
+                <a href="owlery/" class="bulletin-contact">Send a Message <i class="fas fa-arrow-right"></i></a>
             </div>
         </article>
-
-        <article class="bulletin-post-card">
+        <article class="bulletin-post-card reveal">
             <div class="bulletin-post-header">
                 <span class="bulletin-category trade-proposed">Reading Room</span>
                 <span class="bulletin-date">Curated</span>
             </div>
             <h3 class="bulletin-post-title">Winds from Elsewhere</h3>
-            <p class="bulletin-post-content">
-                A curated shelf of sources worth your time &mdash; the tools, docs, and writers I actually rely on.
-                Filed under Zephyr.
-            </p>
+            <p class="bulletin-post-content">A curated shelf of sources worth your time — the tools, docs, and writers I actually rely on. Filed under Zephyr.</p>
             <div class="bulletin-post-footer">
                 <span class="bulletin-author">Trusted sources</span>
-                <a href="zephyr/" class="bulletin-contact">Follow the Wind</a>
+                <a href="zephyr/" class="bulletin-contact">Follow the Wind <i class="fas fa-arrow-right"></i></a>
             </div>
         </article>
-
-        <article class="bulletin-post-card">
+        <article class="bulletin-post-card reveal">
             <div class="bulletin-post-header">
                 <span class="bulletin-category items-for-sale">Curiosity</span>
                 <span class="bulletin-date">Permanent</span>
             </div>
             <h3 class="bulletin-post-title">There Is an Aardvark Here</h3>
-            <p class="bulletin-post-content">
-                No explanation offered. There is simply a picture of an aardvark, and it is behind this link.
-            </p>
+            <p class="bulletin-post-content">No explanation offered. There is simply a picture of an aardvark, and it is behind this link.</p>
             <div class="bulletin-post-footer">
                 <span class="bulletin-author">Just because</span>
-                <a href="aardvark/" class="bulletin-contact">Behold It</a>
+                <a href="aardvark/" class="bulletin-contact">Behold It <i class="fas fa-arrow-right"></i></a>
             </div>
         </article>
-
-    </div>
-</section>
-
-<!-- What I Create -->
-<section class="container section">
-    <h2 class="section-title">What I Create</h2>
-    <div class="card-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); max-width: 1000px; margin: 0 auto;">
-        <div class="card">
-            <span class="card-icon">🌐</span>
-            <h3 class="card-title">Enchanted Websites</h3>
-            <p class="card-description">
-                Digital realms where pixels dance and user experiences sing. I weave websites that don't just exist&mdash;they captivate, convert, and conjure connections between brands and their believers.
-            </p>
-            <a href="exhibits/#websites" class="cta-button" style="display: inline-block; margin-top: 1rem; padding: 0.7rem 1.5rem; font-size: 0.9rem;">Explore Websites &rarr;</a>
         </div>
 
-        <div class="card">
-            <span class="card-icon">🎮</span>
-            <h3 class="card-title">Story-Driven Games</h3>
-            <p class="card-description">
-                Worlds woven from imagination where stories breathe and players become heroes. Every mechanic is magic, every level a legend, every playthrough a unique adventure waiting to unfold.
-            </p>
-            <a href="exhibits/#games" class="cta-button" style="display: inline-block; margin-top: 1rem; padding: 0.7rem 1.5rem; font-size: 0.9rem;">Discover Games &rarr;</a>
-        </div>
-
-        <div class="card">
-            <span class="card-icon">📊</span>
-            <h3 class="card-title">Data Insights</h3>
-            <p class="card-description">
-                Numbers transformed into narratives, patterns pulled from chaos. I reveal the hidden stories within data&mdash;turning spreadsheets into strategic spells that illuminate paths forward.
-            </p>
-            <a href="exhibits/#data" class="cta-button" style="display: inline-block; margin-top: 1rem; padding: 0.7rem 1.5rem; font-size: 0.9rem;">View Insights &rarr;</a>
+        <div class="stat-strip reveal">
+            <div class="stat"><span class="stat-value">20+</span><span class="stat-label">Projects Shipped</span></div>
+            <div class="stat"><span class="stat-value">9</span><span class="stat-label">Brain Games</span></div>
+            <div class="stat"><span class="stat-value">4</span><span class="stat-label">Crafts Practised</span></div>
+            <div class="stat"><span class="stat-value">1</span><span class="stat-label">Aardvark</span></div>
         </div>
     </div>
 </section>
 
+<section class="section">
+    <div class="container">
+    <div class="section-head reveal">
+        <span class="eyebrow">The Craft</span>
+        <h2 class="section-title">What I Create</h2>
+        <div class="rule"></div>
+        <p class="section-lead" style="margin-top: 1.5rem;">Three disciplines, one workshop. Every project borrows from all three.</p>
+    </div>
+        <div class="card-grid">
+            <div class="card reveal">
+                <span class="card-icon">&#127760;</span>
+                <h3 class="card-title">Enchanted Websites</h3>
+                <p class="card-description">
+                    Digital realms where pixels dance and user experiences sing. I weave websites that don't just
+                    exist&mdash;they captivate, convert, and conjure connections between brands and their believers.
+                </p>
+                <a href="exhibits/#websites" class="read-more">Explore Websites <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="card reveal">
+                <span class="card-icon">&#127918;</span>
+                <h3 class="card-title">Story-Driven Games</h3>
+                <p class="card-description">
+                    Worlds woven from imagination where stories breathe and players become heroes. Every mechanic is
+                    magic, every level a legend, every playthrough a unique adventure waiting to unfold.
+                </p>
+                <a href="exhibits/#games" class="read-more">Discover Games <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="card reveal">
+                <span class="card-icon">&#128202;</span>
+                <h3 class="card-title">Data Insights</h3>
+                <p class="card-description">
+                    Numbers transformed into narratives, patterns pulled from chaos. I reveal the hidden stories within
+                    data&mdash;turning spreadsheets into strategic spells that illuminate paths forward.
+                </p>
+                <a href="exhibits/#data" class="read-more">View Insights <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="panel panel-tinted text-center reveal">
+            <span class="eyebrow">Open Commission</span>
+            <h2 style="margin: 1.25rem 0 1rem;">Got something that needs building?</h2>
+            <p class="section-lead" style="margin-bottom: 2rem;">
+                Tell me what you have in mind and I'll tell you honestly whether I'm the right wizard for it.
+            </p>
+            <a href="owlery/" class="cta-button">Send a Message <i class="fas fa-feather-pointed"></i></a>
+        </div>
+    </div>
+</section>
 </main>
 
 <footer class="site-footer">
     <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <a href="./" class="footer-brand">The Wizard of Oza</a>
+                <p class="footer-about">
+                    Games, enchanted websites and data stories, built by one person who believes
+                    software should feel like a little bit of magic.
+                </p>
+            </div>
+            <div class="footer-col">
+                <h4>The Realm</h4>
+                <ul class="footer-links">
+                    <li><a href="exhibits/">Exhibits</a></li>
+                    <li><a href="incantations/">Incantations</a></li>
+                    <li><a href="lineage/">Lineage</a></li>
+                    <li><a href="./">Nexus</a></li>
+                    <li><a href="owlery/">Owlery</a></li>
+                    <li><a href="zephyr/">Zephyr</a></li>
+                    <li><a href="aardvark/">Aardvark</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Get in Touch</h4>
+                <ul class="footer-links">
+                    <li><a href="owlery/">Send a message</a></li>
+                    <li><a href="incantations/">Hire the wizard</a></li>
+                    <li><a href="mailto:hello@thewizardofoza.com">hello@thewizardofoza.com</a></li>
+                </ul>
+            </div>
+        </div>
+
         <div class="social-links">
             <a href="https://twitter.com/wizardofoza" class="social-link" target="_blank" rel="noopener" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
             <a href="https://linkedin.com/in/wizardofoza" class="social-link" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
             <a href="https://github.com/neiloza" class="social-link" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
             <a href="https://instagram.com/wizardofoza" class="social-link" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
         </div>
-        <p class="footer-text" style="margin-top: 2rem;">&copy; 2026 The Wizard of Oza. All magic reserved.</p>
-        <p class="footer-text">Crafted with ✨ and a touch of wizardry</p>
+
+        <div class="footer-bottom">
+            <p class="footer-text">&copy; <span data-year>2026</span> The Wizard of Oza. All magic reserved.</p>
+            <p class="footer-text">Crafted with &#10024; and a touch of wizardry</p>
+        </div>
     </div>
 </footer>
 

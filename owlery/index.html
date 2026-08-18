@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Owlery – The Wizard of Oza</title>
+    <title>Owlery &ndash; The Wizard of Oza</title>
+    <meta name="description" content="Send a message to The Wizard of Oza, or post a notice to the community bulletin board.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="icon" type="image/svg+xml" href="../images/favicon.svg">
@@ -46,34 +47,44 @@
 </nav>
 
 <main id="main-content">
+<section class="page-hero">
+    <div class="hero-orbs" aria-hidden="true">
+        <span>&#129417;</span>
+        <span>&#9993;&#65039;</span>
+        <span>&#10024;</span>
+        <span>&#128220;</span>
+    </div>
 
-<div class="container" style="padding-top: 8rem;">
-    <h1 class="section-title">The Owlery</h1>
-    <p class="text-center" style="max-width: 800px; margin: 0 auto 3rem; color: var(--text-medium); font-size: 1.1rem;">
-        Welcome to the Owlery, where messages flutter in on enchanted wings. Reach out directly to discuss your next magical project.
-    </p>
+    <div class="hero-inner">
+        <span class="eyebrow">Contact</span>
+        <h1 class="hero-title">The Owlery</h1>
+        <p class="hero-subtitle">Messages flutter in on enchanted wings</p>
+        <p class="hero-lead">Have a project in mind? A question about my services? Or just want to say hello? Send an owl and it will reach the tower.</p>
+        <div class="hero-actions">
+            <a href="#message" class="cta-button">Send a Message <i class="fas fa-feather-pointed"></i></a>
+            <a href="mailto:hello@thewizardofoza.com" class="cta-button ghost">Email Directly</a>
+        </div>
+    </div>
+</section>
 
-    <!-- Contact Form -->
-    <div style="max-width: 800px; margin: 0 auto 5rem;">
-        <h2 style="color: var(--page-accent); margin-bottom: 2rem; text-align: center; font-size: 2rem;">
-            <i class="fas fa-envelope-open-text"></i> Send a Direct Message
-        </h2>
+<section class="section" id="message">
+    <div class="container">
+    <div class="section-head reveal">
+        <span class="eyebrow">Direct Message</span>
+        <h2 class="section-title">Send a Direct Message</h2>
+        <div class="rule"></div>
+        <p class="section-lead" style="margin-top: 1.5rem;">Tell me what you're building. I answer every message that isn't trying to sell me backlinks.</p>
+    </div>
 
-        <p class="text-center" style="max-width: 800px; margin: 0 auto 3rem; color: var(--text-medium); font-size: 1.1rem;">
-            Have a project in mind? A question about my services? Or just want to say hello?
-            I'd love to hear from you. Let's create something magical together.
-        </p>
-
-        <!-- Success / Error messages shown via JS from URL params -->
-        <div id="contact-success" style="display:none; margin-bottom: 2rem; padding: 1.5rem; background: rgba(34, 197, 94, 0.1); border: 2px solid #22c55e; border-radius: 8px; text-align: center;">
-            <p style="color: #22c55e; margin: 0; font-weight: 600;">
+        <div id="contact-success" class="hidden reveal" style="max-width: 660px; margin: 0 auto 2rem; padding: 1.25rem 1.5rem; background: rgba(16, 185, 129, 0.12); border: 2px solid #10b981; border-radius: 16px; text-align: center;">
+            <p style="color: #047857; margin: 0; font-weight: 700;">
                 <i class="fas fa-check-circle"></i> Message sent successfully! I'll get back to you soon.
             </p>
         </div>
 
-        <div class="contact-form">
-            <!-- ACTION: Replace xyzxyzxy with your Formspree form ID from formspree.io -->
-            <form action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
+        <div class="contact-form reveal">
+            <!-- ACTION: Replace YOUR_FORMSPREE_ID with your Formspree form ID from formspree.io -->
+<form action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
                 <input type="hidden" name="_subject" value="New message from The Wizard of Oza">
                 <input type="hidden" name="_next" value="?contact=success">
 
@@ -117,13 +128,11 @@
                     <i class="fas fa-paper-plane"></i> Send Message
                 </button>
             </form>
-
-            <p style="color: var(--text-medium); margin-top: 2rem; line-height: 1.8; text-align: center;">
-                Prefer email? Reach me at <a href="mailto:hello@thewizardofozaa.com" style="color: var(--page-deep);">hello@thewizardofozaa.com</a>
+            <p class="text-center" style="margin-top: 1.5rem; color: var(--ink-faint);">
+                Prefer email? Reach me at <a href="mailto:hello@thewizardofoza.com" style="font-weight: 700;">hello@thewizardofoza.com</a>
             </p>
         </div>
 
-        <!-- Social Links -->
         <div class="social-links">
             <a href="https://twitter.com/wizardofoza" class="social-link" target="_blank" rel="noopener" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
             <a href="https://github.com/neiloza" class="social-link" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
@@ -131,29 +140,26 @@
             <a href="https://instagram.com/wizardofoza" class="social-link" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
         </div>
     </div>
+</section>
 
-    <!-- Community Bulletin Board -->
-    <div style="max-width: 1000px; margin: 0 auto 5rem;">
-        <h2 style="color: var(--page-accent); margin-bottom: 2rem; text-align: center; font-size: 2rem;">
-            <i class="fas fa-scroll"></i> Community Bulletin Board
-        </h2>
+<section class="section" id="board">
+    <div class="container">
+    <div class="section-head reveal">
+        <span class="eyebrow">Community</span>
+        <h2 class="section-title">Post to the Bulletin Board</h2>
+        <div class="rule"></div>
+        <p class="section-lead" style="margin-top: 1.5rem;">Have a trade or service to offer? Post it here and it goes straight to the wizard&rsquo;s inbox.</p>
+    </div>
 
-        <div style="background: var(--card-bg); padding: 2.5rem; border-radius: 16px; margin-bottom: 3rem; box-shadow: var(--shadow-card);">
-            <h3 style="color: var(--page-deep); margin-bottom: 1.5rem; font-size: 1.5rem;">
-                <i class="fas fa-feather-pointed"></i> Post to the Board
-            </h3>
-            <p style="color: var(--text-medium); margin-bottom: 2rem; line-height: 1.6;">
-                Have a trade or service to offer? Post it here! Submissions are sent directly to the wizard's inbox.
+        <div id="bulletin-success" class="hidden reveal" style="max-width: 660px; margin: 0 auto 2rem; padding: 1.25rem 1.5rem; background: rgba(16, 185, 129, 0.12); border: 2px solid #10b981; border-radius: 16px; text-align: center;">
+            <p style="color: #047857; margin: 0; font-weight: 700;">
+                <i class="fas fa-check-circle"></i> Post submitted successfully!
             </p>
+        </div>
 
-            <div id="bulletin-success" style="display:none; margin-bottom: 2rem; padding: 1.5rem; background: rgba(34, 197, 94, 0.1); border: 2px solid #22c55e; border-radius: 8px; text-align: center;">
-                <p style="color: #22c55e; margin: 0; font-weight: 600;">
-                    <i class="fas fa-check-circle"></i> Post submitted successfully!
-                </p>
-            </div>
-
+        <div class="contact-form reveal">
             <!-- ACTION: Replace YOUR_FORMSPREE_ID with your Formspree form ID from formspree.io -->
-            <form action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
+<form action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
                 <input type="hidden" name="_subject" value="Bulletin Board Post – The Wizard of Oza">
                 <input type="hidden" name="_next" value="?bulletin=success">
 
@@ -196,28 +202,56 @@
             </form>
         </div>
 
-        <!-- Static placeholder for bulletin board posts -->
-        <div style="background: var(--card-bg); padding: 3rem; border-radius: 16px; text-align: center; box-shadow: var(--shadow-card);">
-            <i class="fas fa-scroll" style="font-size: 3rem; color: var(--text-light); margin-bottom: 1rem; display: block;"></i>
-            <p style="color: var(--text-medium); font-size: 1.1rem;">
-                The bulletin board is empty. Be the first to post!
-            </p>
-        </div>
+        <p class="text-center reveal" style="margin-top: 2rem; color: var(--ink-faint);">
+            <i class="fas fa-scroll"></i> The board is quiet right now &mdash; be the first to pin something up.
+        </p>
     </div>
-</div>
-
+</section>
 </main>
 
 <footer class="site-footer">
     <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <a href="../" class="footer-brand">The Wizard of Oza</a>
+                <p class="footer-about">
+                    Games, enchanted websites and data stories, built by one person who believes
+                    software should feel like a little bit of magic.
+                </p>
+            </div>
+            <div class="footer-col">
+                <h4>The Realm</h4>
+                <ul class="footer-links">
+                    <li><a href="../exhibits/">Exhibits</a></li>
+                    <li><a href="../incantations/">Incantations</a></li>
+                    <li><a href="../lineage/">Lineage</a></li>
+                    <li><a href="../">Nexus</a></li>
+                    <li><a href="../owlery/">Owlery</a></li>
+                    <li><a href="../zephyr/">Zephyr</a></li>
+                    <li><a href="../aardvark/">Aardvark</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Get in Touch</h4>
+                <ul class="footer-links">
+                    <li><a href="../owlery/">Send a message</a></li>
+                    <li><a href="../incantations/">Hire the wizard</a></li>
+                    <li><a href="mailto:hello@thewizardofoza.com">hello@thewizardofoza.com</a></li>
+                </ul>
+            </div>
+        </div>
+
         <div class="social-links">
             <a href="https://twitter.com/wizardofoza" class="social-link" target="_blank" rel="noopener" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
             <a href="https://linkedin.com/in/wizardofoza" class="social-link" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
             <a href="https://github.com/neiloza" class="social-link" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
             <a href="https://instagram.com/wizardofoza" class="social-link" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
         </div>
-        <p class="footer-text" style="margin-top: 2rem;">&copy; 2026 The Wizard of Oza. All magic reserved.</p>
-        <p class="footer-text">Crafted with ✨ and a touch of wizardry</p>
+
+        <div class="footer-bottom">
+            <p class="footer-text">&copy; <span data-year>2026</span> The Wizard of Oza. All magic reserved.</p>
+            <p class="footer-text">Crafted with &#10024; and a touch of wizardry</p>
+        </div>
     </div>
 </footer>
 
