@@ -116,7 +116,7 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 {
     font-size: 3.5rem;
-    background: var(--gradient-primary);
+    background: var(--page-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -124,12 +124,12 @@ h1 {
 
 h2 {
     font-size: 2.5rem;
-    color: var(--royal-blue);
+    color: var(--page-deep);
 }
 
 h3 {
     font-size: 1.8rem;
-    color: var(--sunshine-gold);
+    color: var(--page-accent);
 }
 
 p {
@@ -138,13 +138,13 @@ p {
 }
 
 a {
-    color: var(--royal-blue);
+    color: var(--page-deep);
     text-decoration: none;
     transition: all 0.3s ease;
 }
 
 a:hover {
-    color: var(--sunshine-gold);
+    color: var(--page-accent);
     transform: translateY(-1px);
 }
 
@@ -161,7 +161,7 @@ a:hover {
     z-index: 999;
     box-shadow: var(--shadow-soft);
     border-bottom: 3px solid transparent;
-    border-image: var(--gradient-primary) 1;
+    border-image: var(--page-gradient) 1;
 }
 
 
@@ -180,7 +180,7 @@ a:hover {
     font-family: 'Cinzel', serif;
     font-size: 2rem;
     font-weight: 700;
-    background: var(--gradient-primary);
+    background: var(--page-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -251,7 +251,7 @@ a:hover {
     left: 50%;
     width: 0;
     height: 3px;
-    background: var(--gradient-primary);
+    background: var(--page-gradient);
     transform: translateX(-50%);
     transition: width 0.3s ease;
 }
@@ -355,7 +355,7 @@ a:hover {
 }
 
 .nav-menu a:hover {
-    color: var(--sunshine-gold);
+    color: #ffffff;
 }
 
 /* Overlay when menu is open */
@@ -436,7 +436,7 @@ body.menu-open::before {
 .cta-button {
     display: inline-block;
     padding: 1rem 2.5rem;
-    background: var(--gradient-primary);
+    background: var(--page-gradient);
     color: white;
     font-weight: 600;
     border-radius: 50px;
@@ -487,7 +487,7 @@ body.menu-open::before {
     display: block;
     width: 100px;
     height: 4px;
-    background: var(--gradient-primary);
+    background: var(--page-gradient);
     margin: 1rem auto;
     border-radius: 2px;
 }
@@ -530,7 +530,7 @@ body.menu-open::before {
 .card:hover {
     transform: translateY(-10px) scale(1.02);
     box-shadow: var(--shadow-hover);
-    border-color: var(--royal-blue);
+    border-color: var(--page-accent);
 }
 
 .card:hover::before {
@@ -547,7 +547,7 @@ body.menu-open::before {
 .card-title {
     font-size: 1.5rem;
     margin-bottom: 1rem;
-    color: var(--sunshine-gold);
+    color: var(--page-deep);
 }
 
 .card-description {
@@ -651,7 +651,7 @@ body.menu-open::before {
 .portfolio-item:hover {
     transform: scale(1.05);
     box-shadow: var(--shadow-hover);
-    border-color: var(--sunshine-gold);
+    border-color: var(--page-accent);
 }
 
 .portfolio-image {
@@ -693,7 +693,7 @@ body.menu-open::before {
 .portfolio-title {
     font-size: 1.3rem;
     margin-bottom: 0.5rem;
-    color: var(--royal-blue);
+    color: var(--page-deep);
 }
 
 /* ===========================
@@ -709,7 +709,7 @@ body.menu-open::before {
     border: 3px solid transparent;
     background-image: 
         linear-gradient(white, white),
-        var(--gradient-primary);
+        var(--page-gradient);
     background-origin: border-box;
     background-clip: padding-box, border-box;
 }
@@ -721,7 +721,7 @@ body.menu-open::before {
 .form-label {
     display: block;
     margin-bottom: 0.5rem;
-    color: var(--royal-blue);
+    color: var(--page-deep);
     font-weight: 600;
 }
 
@@ -740,7 +740,7 @@ body.menu-open::before {
 .form-input:focus,
 .form-textarea:focus {
     outline: none;
-    border-color: var(--sunshine-gold);
+    border-color: var(--page-accent);
     box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
     background: white;
 }
@@ -753,7 +753,7 @@ body.menu-open::before {
 .submit-button {
     width: 100%;
     padding: 1rem;
-    background: var(--gradient-primary);
+    background: var(--page-gradient);
     color: white;
     font-weight: 600;
     border: none;
@@ -793,7 +793,7 @@ body.menu-open::before {
 }
 
 .social-link:hover {
-    background: var(--gradient-primary);
+    background: var(--page-gradient);
     color: white;
     transform: translateY(-3px);
     box-shadow: var(--shadow-card);
@@ -807,7 +807,7 @@ body.menu-open::before {
     padding: 3rem 2rem 2rem;
     text-align: center;
     border-top: 3px solid transparent;
-    border-image: var(--gradient-primary) 1;
+    border-image: var(--page-gradient) 1;
 }
 
 .footer-text {
@@ -851,10 +851,41 @@ body.menu-open::before {
    Page-Specific Color Schemes
    =========================== */
 
-/* Home Page - Gold Theme */
+/* Every page carries its own identity through --page-* tokens; shared
+   components below read those tokens instead of hard-coded colors. */
+:root {
+    --page-accent: var(--royal-blue);
+    --page-deep: #1e3a8a;
+    --page-light: var(--sky-blue);
+    --page-gradient: var(--gradient-primary);
+}
+
+/* Nexus - Gold */
 body.page-nexus {
-    background: linear-gradient(135deg, #fef9e7 0%, #fde68a 50%, #fbbf24 100%);
+    --page-accent: #f59e0b;
+    --page-deep: #b45309;
+    --page-light: #fbbf24;
+    --page-gradient: linear-gradient(135deg, #b45309 0%, #f59e0b 50%, #fbbf24 100%);
+    background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 45%, #fde68a 100%);
     background-attachment: fixed;
+}
+
+body.page-nexus::before {
+    background-image: 
+        radial-gradient(circle at 20% 30%, rgba(180, 83, 9, 0.14) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(245, 158, 11, 0.16) 0%, transparent 50%),
+        radial-gradient(circle at 40% 70%, rgba(251, 191, 36, 0.18) 0%, transparent 50%),
+        radial-gradient(circle at 90% 60%, rgba(245, 158, 11, 0.14) 0%, transparent 50%),
+        radial-gradient(circle at 10% 80%, rgba(180, 83, 9, 0.12) 0%, transparent 50%);
+}
+
+body.page-nexus::after {
+    background-image:
+        radial-gradient(circle at 15% 15%, #b45309 0%, transparent 2%),
+        radial-gradient(circle at 85% 25%, #f59e0b 0%, transparent 1.5%),
+        radial-gradient(circle at 45% 10%, #fbbf24 0%, transparent 2.5%),
+        radial-gradient(circle at 25% 85%, #f59e0b 0%, transparent 2%),
+        radial-gradient(circle at 75% 75%, #fbbf24 0%, transparent 1.8%);
 }
 
 body.page-nexus .nav-menu {
@@ -865,298 +896,571 @@ body.page-nexus .menu-toggle span {
     background: #f59e0b;
 }
 
+body.page-nexus .nav-menu-desktop a:hover,
+body.page-nexus .nav-menu-desktop a.active {
+    color: #b45309;
+}
+
+body.page-nexus .nav-menu-desktop a::before {
+    background: linear-gradient(135deg, #f59e0b 0%, #b45309 100%);
+}
+
+body.page-nexus .site-logo-centered {
+    background: linear-gradient(135deg, #b45309 0%, #f59e0b 55%, #fbbf24 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+body.page-nexus .main-navigation {
+    border-image: linear-gradient(135deg, #f59e0b 0%, #b45309 100%) 1;
+}
+
 body.page-nexus .section-title {
-    background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
+    background: linear-gradient(135deg, #b45309 0%, #f59e0b 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
 
-/* Creations (Vault) Page - Blue Theme */
+body.page-nexus .section-title::after {
+    background: linear-gradient(135deg, #f59e0b 0%, #b45309 100%);
+}
+
+body.page-nexus h2 {
+    color: #b45309;
+}
+
+body.page-nexus .hero-title {
+    background: linear-gradient(135deg, #b45309 0%, #f59e0b 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+body.page-nexus .cta-button {
+    background: linear-gradient(135deg, #f59e0b 0%, #b45309 100%);
+}
+
+body.page-nexus .card:hover,
+body.page-nexus .portfolio-item:hover {
+    border-color: #f59e0b;
+}
+
+/* Exhibits - Blue */
+body.page-exhibits {
+    --page-accent: #2563eb;
+    --page-deep: #1e3a8a;
+    --page-light: #60a5fa;
+    --page-gradient: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #60a5fa 100%);
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 45%, #bfdbfe 100%);
+    background-attachment: fixed;
+}
+
 body.page-exhibits::before {
     background-image: 
-        radial-gradient(circle at 20% 30%, rgba(30, 64, 175, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.18) 0%, transparent 50%),
-        radial-gradient(circle at 40% 70%, rgba(96, 165, 250, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 90% 60%, rgba(147, 197, 253, 0.18) 0%, transparent 50%),
-        radial-gradient(circle at 10% 80%, rgba(30, 58, 138, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 60% 40%, rgba(37, 99, 235, 0.16) 0%, transparent 50%),
-        radial-gradient(circle at 30% 50%, rgba(59, 130, 246, 0.12) 0%, transparent 50%),
-        radial-gradient(circle at 70% 80%, rgba(96, 165, 250, 0.15) 0%, transparent 50%);
+        radial-gradient(circle at 20% 30%, rgba(30, 58, 138, 0.14) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(37, 99, 235, 0.16) 0%, transparent 50%),
+        radial-gradient(circle at 40% 70%, rgba(96, 165, 250, 0.18) 0%, transparent 50%),
+        radial-gradient(circle at 90% 60%, rgba(37, 99, 235, 0.14) 0%, transparent 50%),
+        radial-gradient(circle at 10% 80%, rgba(30, 58, 138, 0.12) 0%, transparent 50%);
 }
 
 body.page-exhibits::after {
     background-image:
-        radial-gradient(circle at 15% 15%, #1e40af 0%, transparent 2%),
-        radial-gradient(circle at 85% 25%, #3b82f6 0%, transparent 1.5%),
+        radial-gradient(circle at 15% 15%, #1e3a8a 0%, transparent 2%),
+        radial-gradient(circle at 85% 25%, #2563eb 0%, transparent 1.5%),
         radial-gradient(circle at 45% 10%, #60a5fa 0%, transparent 2.5%),
         radial-gradient(circle at 25% 85%, #2563eb 0%, transparent 2%),
-        radial-gradient(circle at 75% 75%, #3b82f6 0%, transparent 1.8%),
-        radial-gradient(circle at 50% 50%, #60a5fa 0%, transparent 1.5%),
-        radial-gradient(circle at 10% 50%, #1e40af 0%, transparent 2.2%),
-        radial-gradient(circle at 90% 90%, #3b82f6 0%, transparent 1.6%);
+        radial-gradient(circle at 75% 75%, #60a5fa 0%, transparent 1.8%);
 }
 
 body.page-exhibits .nav-menu {
-    background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+    background: linear-gradient(135deg, #2563eb 0%, #1e3a8a 100%);
 }
 
 body.page-exhibits .menu-toggle span {
-    background: #1e40af;
+    background: #2563eb;
+}
+
+body.page-exhibits .nav-menu-desktop a:hover,
+body.page-exhibits .nav-menu-desktop a.active {
+    color: #1e3a8a;
+}
+
+body.page-exhibits .nav-menu-desktop a::before {
+    background: linear-gradient(135deg, #2563eb 0%, #1e3a8a 100%);
+}
+
+body.page-exhibits .site-logo-centered {
+    background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 55%, #60a5fa 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+body.page-exhibits .main-navigation {
+    border-image: linear-gradient(135deg, #2563eb 0%, #1e3a8a 100%) 1;
 }
 
 body.page-exhibits .section-title {
-    background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+    background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
 
-/* Arcana Page - Orange Theme */
+body.page-exhibits .section-title::after {
+    background: linear-gradient(135deg, #2563eb 0%, #1e3a8a 100%);
+}
+
+body.page-exhibits h2 {
+    color: #1e3a8a;
+}
+
+body.page-exhibits .hero-title {
+    background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+body.page-exhibits .cta-button {
+    background: linear-gradient(135deg, #2563eb 0%, #1e3a8a 100%);
+}
+
+body.page-exhibits .card:hover,
+body.page-exhibits .portfolio-item:hover {
+    border-color: #2563eb;
+}
+
+/* Incantations - Red */
 body.page-incantations {
-    background: linear-gradient(135deg, #fff7ed 0%, #fed7aa 50%, #fb923c 100%);
+    --page-accent: #dc2626;
+    --page-deep: #991b1b;
+    --page-light: #f87171;
+    --page-gradient: linear-gradient(135deg, #991b1b 0%, #dc2626 50%, #f87171 100%);
+    background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 45%, #fecaca 100%);
     background-attachment: fixed;
 }
 
 body.page-incantations::before {
-    background-image:
-        radial-gradient(circle at 20% 30%, rgba(234, 88, 12, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(249, 115, 22, 0.18) 0%, transparent 50%),
-        radial-gradient(circle at 40% 70%, rgba(251, 146, 60, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 90% 60%, rgba(194, 65, 12, 0.18) 0%, transparent 50%),
-        radial-gradient(circle at 10% 80%, rgba(234, 88, 12, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 60% 40%, rgba(249, 115, 22, 0.16) 0%, transparent 50%),
-        radial-gradient(circle at 30% 50%, rgba(251, 146, 60, 0.12) 0%, transparent 50%),
-        radial-gradient(circle at 70% 80%, rgba(234, 88, 12, 0.15) 0%, transparent 50%);
+    background-image: 
+        radial-gradient(circle at 20% 30%, rgba(153, 27, 27, 0.14) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(220, 38, 38, 0.16) 0%, transparent 50%),
+        radial-gradient(circle at 40% 70%, rgba(248, 113, 113, 0.18) 0%, transparent 50%),
+        radial-gradient(circle at 90% 60%, rgba(220, 38, 38, 0.14) 0%, transparent 50%),
+        radial-gradient(circle at 10% 80%, rgba(153, 27, 27, 0.12) 0%, transparent 50%);
 }
 
 body.page-incantations::after {
     background-image:
-        radial-gradient(circle at 15% 15%, #ea580c 0%, transparent 2%),
-        radial-gradient(circle at 85% 25%, #f97316 0%, transparent 1.5%),
-        radial-gradient(circle at 45% 10%, #fb923c 0%, transparent 2.5%),
-        radial-gradient(circle at 25% 85%, #ea580c 0%, transparent 2%),
-        radial-gradient(circle at 75% 75%, #f97316 0%, transparent 1.8%),
-        radial-gradient(circle at 50% 50%, #fb923c 0%, transparent 1.5%),
-        radial-gradient(circle at 10% 50%, #c2410c 0%, transparent 2.2%),
-        radial-gradient(circle at 90% 90%, #ea580c 0%, transparent 1.6%);
+        radial-gradient(circle at 15% 15%, #991b1b 0%, transparent 2%),
+        radial-gradient(circle at 85% 25%, #dc2626 0%, transparent 1.5%),
+        radial-gradient(circle at 45% 10%, #f87171 0%, transparent 2.5%),
+        radial-gradient(circle at 25% 85%, #dc2626 0%, transparent 2%),
+        radial-gradient(circle at 75% 75%, #f87171 0%, transparent 1.8%);
 }
 
 body.page-incantations .nav-menu {
-    background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%);
+    background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
 }
 
 body.page-incantations .menu-toggle span {
-    background: #ea580c;
+    background: #dc2626;
+}
+
+body.page-incantations .nav-menu-desktop a:hover,
+body.page-incantations .nav-menu-desktop a.active {
+    color: #991b1b;
+}
+
+body.page-incantations .nav-menu-desktop a::before {
+    background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+}
+
+body.page-incantations .site-logo-centered {
+    background: linear-gradient(135deg, #991b1b 0%, #dc2626 55%, #f87171 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+body.page-incantations .main-navigation {
+    border-image: linear-gradient(135deg, #dc2626 0%, #991b1b 100%) 1;
 }
 
 body.page-incantations .section-title {
-    background: linear-gradient(135deg, #ea580c 0%, #f97316 100%);
+    background: linear-gradient(135deg, #991b1b 0%, #dc2626 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
 
+body.page-incantations .section-title::after {
+    background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+}
+
 body.page-incantations h2 {
-    color: #ea580c;
+    color: #991b1b;
 }
 
-body.page-incantations .card h3 {
-    color: #f97316;
+body.page-incantations .hero-title {
+    background: linear-gradient(135deg, #991b1b 0%, #dc2626 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
-body.page-incantations .service-card:hover {
-    border-color: #ea580c;
+body.page-incantations .cta-button {
+    background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
 }
 
-/* Origins Page - Red Theme */
+body.page-incantations .card:hover,
+body.page-incantations .portfolio-item:hover {
+    border-color: #dc2626;
+}
+
+/* Lineage - Orange */
 body.page-lineage {
-    background: linear-gradient(135deg, #fef2f2 0%, #fecaca 50%, #f87171 100%);
+    --page-accent: #f97316;
+    --page-deep: #c2410c;
+    --page-light: #fdba74;
+    --page-gradient: linear-gradient(135deg, #c2410c 0%, #f97316 50%, #fdba74 100%);
+    background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 45%, #fed7aa 100%);
     background-attachment: fixed;
 }
 
 body.page-lineage::before {
-    background-image:
-        radial-gradient(circle at 20% 30%, rgba(185, 28, 28, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(220, 38, 38, 0.18) 0%, transparent 50%),
-        radial-gradient(circle at 40% 70%, rgba(239, 68, 68, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 90% 60%, rgba(127, 29, 29, 0.18) 0%, transparent 50%),
-        radial-gradient(circle at 10% 80%, rgba(153, 27, 27, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 60% 40%, rgba(200, 30, 30, 0.16) 0%, transparent 50%),
-        radial-gradient(circle at 30% 50%, rgba(220, 38, 38, 0.12) 0%, transparent 50%),
-        radial-gradient(circle at 70% 80%, rgba(185, 28, 28, 0.15) 0%, transparent 50%);
+    background-image: 
+        radial-gradient(circle at 20% 30%, rgba(194, 65, 12, 0.14) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(249, 115, 22, 0.16) 0%, transparent 50%),
+        radial-gradient(circle at 40% 70%, rgba(253, 186, 116, 0.18) 0%, transparent 50%),
+        radial-gradient(circle at 90% 60%, rgba(249, 115, 22, 0.14) 0%, transparent 50%),
+        radial-gradient(circle at 10% 80%, rgba(194, 65, 12, 0.12) 0%, transparent 50%);
 }
 
 body.page-lineage::after {
     background-image:
-        radial-gradient(circle at 15% 15%, #b91c1c 0%, transparent 2%),
-        radial-gradient(circle at 85% 25%, #dc2626 0%, transparent 1.5%),
-        radial-gradient(circle at 45% 10%, #ef4444 0%, transparent 2.5%),
-        radial-gradient(circle at 25% 85%, #991b1b 0%, transparent 2%),
-        radial-gradient(circle at 75% 75%, #b91c1c 0%, transparent 1.8%),
-        radial-gradient(circle at 50% 50%, #dc2626 0%, transparent 1.5%),
-        radial-gradient(circle at 10% 50%, #7f1d1d 0%, transparent 2.2%),
-        radial-gradient(circle at 90% 90%, #b91c1c 0%, transparent 1.6%);
+        radial-gradient(circle at 15% 15%, #c2410c 0%, transparent 2%),
+        radial-gradient(circle at 85% 25%, #f97316 0%, transparent 1.5%),
+        radial-gradient(circle at 45% 10%, #fdba74 0%, transparent 2.5%),
+        radial-gradient(circle at 25% 85%, #f97316 0%, transparent 2%),
+        radial-gradient(circle at 75% 75%, #fdba74 0%, transparent 1.8%);
 }
 
 body.page-lineage .nav-menu {
-    background: linear-gradient(135deg, #b91c1c 0%, #7f1d1d 100%);
+    background: linear-gradient(135deg, #f97316 0%, #c2410c 100%);
 }
 
 body.page-lineage .menu-toggle span {
-    background: #b91c1c;
+    background: #f97316;
+}
+
+body.page-lineage .nav-menu-desktop a:hover,
+body.page-lineage .nav-menu-desktop a.active {
+    color: #c2410c;
+}
+
+body.page-lineage .nav-menu-desktop a::before {
+    background: linear-gradient(135deg, #f97316 0%, #c2410c 100%);
+}
+
+body.page-lineage .site-logo-centered {
+    background: linear-gradient(135deg, #c2410c 0%, #f97316 55%, #fdba74 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+body.page-lineage .main-navigation {
+    border-image: linear-gradient(135deg, #f97316 0%, #c2410c 100%) 1;
 }
 
 body.page-lineage .section-title {
-    background: linear-gradient(135deg, #b91c1c 0%, #dc2626 100%);
+    background: linear-gradient(135deg, #c2410c 0%, #f97316 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
 
-body.page-lineage h2 {
-    color: #b91c1c;
+body.page-lineage .section-title::after {
+    background: linear-gradient(135deg, #f97316 0%, #c2410c 100%);
 }
 
-/* Owlery Page - Green Theme */
+body.page-lineage h2 {
+    color: #c2410c;
+}
+
+body.page-lineage .hero-title {
+    background: linear-gradient(135deg, #c2410c 0%, #f97316 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+body.page-lineage .cta-button {
+    background: linear-gradient(135deg, #f97316 0%, #c2410c 100%);
+}
+
+body.page-lineage .card:hover,
+body.page-lineage .portfolio-item:hover {
+    border-color: #f97316;
+}
+
+/* Owlery - Green */
+body.page-owlery {
+    --page-accent: #10b981;
+    --page-deep: #047857;
+    --page-light: #6ee7b7;
+    --page-gradient: linear-gradient(135deg, #047857 0%, #10b981 50%, #6ee7b7 100%);
+    background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 45%, #a7f3d0 100%);
+    background-attachment: fixed;
+}
+
 body.page-owlery::before {
     background-image: 
-        radial-gradient(circle at 20% 30%, rgba(5, 150, 105, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.18) 0%, transparent 50%),
-        radial-gradient(circle at 40% 70%, rgba(52, 211, 153, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 90% 60%, rgba(110, 231, 183, 0.18) 0%, transparent 50%),
-        radial-gradient(circle at 10% 80%, rgba(4, 120, 87, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 60% 40%, rgba(5, 150, 105, 0.16) 0%, transparent 50%),
-        radial-gradient(circle at 30% 50%, rgba(16, 185, 129, 0.12) 0%, transparent 50%),
-        radial-gradient(circle at 70% 80%, rgba(52, 211, 153, 0.15) 0%, transparent 50%);
+        radial-gradient(circle at 20% 30%, rgba(4, 120, 87, 0.14) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.16) 0%, transparent 50%),
+        radial-gradient(circle at 40% 70%, rgba(110, 231, 183, 0.18) 0%, transparent 50%),
+        radial-gradient(circle at 90% 60%, rgba(16, 185, 129, 0.14) 0%, transparent 50%),
+        radial-gradient(circle at 10% 80%, rgba(4, 120, 87, 0.12) 0%, transparent 50%);
 }
 
 body.page-owlery::after {
     background-image:
-        radial-gradient(circle at 15% 15%, #059669 0%, transparent 2%),
+        radial-gradient(circle at 15% 15%, #047857 0%, transparent 2%),
         radial-gradient(circle at 85% 25%, #10b981 0%, transparent 1.5%),
-        radial-gradient(circle at 45% 10%, #34d399 0%, transparent 2.5%),
-        radial-gradient(circle at 25% 85%, #059669 0%, transparent 2%),
-        radial-gradient(circle at 75% 75%, #10b981 0%, transparent 1.8%),
-        radial-gradient(circle at 50% 50%, #34d399 0%, transparent 1.5%),
-        radial-gradient(circle at 10% 50%, #047857 0%, transparent 2.2%),
-        radial-gradient(circle at 90% 90%, #059669 0%, transparent 1.6%);
+        radial-gradient(circle at 45% 10%, #6ee7b7 0%, transparent 2.5%),
+        radial-gradient(circle at 25% 85%, #10b981 0%, transparent 2%),
+        radial-gradient(circle at 75% 75%, #6ee7b7 0%, transparent 1.8%);
 }
 
 body.page-owlery .nav-menu {
-    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+    background: linear-gradient(135deg, #10b981 0%, #047857 100%);
 }
 
 body.page-owlery .menu-toggle span {
-    background: #059669;
+    background: #10b981;
+}
+
+body.page-owlery .nav-menu-desktop a:hover,
+body.page-owlery .nav-menu-desktop a.active {
+    color: #047857;
+}
+
+body.page-owlery .nav-menu-desktop a::before {
+    background: linear-gradient(135deg, #10b981 0%, #047857 100%);
+}
+
+body.page-owlery .site-logo-centered {
+    background: linear-gradient(135deg, #047857 0%, #10b981 55%, #6ee7b7 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+body.page-owlery .main-navigation {
+    border-image: linear-gradient(135deg, #10b981 0%, #047857 100%) 1;
 }
 
 body.page-owlery .section-title {
-    background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+    background: linear-gradient(135deg, #047857 0%, #10b981 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
 
-body.page-owlery h2 {
-    color: #059669;
+body.page-owlery .section-title::after {
+    background: linear-gradient(135deg, #10b981 0%, #047857 100%);
 }
 
+body.page-owlery h2 {
+    color: #047857;
+}
 
+body.page-owlery .hero-title {
+    background: linear-gradient(135deg, #047857 0%, #10b981 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
 
-/* Zephyr (Trusted Sources) Page - Teal & Cyan Theme */
+body.page-owlery .cta-button {
+    background: linear-gradient(135deg, #10b981 0%, #047857 100%);
+}
+
+body.page-owlery .card:hover,
+body.page-owlery .portfolio-item:hover {
+    border-color: #10b981;
+}
+
+/* Zephyr - Cyan */
+body.page-zephyr {
+    --page-accent: #06b6d4;
+    --page-deep: #0e7490;
+    --page-light: #67e8f9;
+    --page-gradient: linear-gradient(135deg, #0e7490 0%, #06b6d4 50%, #67e8f9 100%);
+    background: linear-gradient(135deg, #ecfeff 0%, #cffafe 45%, #a5f3fc 100%);
+    background-attachment: fixed;
+}
+
 body.page-zephyr::before {
     background-image: 
-        radial-gradient(circle at 20% 30%, rgba(13, 148, 136, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(6, 182, 212, 0.18) 0%, transparent 50%),
-        radial-gradient(circle at 40% 70%, rgba(45, 212, 191, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 90% 60%, rgba(103, 232, 249, 0.18) 0%, transparent 50%),
-        radial-gradient(circle at 10% 80%, rgba(15, 118, 110, 0.15) 0%, transparent 50%);
+        radial-gradient(circle at 20% 30%, rgba(14, 116, 144, 0.14) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(6, 182, 212, 0.16) 0%, transparent 50%),
+        radial-gradient(circle at 40% 70%, rgba(103, 232, 249, 0.18) 0%, transparent 50%),
+        radial-gradient(circle at 90% 60%, rgba(6, 182, 212, 0.14) 0%, transparent 50%),
+        radial-gradient(circle at 10% 80%, rgba(14, 116, 144, 0.12) 0%, transparent 50%);
 }
 
 body.page-zephyr::after {
     background-image:
-        radial-gradient(circle at 15% 15%, #0d9488 0%, transparent 2%),
+        radial-gradient(circle at 15% 15%, #0e7490 0%, transparent 2%),
         radial-gradient(circle at 85% 25%, #06b6d4 0%, transparent 1.5%),
-        radial-gradient(circle at 45% 10%, #2dd4bf 0%, transparent 2.5%),
-        radial-gradient(circle at 25% 85%, #0f766e 0%, transparent 2%),
-        radial-gradient(circle at 75% 75%, #22d3ee 0%, transparent 1.8%);
+        radial-gradient(circle at 45% 10%, #67e8f9 0%, transparent 2.5%),
+        radial-gradient(circle at 25% 85%, #06b6d4 0%, transparent 2%),
+        radial-gradient(circle at 75% 75%, #67e8f9 0%, transparent 1.8%);
 }
 
 body.page-zephyr .nav-menu {
-    background: linear-gradient(135deg, #0d9488 0%, #0f766e 100%);
+    background: linear-gradient(135deg, #06b6d4 0%, #0e7490 100%);
 }
 
 body.page-zephyr .menu-toggle span {
-    background: #0d9488;
+    background: #06b6d4;
 }
 
-body.page-zephyr .nav-menu-desktop a.active,
-body.page-zephyr .nav-menu-desktop a:hover {
-    color: #14b8a6;
+body.page-zephyr .nav-menu-desktop a:hover,
+body.page-zephyr .nav-menu-desktop a.active {
+    color: #0e7490;
+}
+
+body.page-zephyr .nav-menu-desktop a::before {
+    background: linear-gradient(135deg, #06b6d4 0%, #0e7490 100%);
+}
+
+body.page-zephyr .site-logo-centered {
+    background: linear-gradient(135deg, #0e7490 0%, #06b6d4 55%, #67e8f9 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+body.page-zephyr .main-navigation {
+    border-image: linear-gradient(135deg, #06b6d4 0%, #0e7490 100%) 1;
 }
 
 body.page-zephyr .section-title {
-    background: linear-gradient(135deg, #0f766e 0%, #14b8a6 100%);
+    background: linear-gradient(135deg, #0e7490 0%, #06b6d4 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
 
-body.page-zephyr h2 {
-    color: #0f766e;
+body.page-zephyr .section-title::after {
+    background: linear-gradient(135deg, #06b6d4 0%, #0e7490 100%);
 }
 
-/* Aardvark Page - Earthy Amber Theme */
+body.page-zephyr h2 {
+    color: #0e7490;
+}
+
+body.page-zephyr .hero-title {
+    background: linear-gradient(135deg, #0e7490 0%, #06b6d4 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+body.page-zephyr .cta-button {
+    background: linear-gradient(135deg, #06b6d4 0%, #0e7490 100%);
+}
+
+body.page-zephyr .card:hover,
+body.page-zephyr .portfolio-item:hover {
+    border-color: #06b6d4;
+}
+
+/* Aardvark - Violet */
+body.page-aardvark {
+    --page-accent: #8b5cf6;
+    --page-deep: #6d28d9;
+    --page-light: #c4b5fd;
+    --page-gradient: linear-gradient(135deg, #6d28d9 0%, #8b5cf6 50%, #c4b5fd 100%);
+    background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 45%, #ddd6fe 100%);
+    background-attachment: fixed;
+}
+
 body.page-aardvark::before {
     background-image: 
-        radial-gradient(circle at 20% 30%, rgba(180, 83, 9, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(217, 119, 6, 0.18) 0%, transparent 50%),
-        radial-gradient(circle at 40% 70%, rgba(245, 158, 11, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 90% 60%, rgba(253, 224, 71, 0.18) 0%, transparent 50%),
-        radial-gradient(circle at 10% 80%, rgba(120, 53, 15, 0.15) 0%, transparent 50%);
+        radial-gradient(circle at 20% 30%, rgba(109, 40, 217, 0.14) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.16) 0%, transparent 50%),
+        radial-gradient(circle at 40% 70%, rgba(196, 181, 253, 0.18) 0%, transparent 50%),
+        radial-gradient(circle at 90% 60%, rgba(139, 92, 246, 0.14) 0%, transparent 50%),
+        radial-gradient(circle at 10% 80%, rgba(109, 40, 217, 0.12) 0%, transparent 50%);
 }
 
 body.page-aardvark::after {
     background-image:
-        radial-gradient(circle at 15% 15%, #b45309 0%, transparent 2%),
-        radial-gradient(circle at 85% 25%, #d97706 0%, transparent 1.5%),
-        radial-gradient(circle at 45% 10%, #f59e0b 0%, transparent 2.5%),
-        radial-gradient(circle at 25% 85%, #92400e 0%, transparent 2%),
-        radial-gradient(circle at 75% 75%, #d97706 0%, transparent 1.8%);
+        radial-gradient(circle at 15% 15%, #6d28d9 0%, transparent 2%),
+        radial-gradient(circle at 85% 25%, #8b5cf6 0%, transparent 1.5%),
+        radial-gradient(circle at 45% 10%, #c4b5fd 0%, transparent 2.5%),
+        radial-gradient(circle at 25% 85%, #8b5cf6 0%, transparent 2%),
+        radial-gradient(circle at 75% 75%, #c4b5fd 0%, transparent 1.8%);
 }
 
 body.page-aardvark .nav-menu {
-    background: linear-gradient(135deg, #b45309 0%, #92400e 100%);
+    background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
 }
 
 body.page-aardvark .menu-toggle span {
-    background: #b45309;
+    background: #8b5cf6;
 }
 
-body.page-aardvark .nav-menu-desktop a.active,
-body.page-aardvark .nav-menu-desktop a:hover {
-    color: #d97706;
+body.page-aardvark .nav-menu-desktop a:hover,
+body.page-aardvark .nav-menu-desktop a.active {
+    color: #6d28d9;
+}
+
+body.page-aardvark .nav-menu-desktop a::before {
+    background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
+}
+
+body.page-aardvark .site-logo-centered {
+    background: linear-gradient(135deg, #6d28d9 0%, #8b5cf6 55%, #c4b5fd 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+body.page-aardvark .main-navigation {
+    border-image: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%) 1;
 }
 
 body.page-aardvark .section-title {
-    background: linear-gradient(135deg, #92400e 0%, #d97706 100%);
+    background: linear-gradient(135deg, #6d28d9 0%, #8b5cf6 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
 
-body.page-aardvark h2 {
-    color: #b45309;
+body.page-aardvark .section-title::after {
+    background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
 }
 
+body.page-aardvark h2 {
+    color: #6d28d9;
+}
 
-/* Active tab accent per page theme */
-body.page-nexus .nav-menu-desktop a.active { color: #d97706; }
-body.page-exhibits .nav-menu-desktop a.active { color: #1e40af; }
-body.page-incantations .nav-menu-desktop a.active { color: #7c3aed; }
-body.page-lineage .nav-menu-desktop a.active { color: #b91c1c; }
-body.page-owlery .nav-menu-desktop a.active { color: #059669; }
+body.page-aardvark .hero-title {
+    background: linear-gradient(135deg, #6d28d9 0%, #8b5cf6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+body.page-aardvark .cta-button {
+    background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
+}
+
+body.page-aardvark .card:hover,
+body.page-aardvark .portfolio-item:hover {
+    border-color: #8b5cf6;
+}
 
 /* ===========================
    Bulletin Board Styles
@@ -1174,7 +1478,7 @@ body.page-owlery .nav-menu-desktop a.active { color: #059669; }
     padding: 1.5rem;
     box-shadow: var(--shadow-card);
     transition: all 0.3s ease;
-    border-left: 4px solid var(--royal-blue);
+    border-left: 4px solid var(--page-accent);
 }
 
 .bulletin-post-card:hover {
@@ -1265,7 +1569,7 @@ body.page-owlery .nav-menu-desktop a.active { color: #059669; }
 .bulletin-contact {
     display: inline-block;
     padding: 0.5rem 1rem;
-    background: var(--royal-blue);
+    background: var(--page-accent);
     color: white;
     border-radius: 6px;
     font-size: 0.85rem;
@@ -1274,7 +1578,7 @@ body.page-owlery .nav-menu-desktop a.active { color: #059669; }
 }
 
 .bulletin-contact:hover {
-    background: var(--sky-blue);
+    background: var(--page-deep);
     transform: translateY(-2px);
 }
 

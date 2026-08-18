@@ -1,75 +1,148 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" role="img" aria-labelledby="aardvarkTitle aardvarkDesc">
-  <title id="aardvarkTitle">An aardvark</title>
-  <desc id="aardvarkDesc">Illustration of an aardvark in profile, with long snout, tall ears, arched back and thick tail, standing on sandy ground beneath a starry sky.</desc>
+  <title id="aardvarkTitle">A friendly aardvark</title>
+  <desc id="aardvarkDesc">Cartoon illustration of a smiling aardvark with a long snout, tall rounded ears and a curled tail, standing on sunny grass under a blue daytime sky with clouds, a shining sun, flowers and butterflies.</desc>
   <defs>
-    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#1e3a8a"/>
-      <stop offset="60%" stop-color="#2563eb"/>
-      <stop offset="100%" stop-color="#60a5fa"/>
+    <linearGradient id="daySky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#7dd3fc"/>
+      <stop offset="55%" stop-color="#bae6fd"/>
+      <stop offset="100%" stop-color="#e0f2fe"/>
     </linearGradient>
-    <linearGradient id="ground" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#fbbf24"/>
-      <stop offset="100%" stop-color="#d97706"/>
+    <linearGradient id="grass" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#86efac"/>
+      <stop offset="100%" stop-color="#4ade80"/>
     </linearGradient>
     <linearGradient id="hide" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#d9c3a5"/>
-      <stop offset="100%" stop-color="#a1866a"/>
+      <stop offset="0%" stop-color="#f0d9bd"/>
+      <stop offset="100%" stop-color="#d4ad86"/>
     </linearGradient>
+    <radialGradient id="sunGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="55%" stop-color="#fde047"/>
+      <stop offset="100%" stop-color="#fde047" stop-opacity="0"/>
+    </radialGradient>
   </defs>
 
-  <rect width="800" height="500" fill="url(#sky)"/>
-  <g fill="#fef9e7" opacity="0.9">
-    <circle cx="90" cy="70" r="2.5"/><circle cx="180" cy="40" r="1.8"/><circle cx="260" cy="95" r="2.2"/>
-    <circle cx="360" cy="55" r="1.6"/><circle cx="470" cy="85" r="2.6"/><circle cx="560" cy="45" r="1.9"/>
-    <circle cx="660" cy="100" r="2.1"/><circle cx="730" cy="60" r="2.7"/><circle cx="620" cy="140" r="1.5"/>
-    <circle cx="140" cy="150" r="1.7"/><circle cx="410" cy="130" r="1.4"/>
+  <!-- sky -->
+  <rect width="800" height="500" fill="url(#daySky)"/>
+
+  <!-- sun -->
+  <circle cx="694" cy="96" r="86" fill="url(#sunGlow)" opacity="0.75"/>
+  <circle cx="694" cy="96" r="46" fill="#fbbf24"/>
+  <circle cx="694" cy="96" r="38" fill="#fde047"/>
+
+  <!-- clouds -->
+  <g fill="#ffffff" opacity="0.95">
+    <g>
+      <ellipse cx="150" cy="92" rx="46" ry="30"/>
+      <ellipse cx="196" cy="100" rx="36" ry="24"/>
+      <ellipse cx="112" cy="104" rx="32" ry="21"/>
+    </g>
+    <g opacity="0.85">
+      <ellipse cx="430" cy="66" rx="38" ry="24"/>
+      <ellipse cx="466" cy="74" rx="28" ry="18"/>
+      <ellipse cx="398" cy="76" rx="26" ry="17"/>
+    </g>
   </g>
-  <circle cx="690" cy="120" r="34" fill="#fde68a" opacity="0.95"/>
 
-  <path d="M0 380 Q 200 340 400 372 Q 600 402 800 360 L800 500 L0 500 Z" fill="url(#ground)"/>
+  <!-- rolling hills -->
+  <path d="M0 330 Q 150 288 320 322 Q 470 352 640 316 Q 730 296 800 312 L800 500 L0 500 Z" fill="#bbf7d0"/>
+  <path d="M0 372 Q 200 336 400 366 Q 600 396 800 356 L800 500 L0 500 Z" fill="url(#grass)"/>
 
+  <!-- background bushes -->
+  <g fill="#4ade80" opacity="0.85">
+    <ellipse cx="86" cy="368" rx="54" ry="30"/>
+    <ellipse cx="132" cy="376" rx="38" ry="22"/>
+    <ellipse cx="726" cy="352" rx="58" ry="30"/>
+  </g>
+
+  <!-- aardvark -->
   <g>
-    <!-- tail -->
-    <path d="M582 318 C 660 316 716 344 754 392 C 712 372 686 358 660 348 C 626 334 600 330 578 336 Z" fill="#9c8265"/>
+    <!-- ground shadow -->
+    <ellipse cx="420" cy="454" rx="196" ry="20" fill="#22c55e" opacity="0.35"/>
+
+    <!-- curly tail -->
+    <path d="M596 336 C 664 330 714 352 726 396 C 732 420 712 436 694 426 C 680 418 682 402 694 396"
+          fill="none" stroke="#dcb894" stroke-width="26" stroke-linecap="round"/>
 
     <!-- far legs -->
-    <path d="M362 336 h34 c4 0 6 3 6 7 l-4 90 h-38 l-4 -90 c0 -4 2 -7 6 -7 z" fill="#8a7157"/>
-    <path d="M540 330 h34 c4 0 6 3 6 7 l-4 92 h-38 l-4 -92 c0 -4 2 -7 6 -7 z" fill="#8a7157"/>
-    <rect x="358" y="428" width="42" height="14" rx="7" fill="#5f4c37"/>
-    <rect x="536" y="424" width="42" height="14" rx="7" fill="#5f4c37"/>
+    <g fill="#cfa87e">
+      <rect x="356" y="352" width="46" height="94" rx="23"/>
+      <rect x="536" y="348" width="46" height="98" rx="23"/>
+    </g>
 
-    <!-- ears (behind head) -->
-    <path d="M212 246 C 196 190 202 152 224 138 C 246 154 250 200 244 250 Z" fill="#c2ab8d" stroke="#8a7157" stroke-width="3" stroke-linejoin="round"/>
-    <path d="M248 250 C 244 192 258 158 284 150 C 298 176 292 218 280 258 Z" fill="#d5c0a2" stroke="#8a7157" stroke-width="3" stroke-linejoin="round"/>
+    <!-- ears -->
+    <g>
+      <path d="M170 214 C 156 158 172 120 200 118 C 222 134 220 186 206 226 Z" fill="#e9cfae" stroke="#bd9469" stroke-width="4" stroke-linejoin="round"/>
+      <path d="M180 208 C 172 172 180 148 192 142 C 202 158 200 186 194 214 Z" fill="#f8c8ca"/>
+      <path d="M240 210 C 240 152 264 118 292 122 C 306 146 288 190 266 226 Z" fill="#e9cfae" stroke="#bd9469" stroke-width="4" stroke-linejoin="round"/>
+      <path d="M252 206 C 254 168 268 146 280 142 C 286 162 274 190 262 214 Z" fill="#f8c8ca"/>
+    </g>
 
-    <!-- head, neck and body silhouette -->
-    <path d="M596 316
-             C 612 248 540 220 458 220
-             C 398 220 348 234 318 256
-             C 284 274 240 248 200 242
-             C 160 236 110 234 88 244
-             C 72 252 76 266 96 272
-             C 130 280 160 278 196 280
-             C 240 284 282 300 318 318
-             C 350 334 380 360 430 366
-             C 502 374 572 364 596 316 Z" fill="url(#hide)"/>
+    <!-- body, neck, head, snout (one continuous silhouette) -->
+    <g fill="#e9cfae">
+      <ellipse cx="470" cy="308" rx="148" ry="98"/>
+      <path d="M250 268 C 312 292 356 306 404 308" fill="none" stroke="#e9cfae" stroke-width="94" stroke-linecap="round"/>
+      <circle cx="216" cy="254" r="64"/>
+      <path d="M186 282 C 152 300 122 308 100 310" fill="none" stroke="#e9cfae" stroke-width="50" stroke-linecap="round"/>
+    </g>
 
     <!-- near legs -->
-    <path d="M330 322 h40 c5 0 8 3 8 8 l-5 108 c0 7 -6 10 -16 10 h-14 c-10 0 -16 -3 -16 -10 l-5 -108 c0 -5 3 -8 8 -8 z" fill="#c2ab8d"/>
-    <path d="M508 344 h40 c5 0 8 3 8 8 l-5 96 c0 7 -6 10 -16 10 h-14 c-10 0 -16 -3 -16 -10 l-5 -96 c0 -5 3 -8 8 -8 z" fill="#c2ab8d"/>
-    <rect x="326" y="444" width="48" height="16" rx="8" fill="#6b563f"/>
-    <rect x="504" y="450" width="48" height="16" rx="8" fill="#6b563f"/>
+    <g fill="#e9cfae">
+      <rect x="332" y="360" width="52" height="98" rx="26"/>
+      <rect x="500" y="356" width="52" height="102" rx="26"/>
+    </g>
+    <g stroke="#c39a70" stroke-width="4" stroke-linecap="round">
+      <path d="M348 440 v12 M368 440 v12"/>
+      <path d="M516 438 v12 M536 438 v12"/>
+    </g>
 
-    <!-- snout, nostril, eye, mouth -->
-    <path d="M88 244 C 72 252 76 266 96 272 C 112 276 128 277 142 278 C 130 264 128 252 138 240 C 120 238 102 239 88 244 Z" fill="#c2ab8d"/>
-    <ellipse cx="92" cy="256" rx="7" ry="9" fill="#4a3b2c"/>
-    <path d="M104 274 C 130 280 158 279 186 280" fill="none" stroke="#8a7157" stroke-width="3" stroke-linecap="round"/>
-    <circle cx="196" cy="256" r="8" fill="#3b2f22"/>
-    <circle cx="198" cy="253" r="2.6" fill="#fef9e7"/>
+    <!-- belly and back shading -->
+    <ellipse cx="452" cy="266" rx="86" ry="30" fill="#ffffff" opacity="0.28"/>
+    <path d="M340 356 C 400 400 540 400 600 344 C 596 388 520 414 450 412 C 396 410 356 390 340 356 Z" fill="#cfa87e" opacity="0.45"/>
+
+    <!-- face -->
+    <ellipse cx="103" cy="306" rx="11" ry="13" fill="#8a6a4b"/>
+    <path d="M118 322 C 136 332 158 330 172 320" fill="none" stroke="#bd9469" stroke-width="4.5" stroke-linecap="round"/>
+    <circle cx="198" cy="244" r="18" fill="#ffffff"/>
+    <circle cx="201" cy="247" r="11" fill="#3f3021"/>
+    <circle cx="206" cy="242" r="4" fill="#ffffff"/>
+    <circle cx="196" cy="252" r="2" fill="#ffffff" opacity="0.8"/>
+    <path d="M182 218 C 192 208 212 209 220 220" fill="none" stroke="#bd9469" stroke-width="4.5" stroke-linecap="round"/>
+    <ellipse cx="168" cy="286" rx="19" ry="12" fill="#f8c8ca" opacity="0.8"/>
+    <ellipse cx="252" cy="272" rx="17" ry="11" fill="#f8c8ca" opacity="0.6"/>
   </g>
 
-  <g fill="#7c5c2e" opacity="0.55">
-    <ellipse cx="180" cy="452" rx="46" ry="7"/>
-    <ellipse cx="660" cy="446" rx="52" ry="8"/>
+  <!-- flowers -->
+  <g>
+    <g transform="translate(148 430)">
+      <path d="M0 0 v-26" stroke="#16a34a" stroke-width="4" stroke-linecap="round"/>
+      <g fill="#f472b6"><circle cx="0" cy="-34" r="7"/><circle cx="-9" cy="-28" r="7"/><circle cx="9" cy="-28" r="7"/><circle cx="0" cy="-22" r="7"/></g>
+      <circle cy="-28" r="4" fill="#fde047"/>
+    </g>
+    <g transform="translate(676 444)">
+      <path d="M0 0 v-24" stroke="#16a34a" stroke-width="4" stroke-linecap="round"/>
+      <g fill="#fbbf24"><circle cx="0" cy="-32" r="7"/><circle cx="-9" cy="-26" r="7"/><circle cx="9" cy="-26" r="7"/><circle cx="0" cy="-20" r="7"/></g>
+      <circle cy="-26" r="4" fill="#fff7ed"/>
+    </g>
+    <g transform="translate(236 466)">
+      <path d="M0 0 v-20" stroke="#16a34a" stroke-width="4" stroke-linecap="round"/>
+      <g fill="#a78bfa"><circle cx="0" cy="-28" r="6"/><circle cx="-8" cy="-23" r="6"/><circle cx="8" cy="-23" r="6"/><circle cx="0" cy="-18" r="6"/></g>
+      <circle cy="-23" r="3.5" fill="#fde047"/>
+    </g>
+  </g>
+
+  <!-- butterflies -->
+  <g>
+    <g transform="translate(612 176)">
+      <path d="M-3 -2 C -26 -30 -52 -18 -40 4 C -30 22 -8 14 -3 2 Z" fill="#c4b5fd" stroke="#7c3aed" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M3 -2 C 26 -30 52 -18 40 4 C 30 22 8 14 3 2 Z" fill="#c4b5fd" stroke="#7c3aed" stroke-width="3" stroke-linejoin="round"/>
+      <ellipse cx="0" cy="0" rx="4.5" ry="14" fill="#6d28d9"/>
+      <path d="M-1 -12 C -6 -22 -12 -26 -16 -26 M1 -12 C 6 -22 12 -26 16 -26" fill="none" stroke="#6d28d9" stroke-width="2.5" stroke-linecap="round"/>
+    </g>
+    <g transform="translate(126 206) rotate(-12) scale(0.78)">
+      <path d="M-3 -2 C -26 -30 -52 -18 -40 4 C -30 22 -8 14 -3 2 Z" fill="#fbcfe8" stroke="#db2777" stroke-width="3.5" stroke-linejoin="round"/>
+      <path d="M3 -2 C 26 -30 52 -18 40 4 C 30 22 8 14 3 2 Z" fill="#fbcfe8" stroke="#db2777" stroke-width="3.5" stroke-linejoin="round"/>
+      <ellipse cx="0" cy="0" rx="4.5" ry="14" fill="#be185d"/>
+      <path d="M-1 -12 C -6 -22 -12 -26 -16 -26 M1 -12 C 6 -22 12 -26 16 -26" fill="none" stroke="#be185d" stroke-width="3" stroke-linecap="round"/>
+    </g>
   </g>
 </svg>
