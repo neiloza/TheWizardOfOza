@@ -78,20 +78,6 @@
         });
     }
 
-    // A little sparkle when something is clicked
-    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    if (!reduceMotion) {
-        $(document).on('click', '.cta-button, .card, .portfolio-item, .bulletin-post-card, .source-card', function (e) {
-            var sparkle = $('<span class="sparkle" aria-hidden="true">✨</span>').css({
-                left: e.clientX - 8 + 'px',
-                top: e.clientY - 8 + 'px'
-            });
-            $('body').append(sparkle);
-            setTimeout(function () { sparkle.remove(); }, 2400);
-        });
-    }
-
     // Form success messages driven by the ?contact= / ?bulletin= query strings
     var params = new URLSearchParams(window.location.search);
 

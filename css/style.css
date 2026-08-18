@@ -495,20 +495,44 @@ body.menu-open::before {
 
 .hero-actions { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }
 
-.hero-orbs { position: absolute; inset: 0; pointer-events: none; z-index: -1; }
+/* A slow-turning sigil ring behind the hero — an ornament, not a decoration */
+.hero-orbs { position: absolute; inset: 0; pointer-events: none; z-index: -1; overflow: hidden; }
 
-.hero-orbs span {
+.hero-orbs::before,
+.hero-orbs::after {
+    content: '';
     position: absolute;
-    font-size: 2rem;
-    opacity: 0.5;
-    filter: drop-shadow(0 8px 16px rgba(26, 22, 38, 0.15));
-    animation: floaty 9s ease-in-out infinite;
+    border-radius: 50%;
+    border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+    animation: slowSpin 90s linear infinite;
 }
 
-.hero-orbs span:nth-child(1) { left: 8%; top: 26%; }
-.hero-orbs span:nth-child(2) { right: 10%; top: 30%; animation-delay: 1.4s; font-size: 2.6rem; }
-.hero-orbs span:nth-child(3) { left: 16%; bottom: 18%; animation-delay: 2.6s; font-size: 1.6rem; }
-.hero-orbs span:nth-child(4) { right: 15%; bottom: 22%; animation-delay: 3.4s; }
+.hero-orbs::before {
+    width: 620px;
+    height: 620px;
+    top: 50%;
+    left: 50%;
+    margin: -310px 0 0 -310px;
+    border-style: dashed;
+    opacity: 0.55;
+}
+
+.hero-orbs::after {
+    width: 430px;
+    height: 430px;
+    top: 50%;
+    left: 50%;
+    margin: -215px 0 0 -215px;
+    border-color: color-mix(in srgb, var(--light) 45%, transparent);
+    animation-direction: reverse;
+    animation-duration: 60s;
+}
+
+.hero-orbs span { display: none; }
+
+@keyframes slowSpin {
+    to { transform: rotate(360deg); }
+}
 
 @keyframes floaty {
     0%, 100% { transform: translateY(0) rotate(-4deg); }
@@ -678,7 +702,8 @@ main > section:nth-of-type(even)::after {
 .card:hover::after { opacity: 1; }
 
 .card-icon {
-    font-size: 2.3rem;
+    font-size: 1.7rem;
+    color: var(--accent);
     line-height: 1;
     margin-bottom: 1.1rem;
     display: inline-flex;
@@ -692,7 +717,7 @@ main > section:nth-of-type(even)::after {
     transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.card:hover .card-icon { transform: translateY(-4px) rotate(-6deg) scale(1.05); }
+.card:hover .card-icon { transform: translateY(-4px); border-color: color-mix(in srgb, var(--accent) 55%, transparent); }
 
 .card-title { font-size: 1.4rem; margin-bottom: 0.75rem; color: var(--deep); }
 .card-description { color: var(--ink-soft); flex: 1; }
@@ -783,32 +808,25 @@ img.portfolio-image {
 .bulletin-post-card {
     position: relative;
     background: linear-gradient(160deg, #ffffff 0%, color-mix(in srgb, var(--light) 12%, #ffffff) 100%);
-    border-radius: 8px;
-    padding: 2.25rem 1.75rem 1.5rem;
+    border-radius: 6px;
+    padding: 2rem 2rem 1.5rem 2.25rem;
     box-shadow: 0 2px 4px rgba(26, 22, 38, 0.06), 0 18px 40px -18px rgba(26, 22, 38, 0.4);
     border: 1px solid rgba(26, 22, 38, 0.06);
     transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease;
 }
 
-/* a strip of tape at the top of each pinned notice */
+/* a struck accent bar rather than a strip of tape */
 .bulletin-post-card::before {
     content: '';
     position: absolute;
-    top: -12px;
-    left: 50%;
-    transform: translateX(-50%) rotate(-2deg);
-    width: 92px;
-    height: 26px;
-    border-radius: 3px;
-    background: color-mix(in srgb, var(--accent) 24%, rgba(255, 255, 255, 0.85));
-    border-left: 1px dashed rgba(255, 255, 255, 0.7);
-    border-right: 1px dashed rgba(255, 255, 255, 0.7);
-    box-shadow: 0 3px 8px rgba(26, 22, 38, 0.12);
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 5px;
+    background: var(--grad);
 }
 
-.bulletin-post-card:nth-child(odd) { transform: rotate(-0.7deg); }
-.bulletin-post-card:nth-child(even) { transform: rotate(0.6deg); }
-.bulletin-post-card:hover { transform: rotate(0deg) translateY(-8px); box-shadow: var(--shadow-hover); }
+.bulletin-post-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-hover), var(--shadow-glow); }
 
 .bulletin-post-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem; }
 
@@ -887,11 +905,10 @@ img.portfolio-image {
     color: #ffffff;
     background: var(--grad);
     box-shadow: 0 14px 30px -12px var(--glow);
-    transform: rotate(-6deg);
-    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
-.chapter:hover .chapter-marker { transform: rotate(0deg) scale(1.06); }
+.chapter:hover .chapter-marker { transform: none; box-shadow: 0 18px 36px -12px var(--glow); }
 
 .chapter-body {
     background: var(--surface-veil);
@@ -1217,14 +1234,6 @@ main .social-link:hover { background: var(--accent); color: #ffffff; }
 html.reveal-ready .reveal { opacity: 0; transform: translateY(28px); }
 html.reveal-ready .reveal.visible { opacity: 1; transform: none; }
 
-.sparkle { position: fixed; pointer-events: none; animation: sparkleFloat 2.4s ease-out forwards; font-size: 1.6rem; z-index: 9999; }
-
-@keyframes sparkleFloat {
-    0% { transform: translateY(0) scale(0.6) rotate(0deg); opacity: 0; }
-    25% { opacity: 1; }
-    100% { transform: translateY(-90px) scale(1.1) rotate(160deg); opacity: 0; }
-}
-
 @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     *, *::before, *::after {
@@ -1238,43 +1247,256 @@ html.reveal-ready .reveal.visible { opacity: 1; transform: none; }
 /* ===========================
    Page identities
    =========================== */
-body.page-nexus { --accent: #f59e0b; --deep: #b45309; --light: #fcd34d; --tint: #fef6dd; --glow: rgba(245, 158, 11, 0.45); }
-body.page-exhibits { --accent: #2563eb; --deep: #1e3a8a; --light: #7dd3fc; --tint: #e6eeff; --glow: rgba(37, 99, 235, 0.42); }
-body.page-incantations { --accent: #dc2626; --deep: #8f1414; --light: #fca5a5; --tint: #fee9e9; --glow: rgba(220, 38, 38, 0.42); }
-body.page-lineage { --accent: #f97316; --deep: #b13c06; --light: #fdba74; --tint: #ffefdd; --glow: rgba(249, 115, 22, 0.42); }
-body.page-owlery { --accent: #10b981; --deep: #065f46; --light: #6ee7b7; --tint: #dcfbee; --glow: rgba(16, 185, 129, 0.42); }
-body.page-zephyr { --accent: #06b6d4; --deep: #0b5f75; --light: #7dd3fc; --tint: #dbfaff; --glow: rgba(6, 182, 212, 0.42); }
-body.page-aardvark { --accent: #8b5cf6; --deep: #5b21b6; --light: #c4b5fd; --tint: #ece8ff; --glow: rgba(139, 92, 246, 0.42); }
+body.page-nexus { --accent: #d97706; --deep: #78350f; --light: #f5c451; --tint: #fdf3dd; --glow: rgba(217, 119, 6, 0.42); }
+body.page-lineage { --accent: #ea580c; --deep: #7c2d12; --light: #fdba74; --tint: #ffeddc; --glow: rgba(234, 88, 12, 0.42); }
+body.page-owlery { --accent: #059669; --deep: #064e3b; --light: #6ee7b7; --tint: #dcfbee; --glow: rgba(5, 150, 105, 0.42); }
+body.page-zephyr { --accent: #0891b2; --deep: #164e63; --light: #7dd3fc; --tint: #dbf4ff; --glow: rgba(8, 145, 178, 0.42); }
+body.page-aardvark { --accent: #7c3aed; --deep: #3b0764; --light: #c4b5fd; --tint: #ebe6ff; --glow: rgba(124, 58, 237, 0.42); }
 
-/* Signature hero textures, one per page */
-body.page-nexus .page-hero::before { filter: blur(22px) saturate(120%); }
+/* Exhibits — arcane: a midnight observatory */
+body.page-exhibits {
+    --accent: #818cf8;
+    --deep: #4338ca;
+    --light: #a5b4fc;
+    --tint: #080a1c;
+    --glow: rgba(129, 140, 248, 0.5);
+}
 
+/* Incantations — fire: a forge at working heat */
+body.page-incantations {
+    --accent: #f97316;
+    --deep: #b91c1c;
+    --light: #fbbf24;
+    --tint: #120705;
+    --glow: rgba(249, 115, 22, 0.55);
+}
+
+/* ===========================
+   Dark pages
+   =========================== */
+body.is-dark {
+    --ink: #f6f1ec;
+    --ink-soft: #cbc3bd;
+    --ink-faint: #948b86;
+    --surface: #16121b;
+    --surface-veil: rgba(255, 255, 255, 0.055);
+    --surface-frost: rgba(255, 255, 255, 0.04);
+    --shadow-soft: 0 2px 10px rgba(0, 0, 0, 0.35), 0 10px 34px rgba(0, 0, 0, 0.35);
+    --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.4), 0 22px 60px rgba(0, 0, 0, 0.5);
+    --shadow-hover: 0 10px 24px rgba(0, 0, 0, 0.45), 0 34px 80px rgba(0, 0, 0, 0.6);
+    color: var(--ink);
+}
+
+body.is-dark::before {
+    background:
+        radial-gradient(50% 40% at 12% 4%, color-mix(in srgb, var(--deep) 65%, transparent) 0%, transparent 62%),
+        radial-gradient(45% 38% at 90% 8%, color-mix(in srgb, var(--accent) 30%, transparent) 0%, transparent 62%),
+        radial-gradient(70% 45% at 50% 104%, color-mix(in srgb, var(--accent) 32%, transparent) 0%, transparent 68%),
+        linear-gradient(180deg, #05060f 0%, var(--tint) 45%, #05060f 100%);
+}
+
+body.is-dark::after { opacity: 0.35; }
+
+body.is-dark h1, body.is-dark h2, body.is-dark h3, body.is-dark h4 { color: #ffffff; }
+body.is-dark a { color: var(--light); }
+body.is-dark a:hover { color: #ffffff; }
+
+body.is-dark .eyebrow {
+    background: color-mix(in srgb, var(--accent) 16%, transparent);
+    border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+    color: var(--light);
+}
+
+body.is-dark .main-navigation {
+    background: rgba(8, 8, 18, 0.72);
+    border-bottom-color: color-mix(in srgb, var(--accent) 35%, transparent);
+}
+
+body.is-dark .main-navigation.is-scrolled { background: rgba(8, 8, 18, 0.92); }
+body.is-dark .nav-menu-desktop a { color: rgba(255, 255, 255, 0.72); }
+body.is-dark .nav-menu-desktop a:hover { color: #ffffff; background: color-mix(in srgb, var(--accent) 18%, transparent); }
+body.is-dark .menu-toggle span { background: var(--light); }
+
+body.is-dark .card,
+body.is-dark .panel,
+body.is-dark .chapter-body,
+body.is-dark .source-card,
+body.is-dark .spell,
+body.is-dark .fact,
+body.is-dark .stat,
+body.is-dark .portfolio-item,
+body.is-dark .bulletin-post-card {
+    background: rgba(255, 255, 255, 0.055);
+    border-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+}
+
+body.is-dark .portfolio-item { background: rgba(255, 255, 255, 0.05); }
+body.is-dark .card-icon { background: color-mix(in srgb, var(--accent) 16%, transparent); border-color: color-mix(in srgb, var(--accent) 40%, transparent); color: var(--light); }
+body.is-dark .card-title, body.is-dark .portfolio-title { color: #ffffff; }
+body.is-dark .spell-tag { background: color-mix(in srgb, var(--accent) 16%, transparent); color: var(--light); border-color: color-mix(in srgb, var(--accent) 40%, transparent); }
+body.is-dark .cta-button.ghost { background: rgba(255, 255, 255, 0.06); color: #ffffff !important; border-color: color-mix(in srgb, var(--accent) 55%, transparent); }
+body.is-dark .cta-button.ghost:hover { background: rgba(255, 255, 255, 0.12); }
+body.is-dark .panel-tinted { background: linear-gradient(150deg, color-mix(in srgb, var(--deep) 45%, transparent) 0%, rgba(255, 255, 255, 0.04) 70%); }
+body.is-dark main > section:nth-of-type(even)::before { background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.035) 14%, rgba(255, 255, 255, 0.035) 86%, transparent); }
+body.is-dark .site-footer { background: linear-gradient(160deg, #06070f 0%, color-mix(in srgb, var(--deep) 55%, #06070f) 100%); }
+body.is-dark ::-webkit-scrollbar-track { background: #0b0b16; }
+body.is-dark ::-webkit-scrollbar-thumb { border-color: #0b0b16; }
+body.is-dark .page-hero::after { background: transparent; }
+body.is-dark .fact-num, body.is-dark .stat-value { filter: brightness(1.3); }
+
+/* On dark grounds the gradient has to run light-to-accent or the type sinks */
+body.is-dark .hero-title,
+body.is-dark .page-hero h1 {
+    background: linear-gradient(115deg, #ffffff 0%, var(--light) 45%, var(--accent) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 14px 34px var(--glow));
+}
+
+body.is-dark .section-title,
+body.is-dark .site-logo-centered,
+body.is-dark .stat-value,
+body.is-dark .fact-num {
+    background: linear-gradient(115deg, #ffffff 0%, var(--light) 55%, var(--accent) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+body.is-dark .hero-subtitle { color: var(--light); }
+body.is-dark .bulletin-post-title { color: #ffffff; }
+body.is-dark .source-host { color: var(--light); }
+body.is-dark .read-more { color: var(--light); }
+body.is-dark .read-more:hover { color: #ffffff; }
+body.is-dark .chapter-step { color: var(--light); }
+body.is-dark .form-input, body.is-dark .form-textarea { background: rgba(255, 255, 255, 0.06); color: var(--ink); }
+body.is-dark .contact-form { background: rgba(255, 255, 255, 0.05); }
+
+/* ---------------------------
+   Exhibits: arcane
+   --------------------------- */
 body.page-exhibits .page-hero::before {
     background:
-        radial-gradient(30% 40% at 15% 25%, color-mix(in srgb, var(--accent) 50%, transparent) 0%, transparent 62%),
-        radial-gradient(35% 42% at 85% 18%, color-mix(in srgb, var(--light) 70%, transparent) 0%, transparent 62%),
-        conic-gradient(from 210deg at 50% 95%, transparent 0deg, color-mix(in srgb, var(--deep) 20%, transparent) 90deg, transparent 200deg);
+        radial-gradient(36% 42% at 18% 22%, color-mix(in srgb, var(--deep) 75%, transparent) 0%, transparent 64%),
+        radial-gradient(34% 38% at 84% 16%, color-mix(in srgb, var(--accent) 42%, transparent) 0%, transparent 62%),
+        radial-gradient(60% 40% at 50% 100%, color-mix(in srgb, var(--deep) 60%, transparent) 0%, transparent 70%);
+    filter: blur(22px) saturate(125%);
 }
 
-body.page-incantations .page-hero::before { filter: blur(26px) saturate(135%); }
+/* a field of stars over the whole arcane page */
+body.page-exhibits .page-hero .hero-orbs {
+    opacity: 0.9;
+    background-image:
+        radial-gradient(2.2px 2.2px at 12% 18%, rgba(255, 255, 255, 1) 50%, transparent 52%),
+        radial-gradient(1.6px 1.6px at 20% 40%, rgba(199, 210, 254, 0.95) 50%, transparent 52%),
+        radial-gradient(1.4px 1.4px at 36% 84%, rgba(255, 255, 255, 0.9) 50%, transparent 52%),
+        radial-gradient(2px 2px at 70% 18%, rgba(255, 255, 255, 0.95) 50%, transparent 52%),
+        radial-gradient(1.5px 1.5px at 92% 24%, rgba(199, 210, 254, 0.9) 50%, transparent 52%),
+        radial-gradient(1.2px 1.2px at 28% 62%, rgba(255, 255, 255, 0.9) 50%, transparent 52%),
+        radial-gradient(2.2px 1.8px at 44% 28%, rgba(255, 255, 255, 0.85) 50%, transparent 52%),
+        radial-gradient(1.7px 1.7px at 62% 74%, rgba(255, 255, 255, 0.9) 50%, transparent 52%),
+        radial-gradient(2px 2px at 76% 34%, rgba(255, 255, 255, 0.9) 50%, transparent 52%),
+        radial-gradient(1.3px 1.3px at 88% 66%, rgba(255, 255, 255, 0.7) 50%, transparent 52%),
+        radial-gradient(1.5px 1.5px at 8% 78%, rgba(255, 255, 255, 0.75) 50%, transparent 52%),
+        radial-gradient(1.2px 1.2px at 54% 12%, rgba(255, 255, 255, 0.8) 50%, transparent 52%);
+    animation: starPulse 7s ease-in-out infinite;
+}
 
-body.page-lineage .page-hero::before {
+@keyframes starPulse {
+    0%, 100% { opacity: 0.75; }
+    50% { opacity: 1; }
+}
+
+body.page-exhibits .hero-orbs::before {
+    border-style: solid;
+    border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+    box-shadow: 0 0 60px -10px var(--glow) inset;
+}
+
+/* the runic ring gets tick marks, like an astrolabe */
+body.page-exhibits .hero-orbs::after {
+    border-style: dashed;
+    border-width: 2px;
+}
+
+body.page-exhibits .portfolio-image { filter: saturate(1.05) contrast(1.02); }
+
+body.page-exhibits .portfolio-item::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background: linear-gradient(180deg, transparent 55%, rgba(6, 6, 20, 0.55) 100%);
+}
+
+body.page-exhibits .section-head .rule::before,
+body.page-exhibits .section-head .rule::after { box-shadow: 0 0 12px 2px var(--glow); }
+
+/* ---------------------------
+   Incantations: fire
+   --------------------------- */
+body.page-incantations .page-hero::before {
     background:
-        radial-gradient(40% 50% at 20% 20%, color-mix(in srgb, var(--accent) 45%, transparent) 0%, transparent 65%),
-        radial-gradient(35% 45% at 80% 25%, color-mix(in srgb, var(--light) 70%, transparent) 0%, transparent 65%),
-        repeating-conic-gradient(from 0deg at 50% 125%, color-mix(in srgb, var(--deep) 10%, transparent) 0deg 12deg, transparent 12deg 24deg);
+        radial-gradient(45% 40% at 50% 108%, #fbbf24 0%, transparent 55%),
+        radial-gradient(60% 45% at 50% 112%, #ea580c 0%, transparent 62%),
+        radial-gradient(38% 40% at 16% 24%, color-mix(in srgb, var(--deep) 70%, transparent) 0%, transparent 64%),
+        radial-gradient(34% 36% at 84% 18%, color-mix(in srgb, var(--accent) 45%, transparent) 0%, transparent 62%);
+    filter: blur(26px) saturate(140%);
+    animation: emberBreath 9s ease-in-out infinite alternate;
 }
 
-body.page-owlery .page-hero::before { filter: blur(20px) saturate(125%); }
+@keyframes emberBreath {
+    0% { transform: scale(1) translateY(0); opacity: 0.92; }
+    100% { transform: scale(1.06) translateY(-1.5%); opacity: 1; }
+}
 
-body.page-zephyr .page-hero::before {
+/* embers drifting up out of the forge */
+body.page-incantations .hero-orbs {
+    background-image:
+        radial-gradient(2px 2px at 14% 90%, #fbbf24 50%, transparent 52%),
+        radial-gradient(1.5px 1.5px at 32% 70%, #f97316 50%, transparent 52%),
+        radial-gradient(2.4px 2.4px at 48% 96%, #fdba74 50%, transparent 52%),
+        radial-gradient(1.6px 1.6px at 66% 76%, #fbbf24 50%, transparent 52%),
+        radial-gradient(2px 2px at 82% 92%, #f97316 50%, transparent 52%),
+        radial-gradient(1.4px 1.4px at 92% 66%, #fcd34d 50%, transparent 52%),
+        radial-gradient(1.8px 1.8px at 24% 58%, #f59e0b 50%, transparent 52%),
+        radial-gradient(1.3px 1.3px at 58% 52%, #fbbf24 50%, transparent 52%);
+    animation: emberRise 14s linear infinite;
+}
+
+@keyframes emberRise {
+    0% { transform: translateY(0); opacity: 0; }
+    12% { opacity: 0.9; }
+    88% { opacity: 0.5; }
+    100% { transform: translateY(-320px); opacity: 0; }
+}
+
+body.page-incantations .hero-orbs::before,
+body.page-incantations .hero-orbs::after { border-color: color-mix(in srgb, var(--accent) 26%, transparent); }
+
+/* the sigil panel of each spell is a sheet of hot metal */
+body.page-incantations .spell-sigil {
+    background: linear-gradient(160deg, #7f1d1d 0%, #dc2626 40%, #f97316 78%, #fbbf24 100%);
+}
+
+body.page-incantations .spell-sigil::before {
     background:
-        radial-gradient(35% 45% at 18% 25%, color-mix(in srgb, var(--accent) 42%, transparent) 0%, transparent 62%),
-        radial-gradient(40% 40% at 82% 20%, color-mix(in srgb, var(--light) 70%, transparent) 0%, transparent 62%),
-        repeating-linear-gradient(115deg, color-mix(in srgb, var(--light) 20%, transparent) 0 6px, transparent 6px 34px);
+        radial-gradient(70% 60% at 30% 100%, rgba(255, 224, 130, 0.55) 0%, transparent 65%),
+        repeating-linear-gradient(115deg, rgba(0, 0, 0, 0.16) 0 10px, transparent 10px 26px);
 }
 
-body.page-aardvark .page-hero::before { filter: blur(24px) saturate(130%); }
+body.page-incantations .spell {
+    border-color: rgba(249, 115, 22, 0.22);
+    box-shadow: var(--shadow-card), 0 0 90px -50px var(--glow);
+}
+
+body.page-incantations .spell:hover { box-shadow: var(--shadow-hover), 0 30px 90px -35px var(--glow); }
+
+body.page-incantations .cta-button { box-shadow: 0 14px 34px -12px var(--glow), 0 0 26px -12px #fbbf24; }
 
 /* ===========================
    Responsive
@@ -1305,6 +1527,5 @@ body.page-aardvark .page-hero::before { filter: blur(24px) saturate(130%); }
     .timeline::before { display: none; }
     .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
     .hero-orbs { display: none; }
-    .bulletin-post-card:nth-child(odd), .bulletin-post-card:nth-child(even) { transform: none; }
     .chapter-body, .panel { padding: 1.75rem; }
 }
