@@ -95,7 +95,7 @@ body::before {
         radial-gradient(60% 40% at 20% 58%, color-mix(in srgb, var(--accent) 22%, transparent) 0%, transparent 62%),
         radial-gradient(65% 45% at 85% 76%, color-mix(in srgb, var(--light) 55%, transparent) 0%, transparent 65%),
         radial-gradient(80% 55% at 50% 104%, color-mix(in srgb, var(--deep) 32%, transparent) 0%, transparent 68%),
-        linear-gradient(170deg, #ffffff 0%, var(--tint) 45%, color-mix(in srgb, var(--light) 45%, #ffffff) 100%);
+        linear-gradient(170deg, #ffffff 0%, var(--tint) 42%, color-mix(in srgb, var(--light) 30%, var(--tint)) 100%);
 }
 
 /* Fine grain so the gradients never look like flat plastic */
@@ -785,6 +785,28 @@ main > section:nth-of-type(even)::after {
 
 .portfolio-item:hover .portfolio-image { transform: scale(1.06); }
 
+/* Each game wears the icon you would get if you added it to a home screen */
+.game-tile { position: relative; display: flex; align-items: center; justify-content: center; }
+
+.game-icon {
+    width: 132px;
+    height: 132px;
+    border-radius: 30px;
+    object-fit: contain;
+    padding: 4px;
+    box-shadow: 0 18px 40px -14px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.25) inset;
+    position: relative;
+    z-index: 1;
+    background: rgba(255, 255, 255, 0.08);
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.portfolio-item:hover .game-icon { transform: translateY(-6px) scale(1.04); }
+
+/* Shown only when the icon cannot be fetched */
+.game-glyph { display: none; font-size: 4.5rem; filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.45)); }
+.game-tile.icon-missing .game-glyph { display: block; }
+
 /* Photos sit on the page gradient, so a slow or blocked image still looks intentional */
 img.portfolio-image {
     background: var(--grad);
@@ -1247,11 +1269,11 @@ html.reveal-ready .reveal.visible { opacity: 1; transform: none; }
 /* ===========================
    Page identities
    =========================== */
-body.page-nexus { --accent: #d97706; --deep: #78350f; --light: #f5c451; --tint: #fdf3dd; --glow: rgba(217, 119, 6, 0.42); }
-body.page-lineage { --accent: #ea580c; --deep: #7c2d12; --light: #fdba74; --tint: #ffeddc; --glow: rgba(234, 88, 12, 0.42); }
-body.page-owlery { --accent: #059669; --deep: #064e3b; --light: #6ee7b7; --tint: #dcfbee; --glow: rgba(5, 150, 105, 0.42); }
-body.page-zephyr { --accent: #0891b2; --deep: #164e63; --light: #7dd3fc; --tint: #dbf4ff; --glow: rgba(8, 145, 178, 0.42); }
-body.page-aardvark { --accent: #7c3aed; --deep: #3b0764; --light: #c4b5fd; --tint: #ebe6ff; --glow: rgba(124, 58, 237, 0.42); }
+body.page-nexus { --accent: #d97706; --deep: #78350f; --light: #f5c451; --glow: rgba(217, 119, 6, 0.42); }
+body.page-lineage { --accent: #ea580c; --deep: #7c2d12; --light: #fdba74; --glow: rgba(234, 88, 12, 0.42); }
+body.page-owlery { --accent: #059669; --deep: #064e3b; --light: #6ee7b7; --glow: rgba(5, 150, 105, 0.42); }
+body.page-zephyr { --accent: #9333ea; --deep: #581c87; --light: #d8b4fe; --glow: rgba(147, 51, 234, 0.42); }
+body.page-aardvark { --accent: #db2777; --deep: #831843; --light: #f9a8d4; --glow: rgba(219, 39, 119, 0.42); }
 
 /* Exhibits — arcane: a midnight observatory */
 body.page-exhibits {
