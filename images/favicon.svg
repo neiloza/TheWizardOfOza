@@ -1,25 +1,18 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
   <defs>
     <linearGradient id="hatGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#7c3aed"/>
-      <stop offset="100%" stop-color="#3b0f7a"/>
-    </linearGradient>
-    <linearGradient id="bandGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#fbbf24"/>
-      <stop offset="100%" stop-color="#f59e0b"/>
+      <stop offset="0%" stop-color="#a78bfa"/>
+      <stop offset="100%" stop-color="#5b21b6"/>
     </linearGradient>
   </defs>
 
   <!-- background -->
   <rect width="64" height="64" fill="#BA79F6"/>
 
-  <!-- ground shadow -->
-  <ellipse cx="32" cy="56.5" rx="29" ry="5" fill="#3b0f7a" opacity="0.25"/>
-
   <!-- brim -->
   <ellipse cx="32" cy="53" rx="27" ry="7.5" fill="url(#hatGradient)"/>
-  <ellipse cx="32" cy="54.5" rx="27" ry="6" fill="#2e1065" opacity="0.35"/>
-  <ellipse cx="32" cy="53" rx="27" ry="7.5" fill="none" stroke="#2e1065" stroke-opacity="0.4" stroke-width="1"/>
+  <ellipse cx="32" cy="54.5" rx="27" ry="6" fill="#000000" opacity="0.12"/>
+  <ellipse cx="32" cy="53" rx="27" ry="7.5" fill="none" stroke="#4c1d95" stroke-opacity="0.25" stroke-width="1"/>
 
   <!-- cone, curled tip -->
   <path d="M18 53
@@ -34,20 +27,14 @@
            Z"
         fill="url(#hatGradient)"/>
 
-  <!-- rim highlight on cone's lit edge -->
-  <path d="M18.6 51
-           C 19.6 37.5 23.6 21.5 28.4 13.6
-           C 30.6 10 32.8 6.8 35.4 5.2"
-        fill="none" stroke="#c4a5fb" stroke-opacity="0.65" stroke-width="1.4" stroke-linecap="round"/>
-
   <!-- band -->
   <path d="M19 43.5 C24 41.3 40 41.3 45 43.5 L47.2 49.5 C41.5 47.2 22.5 47.2 16.8 49.5 Z"
-        fill="url(#bandGradient)"/>
+        fill="#f59e0b"/>
 
   <!-- stars -->
   <g fill="#fde68a">
-    <path d="M33 14 l1.8 4 4.3 0.4 -3.2 3 0.9 4.3 -3.8 -2.2 -3.8 2.2 0.9 -4.3 -3.2 -3 4.3 -0.4 Z"/>
-    <path d="M23 32 l1.2 2.6 2.9 0.3 -2.1 2 0.6 2.9 -2.6 -1.5 -2.6 1.5 0.6 -2.9 -2.1 -2 2.9 -0.3 Z"/>
-    <path d="M41 30 l1 2.2 2.4 0.2 -1.8 1.7 0.5 2.4 -2.1 -1.2 -2.1 1.2 0.5 -2.4 -1.8 -1.7 2.4 -0.2 Z"/>
+    <path d="M33 15.05 L34.48 18.33 L38 18.66 L35.38 21.12 L36.12 24.65 L33 22.84 L29.88 24.65 L30.62 21.12 L28 18.66 L31.52 18.33 Z"/>
+    <path d="M23 32.7 L23.98 34.83 L26.36 35.08 L24.64 36.72 L25.13 39.1 L23 37.87 L20.87 39.1 L21.36 36.72 L19.64 35.08 L22.02 34.83 Z"/>
+    <path d="M41 30.59 L41.82 32.39 L43.79 32.55 L42.31 33.95 L42.72 35.92 L41 34.93 L39.28 35.92 L39.69 33.95 L38.21 32.55 L40.18 32.39 Z"/>
   </g>
 </svg>
