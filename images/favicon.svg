@@ -7,7 +7,7 @@
   </defs>
 
   <!-- background -->
-  <rect width="64" height="64" fill="#A855F7"/>
+  <rect width="64" height="64" fill="#BA79F6"/>
 
   <!-- brim -->
   <ellipse cx="32" cy="53" rx="27" ry="7.5" fill="url(#hatGradient)"/>
