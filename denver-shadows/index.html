@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Denver Shadows &ndash; The Wizard of Oza</title>
-    <meta name="description" content="Part of the Exhibits hall at The Wizard of Oza.">
+    <meta name="description" content="One wizard, 467,928 Denver crime incidents, and a Python that eats spreadsheets. Auto-theft trends, seasonal patterns and hotspots&mdash;notebook included.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -52,7 +52,7 @@
     <div style="text-align: center; margin-bottom: 4rem;">
         <h1 class="section-title" style="font-size: 3.5rem; margin-bottom: 1rem;">Chronicles of Denver's Shadows</h1>
         <p style="color: var(--sunshine-gold); font-size: 1.3rem; font-style: italic; margin-bottom: 2rem;">
-            A Data Wizard's Journey Through the Hidden Patterns of Urban Crime
+            One Wizard. 467,928 Crimes. A Truly Alarming Amount of Coffee.
         </p>
         <a href="../analyzing-denver-s-crime-data.ipynb" download class="cta-button" style="font-size: 1.1rem; padding: 1rem 2.5rem;">
             <i class="fas fa-download"></i> Download the Grimoire
@@ -63,10 +63,10 @@
         <div style="background: linear-gradient(135deg, #1a1a2e 0%, #2d3561 50%, #4a5899 100%); padding: 4rem 2rem; border-radius: 20px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);">
             <div style="font-size: 8rem; margin-bottom: 1rem;">🔮</div>
             <p style="color: var(--sunshine-gold); font-size: 1.5rem; font-style: italic; margin-bottom: 1rem;">
-                "In the data, patterns emerge like constellations in the night sky..."
+                "In the data, patterns emerge like constellations&mdash;except these constellations steal cars."
             </p>
             <p style="color: rgba(255, 255, 255, 0.8); font-size: 1.1rem;">
-                467,928 incidents analyzed • 19 dimensions explored • Hidden truths revealed
+                467,928 incidents analyzed • 19 dimensions explored • 0 crimes committed in the making of this notebook
             </p>
         </div>
     </div>
@@ -77,13 +77,13 @@
         </h2>
         <div style="background: var(--card-bg); padding: 3rem; border-radius: 20px; box-shadow: var(--shadow-card); border-left: 4px solid var(--sunshine-gold);">
             <p style="color: var(--text-medium); font-size: 1.1rem; line-height: 1.9; margin-bottom: 1.5rem;">
-                Having lived in Denver until recently, I set out on a quest to understand the patterns hidden within the city's crime data. Armed with Python and the determination of a data wizard, I dove into Denver's publicly available crime records—nearly half a million incidents spanning years of urban life.
+                Having lived in Denver until recently, I did what any reasonable person does after moving away: downloaded the city's entire public crime dataset and refused to sleep until it made sense. Armed with Python and the confidence of a wizard who has not yet seen the data quality, I waded into nearly half a million incidents spanning years of urban life.
             </p>
             <p style="color: var(--text-medium); font-size: 1.1rem; line-height: 1.9; margin-bottom: 1.5rem;">
-                My mission was clear: organize this chaotic sea of data in a way that could help Denver's law enforcement allocate their resources more efficiently. To predict where the shadows would fall next, I first needed to understand where they had been.
+                The mission was genuinely serious: organize this chaotic sea of records so Denver's law enforcement could allocate resources more efficiently. To predict where the shadows fall next, you first have to map where they have been. The shadows, for the record, did not cooperate.
             </p>
             <p style="color: var(--text-medium); font-size: 1.1rem; line-height: 1.9;">
-                This is the chronicle of that journey—a tale of data cleaning, pattern discovery, and the hidden truths that emerge when you know where to look.
+                This is the chronicle of that journey—a tale of data cleaning, pattern discovery, and the truths that surface when you stare at a CSV long enough for it to stare back.
             </p>
         </div>
     </div>
@@ -94,19 +94,19 @@
                 <i class="fas fa-magic"></i> Chapter I: The Purification Ritual
             </h2>
             <p style="color: var(--text-medium); font-size: 1.1rem; line-height: 1.8; margin-bottom: 1.5rem;">
-                Before any wizard can divine the future, they must cleanse their tools. The raw data arrived like an ancient scroll—467,928 entries across 19 mystical columns. Each offense carried an ID, constructed from incident numbers, offense codes, and extensions. Some bore precise timestamps; others spoke only in ranges, their exact moments lost to time.
+                Before any wizard divines the future, the dishes must be done. The raw data arrived like an ancient scroll—467,928 entries across 19 columns—and, like most ancient scrolls, it was a mess. Each offense carried an ID built from incident numbers, offense codes, and extensions. Some bore precise timestamps; others spoke only in vague ranges, like witnesses who would rather not get involved.
             </p>
             <p style="color: var(--text-medium); font-size: 1.1rem; line-height: 1.8; margin-bottom: 1.5rem;">
-                I discovered anomalies lurking in the shadows: 41 entries where the last occurrence came before the first—temporal paradoxes that had to be banished. Geographical coordinates sometimes vanished for privacy, while certain dates refused to align properly. Each error was cataloged, corrected, or excised with surgical precision.
+                Anomalies lurked within: 41 entries where the crime ended before it began—actual time travel, per the spreadsheet—which had to be banished. Coordinates vanished for privacy; certain dates simply refused to align, on principle. Each error was cataloged, corrected, or excised with surgical precision and only moderate muttering.
             </p>
             <p style="color: var(--text-medium); font-size: 1.1rem; line-height: 1.8;">
-                The purification complete, I filtered away traffic incidents—focusing solely on true crimes. What remained was a pristine dataset, ready to reveal its secrets.
+                Purification complete, I filtered out traffic incidents to focus on true crimes. What remained was a pristine dataset—clean, obedient, and ready to confess everything.
             </p>
         </div>
         <div style="background: var(--card-bg); padding: 2rem; border-radius: 16px; box-shadow: var(--shadow-card); height: fit-content;">
             <h3 style="color: var(--sunshine-gold); margin-bottom: 1.5rem; text-align: center;">The Grimoire's Contents</h3>
-            <div style="margin-bottom: 1rem;"><strong style="color: var(--royal-blue);"><i class="fas fa-flask"></i> Total Incidents:</strong><p style="color: var(--text-medium); margin: 0.5rem 0;">467,928 criminal offenses</p></div>
-            <div style="margin-bottom: 1rem;"><strong style="color: var(--royal-blue);"><i class="fas fa-compass"></i> Data Dimensions:</strong><p style="color: var(--text-medium); margin: 0.5rem 0;">19 columns of mystical attributes</p></div>
+            <div style="margin-bottom: 1rem;"><strong style="color: var(--royal-blue);"><i class="fas fa-flask"></i> Total Incidents:</strong><p style="color: var(--text-medium); margin: 0.5rem 0;">467,928 criminal offenses (all someone else&rsquo;s)</p></div>
+            <div style="margin-bottom: 1rem;"><strong style="color: var(--royal-blue);"><i class="fas fa-compass"></i> Data Dimensions:</strong><p style="color: var(--text-medium); margin: 0.5rem 0;">19 columns, each with opinions</p></div>
             <div style="margin-bottom: 1rem;"><strong style="color: var(--royal-blue);"><i class="fas fa-map-marked-alt"></i> Geography:</strong><p style="color: var(--text-medium); margin: 0.5rem 0;">Districts, precincts, neighborhoods mapped</p></div>
             <div style="margin-bottom: 1rem;"><strong style="color: var(--royal-blue);"><i class="fas fa-clock"></i> Time Span:</strong><p style="color: var(--text-medium); margin: 0.5rem 0;">Multiple years of temporal patterns</p></div>
             <div style="margin-bottom: 1rem;"><strong style="color: var(--royal-blue);"><i class="fas fa-scroll"></i> Format:</strong><p style="color: var(--text-medium); margin: 0.5rem 0;">Jupyter Notebook (.ipynb)</p></div>
@@ -121,22 +121,22 @@
             <div class="card">
                 <div style="font-size: 3rem; color: var(--sunshine-gold); margin-bottom: 1rem;">📈</div>
                 <h3 style="color: var(--royal-blue); margin-bottom: 1rem;">The Rising Tide</h3>
-                <p style="color: var(--text-medium);">Auto-theft and theft-from-motor-vehicles emerged from the mists, showing steady increases over three years. The patterns suggested a need for public awareness campaigns about vehicle security.</p>
+                <p style="color: var(--text-medium);">Auto-theft and theft-from-motor-vehicles rose steadily over three years&mdash;the data all but tugs your sleeve about it. Translation: Denver, lock your cars; the trend line is not on your side.</p>
             </div>
             <div class="card">
                 <div style="font-size: 3rem; color: var(--sunshine-gold); margin-bottom: 1rem;">🌙</div>
                 <h3 style="color: var(--royal-blue); margin-bottom: 1rem;">Temporal Prophecies</h3>
-                <p style="color: var(--text-medium);">Seasonal patterns materialized like clockwork. Certain months whispered of higher crime rates, revealing cyclical rhythms in urban disorder that could guide resource allocation.</p>
+                <p style="color: var(--text-medium);">Seasonal patterns tick along like clockwork: certain months reliably run hotter than others. Crime, it turns out, keeps a calendar&mdash;which means patrol resources can keep one too.</p>
             </div>
             <div class="card">
                 <div style="font-size: 3rem; color: var(--sunshine-gold); margin-bottom: 1rem;">🗺️</div>
                 <h3 style="color: var(--royal-blue); margin-bottom: 1rem;">Geographic Shadows</h3>
-                <p style="color: var(--text-medium);">Districts and precincts revealed distinct patterns. By mapping crime concentrations across neighborhoods, the data illuminated where law enforcement presence mattered most.</p>
+                <p style="color: var(--text-medium);">Districts and precincts each have a signature. Mapping concentrations across neighborhoods shows exactly where presence matters most&mdash;no crystal ball required, just Folium and patience.</p>
             </div>
             <div class="card">
                 <div style="font-size: 3rem; color: var(--sunshine-gold); margin-bottom: 1rem;">⚖️</div>
                 <h3 style="color: var(--royal-blue); margin-bottom: 1rem;">Category Convergence</h3>
-                <p style="color: var(--text-medium);">Public disorder declined while property crimes surged. Understanding which offense categories trended upward or downward painted a comprehensive picture of Denver's evolving crime landscape.</p>
+                <p style="color: var(--text-medium);">Public disorder declined while property crimes surged&mdash;two lines crossing like ships in the night, one of them carrying your catalytic converter. Category by category, the full landscape comes into focus.</p>
             </div>
         </div>
     </section>
@@ -147,12 +147,12 @@
         </h2>
         <div style="background: linear-gradient(135deg, rgba(37, 99, 235, 0.05) 0%, rgba(245, 158, 11, 0.05) 100%); padding: 3rem; border-radius: 20px;">
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem;">
-                <div style="text-align: center;"><div style="font-size: 3rem; margin-bottom: 0.5rem;">🐍</div><strong style="color: var(--royal-blue);">Python</strong><p style="color: var(--text-medium); font-size: 0.9rem; margin-top: 0.5rem;">The foundation of all magic</p></div>
-                <div style="text-align: center;"><div style="font-size: 3rem; margin-bottom: 0.5rem;">📊</div><strong style="color: var(--royal-blue);">Pandas</strong><p style="color: var(--text-medium); font-size: 0.9rem; margin-top: 0.5rem;">For data manipulation mastery</p></div>
-                <div style="text-align: center;"><div style="font-size: 3rem; margin-bottom: 0.5rem;">📈</div><strong style="color: var(--royal-blue);">Matplotlib</strong><p style="color: var(--text-medium); font-size: 0.9rem; margin-top: 0.5rem;">Visualizing hidden patterns</p></div>
-                <div style="text-align: center;"><div style="font-size: 3rem; margin-bottom: 0.5rem;">🎨</div><strong style="color: var(--royal-blue);">Seaborn</strong><p style="color: var(--text-medium); font-size: 0.9rem; margin-top: 0.5rem;">Statistical beauty incarnate</p></div>
-                <div style="text-align: center;"><div style="font-size: 3rem; margin-bottom: 0.5rem;">🗺️</div><strong style="color: var(--royal-blue);">Folium</strong><p style="color: var(--text-medium); font-size: 0.9rem; margin-top: 0.5rem;">Mapping the city's secrets</p></div>
-                <div style="text-align: center;"><div style="font-size: 3rem; margin-bottom: 0.5rem;">📐</div><strong style="color: var(--royal-blue);">NumPy &amp; SciPy</strong><p style="color: var(--text-medium); font-size: 0.9rem; margin-top: 0.5rem;">Mathematical incantations</p></div>
+                <div style="text-align: center;"><div style="font-size: 3rem; margin-bottom: 0.5rem;">🐍</div><strong style="color: var(--royal-blue);">Python</strong><p style="color: var(--text-medium); font-size: 0.9rem; margin-top: 0.5rem;">A snake that eats spreadsheets</p></div>
+                <div style="text-align: center;"><div style="font-size: 3rem; margin-bottom: 0.5rem;">📊</div><strong style="color: var(--royal-blue);">Pandas</strong><p style="color: var(--text-medium); font-size: 0.9rem; margin-top: 0.5rem;">Bear-themed, bamboo-free wrangling</p></div>
+                <div style="text-align: center;"><div style="font-size: 3rem; margin-bottom: 0.5rem;">📈</div><strong style="color: var(--royal-blue);">Matplotlib</strong><p style="color: var(--text-medium); font-size: 0.9rem; margin-top: 0.5rem;">Charts on command</p></div>
+                <div style="text-align: center;"><div style="font-size: 3rem; margin-bottom: 0.5rem;">🎨</div><strong style="color: var(--royal-blue);">Seaborn</strong><p style="color: var(--text-medium); font-size: 0.9rem; margin-top: 0.5rem;">Statistics, but make it fashion</p></div>
+                <div style="text-align: center;"><div style="font-size: 3rem; margin-bottom: 0.5rem;">🗺️</div><strong style="color: var(--royal-blue);">Folium</strong><p style="color: var(--text-medium); font-size: 0.9rem; margin-top: 0.5rem;">Maps with receipts</p></div>
+                <div style="text-align: center;"><div style="font-size: 3rem; margin-bottom: 0.5rem;">📐</div><strong style="color: var(--royal-blue);">NumPy &amp; SciPy</strong><p style="color: var(--text-medium); font-size: 0.9rem; margin-top: 0.5rem;">The math under the hood</p></div>
             </div>
         </div>
     </div>
@@ -161,13 +161,13 @@
         <div style="font-size: 4rem; margin-bottom: 1rem;">✨</div>
         <h2 style="margin-bottom: 1rem; font-size: 2.5rem;">The Chronicle Awaits</h2>
         <p style="color: var(--text-medium); max-width: 700px; margin: 0 auto 2rem; font-size: 1.1rem;">
-            Download the complete Jupyter notebook to follow the data wizard's path through Denver's shadows. Every visualization, every insight, every line of code—it's all within the grimoire.
+            Download the complete Jupyter notebook and walk the whole path yourself. Every visualization, every insight, every line of code—plus my comments, which grow steadily more unhinged around cell 40.
         </p>
         <a href="../analyzing-denver-s-crime-data.ipynb" download class="cta-button" style="font-size: 1.1rem; padding: 1rem 2.5rem;">
             <i class="fas fa-download"></i> Claim Your Copy
         </a>
         <p style="color: var(--text-medium); margin-top: 1.5rem; font-size: 0.9rem; font-style: italic;">
-            "In data we trust, for data reveals what the shadows conceal."
+            "In data we trust. The shadows were extremely bad at hiding."
         </p>
     </section>
 </div>
@@ -185,8 +185,8 @@
             <div class="footer-col">
                 <a href="../" class="footer-brand">The Wizard of Oza</a>
                 <p class="footer-about">
-                    Games, enchanted websites and data work, built by one person who holds that
-                    software should feel like something worth entering.
+                    Games, websites and data work by one slightly overcommitted wizard who
+                    believes software should be a delight to walk into.
                 </p>
             </div>
             <div class="footer-col">
@@ -220,7 +220,7 @@
 
         <div class="footer-bottom">
             <p class="footer-text">&copy; <span data-year>2026</span> The Wizard of Oza. All magic reserved.</p>
-            <p class="footer-text">Built in the tower, one commission at a time.</p>
+            <p class="footer-text">Built in the tower, one commission at a time. Supervised by the aardvark.</p>
         </div>
     </div>
 </footer>
