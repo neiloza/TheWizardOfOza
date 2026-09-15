@@ -1250,7 +1250,7 @@ html.reveal-ready .reveal.visible { opacity: 1; transform: none; }
 body.page-nexus { --accent: #d97706; --deep: #78350f; --light: #f5c451; --tint: #fdf3dd; --glow: rgba(217, 119, 6, 0.42); }
 body.page-lineage { --accent: #ea580c; --deep: #7c2d12; --light: #fdba74; --tint: #ffeddc; --glow: rgba(234, 88, 12, 0.42); }
 body.page-owlery { --accent: #059669; --deep: #064e3b; --light: #6ee7b7; --tint: #dcfbee; --glow: rgba(5, 150, 105, 0.42); }
-body.page-zannary { --accent: #7c3aed; --deep: #3b0764; --light: #c4b5fd; --tint: #ebe6ff; --glow: rgba(124, 58, 237, 0.42); }
+body.page-zanary { --accent: #7c3aed; --deep: #3b0764; --light: #c4b5fd; --tint: #ebe6ff; --glow: rgba(124, 58, 237, 0.42); }
 body.page-alliances { --accent: #0891b2; --deep: #164e63; --light: #7dd3fc; --tint: #dbf4ff; --glow: rgba(8, 145, 178, 0.42); }
 
 /* Exhibits — arcane: a midnight observatory */
