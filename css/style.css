@@ -1247,11 +1247,12 @@ html.reveal-ready .reveal.visible { opacity: 1; transform: none; }
 /* ===========================
    Page identities
    =========================== */
-body.page-nexus { --accent: #d97706; --deep: #78350f; --light: #f5c451; --tint: #fdf3dd; --glow: rgba(217, 119, 6, 0.42); }
-body.page-lineage { --accent: #ea580c; --deep: #7c2d12; --light: #fdba74; --tint: #ffeddc; --glow: rgba(234, 88, 12, 0.42); }
-body.page-owlery { --accent: #059669; --deep: #064e3b; --light: #6ee7b7; --tint: #dcfbee; --glow: rgba(5, 150, 105, 0.42); }
-body.page-zanary { --accent: #7c3aed; --deep: #3b0764; --light: #c4b5fd; --tint: #ebe6ff; --glow: rgba(124, 58, 237, 0.42); }
-body.page-alliances { --accent: #0891b2; --deep: #164e63; --light: #7dd3fc; --tint: #dbf4ff; --glow: rgba(8, 145, 178, 0.42); }
+/* Every page runs on the dark ground; the hue is what tells them apart. */
+body.page-nexus { --accent: #eab308; --deep: #854d0e; --light: #fde68a; --tint: #100d03; --glow: rgba(234, 179, 8, 0.5); }
+body.page-lineage { --accent: #fb923c; --deep: #9a3412; --light: #fed7aa; --tint: #140a04; --glow: rgba(251, 146, 60, 0.5); }
+body.page-owlery { --accent: #34d399; --deep: #065f46; --light: #a7f3d0; --tint: #04130d; --glow: rgba(52, 211, 153, 0.5); }
+body.page-zanary { --accent: #a78bfa; --deep: #5b21b6; --light: #ddd6fe; --tint: #0b0618; --glow: rgba(167, 139, 250, 0.5); }
+body.page-alliances { --accent: #22d3ee; --deep: #155e75; --light: #a5f3fc; --tint: #04121a; --glow: rgba(34, 211, 238, 0.5); }
 
 /* Exhibits — arcane: a midnight observatory */
 body.page-exhibits {
@@ -1373,7 +1374,44 @@ body.is-dark .read-more { color: var(--light); }
 body.is-dark .read-more:hover { color: #ffffff; }
 body.is-dark .chapter-step { color: var(--light); }
 body.is-dark .form-input, body.is-dark .form-textarea { background: rgba(255, 255, 255, 0.06); color: var(--ink); }
+body.is-dark .form-input:focus, body.is-dark .form-textarea:focus { background: rgba(255, 255, 255, 0.12); }
 body.is-dark .contact-form { background: rgba(255, 255, 255, 0.05); }
+body.is-dark .bulletin-post-content, body.is-dark .bulletin-author { color: var(--ink-soft); }
+
+/* These palettes end very pale, so white button text needs the darker half of the ramp */
+body.page-nexus .cta-button, body.page-nexus .submit-button,
+body.page-lineage .cta-button, body.page-lineage .submit-button,
+body.page-owlery .cta-button, body.page-owlery .submit-button,
+body.page-zanary .cta-button, body.page-zanary .submit-button,
+body.page-alliances .cta-button, body.page-alliances .submit-button {
+    background-image: linear-gradient(135deg, var(--deep) 0%, var(--accent) 100%);
+}
+
+body.is-dark .form-label { color: var(--light); }
+body.is-dark .principles strong { color: var(--light); }
+body.is-dark .bulletin-post-footer { border-top-color: rgba(255, 255, 255, 0.14); }
+body.is-dark main .social-link { background: rgba(255, 255, 255, 0.07); border-color: color-mix(in srgb, var(--accent) 45%, transparent); color: var(--light); }
+body.is-dark main .social-link:hover { background: var(--accent); color: #0b0b16; }
+
+/* Notice pills: the light-mode inks are too dark to survive on a dark card */
+body.is-dark .bulletin-category { background: color-mix(in srgb, var(--accent) 18%, transparent); color: var(--light); }
+body.is-dark .bulletin-category.service-offered { background: rgba(16, 185, 129, 0.18); color: #6ee7b7; border-color: rgba(16, 185, 129, 0.45); }
+body.is-dark .bulletin-category.trade-proposed { background: rgba(6, 182, 212, 0.18); color: #67e8f9; border-color: rgba(6, 182, 212, 0.45); }
+body.is-dark .bulletin-category.help-wanted { background: rgba(245, 158, 11, 0.2); color: #fcd34d; border-color: rgba(245, 158, 11, 0.45); }
+body.is-dark .bulletin-category.items-for-sale { background: rgba(139, 92, 246, 0.2); color: #c4b5fd; border-color: rgba(139, 92, 246, 0.45); }
+body.is-dark .bulletin-category.community-event { background: rgba(236, 72, 153, 0.18); color: #f9a8d4; border-color: rgba(236, 72, 153, 0.45); }
+body.is-dark .bulletin-category.other { background: rgba(148, 163, 184, 0.18); color: #cbd5e1; border-color: rgba(148, 163, 184, 0.4); }
+
+/* The portrait keeps its mat, but a white slab on a dark page reads as a hole */
+body.is-dark .portrait {
+    background: linear-gradient(150deg, rgba(255, 255, 255, 0.08) 0%, color-mix(in srgb, var(--deep) 30%, transparent) 100%);
+    border-color: rgba(255, 255, 255, 0.12);
+}
+
+body.is-dark .portrait-frame {
+    border-color: rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.06);
+}
 
 /* ---------------------------
    Exhibits: arcane
