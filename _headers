@@ -1,0 +1,10 @@
+# Response headers for hosts that read a _headers file (Cloudflare Pages,
+# Netlify). GitHub Pages IGNORES this file — while the site is served from
+# GitHub Pages it sends no CSP at all, so nothing here is in force.
+#
+# connect-src must name the accounts API, or every sign-in fails in
+# production with nothing in the page console. Only connect-src is set: the
+# site already pulls fonts, Font Awesome and jQuery from third parties, and a
+# fuller policy would have to list them all. Add to this line, never replace.
+/*
+  Content-Security-Policy: connect-src 'self' https://api.thewizardofoza.com

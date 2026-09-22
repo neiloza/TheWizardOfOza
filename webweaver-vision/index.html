@@ -10,6 +10,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/account.css">
+    <link rel="stylesheet" href="../css/account-shell.css">
     <link rel="icon" type="image/svg+xml" href="../images/favicon.svg">
     <link rel="icon" type="image/png" sizes="32x32" href="../images/favicon-32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../images/favicon-16.png">
@@ -20,6 +22,7 @@
 <nav class="main-navigation">
     <div class="nav-container">
         <a href="../" class="site-logo-centered">The Wizard of Oza</a>
+        <button class="account-btn" id="account-btn" type="button" aria-haspopup="dialog" aria-label="Account"><i class="fas fa-user" aria-hidden="true"></i><span class="account-btn-label">Account</span></button>
         <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
             <span></span><span></span><span></span>
         </button>
@@ -177,5 +180,16 @@
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="../js/scripts.js"></script>
+<div class="overlay" id="account-sheet" hidden>
+    <div class="overlay-backdrop" data-sheet-close></div>
+    <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="account-title">
+        <div class="sheet-head">
+            <h2 class="sheet-title" id="account-title">Account</h2>
+            <button class="icon-btn" data-sheet-close aria-label="Close">✕</button>
+        </div>
+        <div class="sheet-body" id="account-body"></div>
+    </div>
+</div>
+<script type="module" src="../js/account-boot.js"></script>
 </body>
 </html>

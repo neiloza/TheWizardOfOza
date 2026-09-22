@@ -1,0 +1,240 @@
+/*
+ * account-shell.css — what the kit's sign-in sheet expects and this site lacks.
+ *
+ * css/account.css (copied unchanged from GameHub's starter kit) is written
+ * against the kit's tokens.css and components.css: .overlay, .sheet, .btn,
+ * .icon-btn, .toast and a set of palette tokens. This site has neither file,
+ * and its own --ink / --accent / --radius mean different things, so the kit's
+ * tokens and components are supplied here, SCOPED to the sheet and the toast
+ * so nothing leaks into the rest of the site.
+ *
+ * The sheet wears the dark ground every page uses and the page's own hue
+ * (--light, set per page in style.css), so it matches wherever it opens.
+ */
+
+/* --- the Account button in the nav ---------------------------------------- */
+
+.account-btn {
+    position: absolute;
+    top: 1.15rem;
+    right: 1.75rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    min-height: 40px;
+    padding: 0.45rem 0.95rem;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+    color: var(--light);
+    font: inherit;
+    font-weight: 600;
+    font-size: 0.92rem;
+    cursor: pointer;
+    transition: background 0.25s ease, color 0.25s ease, top 0.35s ease;
+}
+
+.account-btn:hover { background: color-mix(in srgb, var(--accent) 24%, transparent); color: #ffffff; }
+.account-btn:focus-visible { outline: 2px solid var(--light); outline-offset: 2px; }
+
+/* A small dot once signed in, so the state is visible without opening it. */
+.account-btn.is-signed-in::after {
+    content: '';
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #34d399;
+}
+
+.main-navigation.is-scrolled .account-btn { top: 0.55rem; }
+
+@media (max-width: 980px) {
+    /* Sits left of the hamburger, which is absolutely positioned at right. */
+    .account-btn,
+    .main-navigation.is-scrolled .account-btn {
+        top: 50%;
+        right: 4.25rem;
+        transform: translateY(-50%);
+    }
+}
+
+@media (max-width: 420px) {
+    .account-btn .account-btn-label { display: none; }
+    .account-btn { padding: 0.45rem 0.7rem; }
+}
+
+/* --- kit tokens, scoped ---------------------------------------------------- */
+
+#account-sheet,
+#toast {
+    --bg:              #0b0910;
+    --bg-raised:       #16121b;
+    --bg-sunken:       #0e0b12;
+    --ink:             #f6f1ec;
+    --ink-soft:        #cbc3bd;
+    --ink-faint:       #948b86;
+    --accent-contrast: #0b0910;
+    --line:            rgba(255, 255, 255, 0.12);
+    --line-strong:     rgba(255, 255, 255, 0.22);
+    --good:            #34d399;
+    --bad:             #fca5a5;
+    --bad-bg:          rgba(252, 165, 165, 0.1);
+    --radius:          16px;
+    --radius-sm:       12px;
+    --radius-pill:     999px;
+    --shadow-md:       0 2px 6px rgba(0, 0, 0, 0.4), 0 10px 24px -12px rgba(0, 0, 0, 0.6);
+    --shadow-lg:       0 6px 16px rgba(0, 0, 0, 0.45), 0 20px 44px -16px rgba(0, 0, 0, 0.7);
+    --safe-b:          env(safe-area-inset-bottom, 0px);
+    --tabbar-h:        0px;
+    font-family: var(--font-body);
+}
+
+/* --- overlay + sheet (from the kit's components.css) ----------------------- */
+
+#account-sheet.overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1100;             /* above the nav (999) and its hamburger (1001) */
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+#account-sheet.overlay[hidden] { display: none; }
+
+#account-sheet .overlay-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    animation: account-fade-in 180ms ease-out;
+}
+
+#account-sheet .sheet {
+    position: relative;
+    width: 100%;
+    max-width: 480px;
+    max-height: 88dvh;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-raised);
+    color: var(--ink);
+    border: 1px solid var(--line);
+    border-bottom: 0;
+    border-radius: var(--radius) var(--radius) 0 0;
+    box-shadow: var(--shadow-lg);
+    padding-bottom: var(--safe-b);
+    animation: account-sheet-up 240ms cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+/* On a wide screen a sheet glued to the bottom edge reads as a cookie banner. */
+@media (min-width: 641px) {
+    #account-sheet.overlay { align-items: center; }
+    #account-sheet .sheet { border-bottom: 1px solid var(--line); border-radius: var(--radius); }
+}
+
+#account-sheet .sheet-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 16px 16px 8px;
+}
+
+#account-sheet .sheet-title {
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--ink);
+}
+
+#account-sheet .sheet-body { padding: 0 16px 20px; overflow-y: auto; }
+
+@keyframes account-fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes account-sheet-up { from { transform: translateY(100%); } to { transform: none; } }
+
+/* --- buttons (from the kit's components.css) ------------------------------- */
+
+#account-sheet .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 10px 18px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--line-strong);
+    background: var(--bg-raised);
+    color: var(--ink);
+    font: inherit;
+    font-weight: 700;
+    font-size: 0.925rem;
+    cursor: pointer;
+    transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
+}
+
+#account-sheet .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+#account-sheet .btn-primary { background: var(--light); border-color: transparent; color: var(--accent-contrast); }
+#account-sheet .btn-ghost   { background: transparent; border-color: transparent; color: var(--ink-soft); }
+#account-sheet .btn-block   { display: flex; width: 100%; }
+
+#account-sheet .icon-btn {
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--ink-soft);
+    font: inherit;
+    cursor: pointer;
+}
+
+#account-sheet .btn:focus-visible,
+#account-sheet .icon-btn:focus-visible { outline: 2px solid var(--light); outline-offset: 2px; }
+
+@media (hover: hover) {
+    #account-sheet .btn:hover         { border-color: var(--light); color: var(--light); }
+    #account-sheet .btn-primary:hover { background: #ffffff; color: var(--accent-contrast); border-color: transparent; }
+    #account-sheet .btn-ghost:hover   { background: var(--bg-sunken); color: var(--ink); }
+    #account-sheet .icon-btn:hover    { border-color: var(--line-strong); color: var(--ink); }
+}
+
+/* --- toast (from the kit's components.css) --------------------------------- */
+
+#toast.toast {
+    position: fixed;
+    left: 50%;
+    bottom: calc(var(--tabbar-h) + var(--safe-b) + 16px);
+    transform: translateX(-50%) translateY(8px);
+    z-index: 1200;
+    max-width: calc(100% - 32px);
+    padding: 10px 16px;
+    border-radius: var(--radius-pill);
+    background: var(--ink);
+    color: var(--bg);
+    font-size: 0.875rem;
+    font-weight: 700;
+    box-shadow: var(--shadow-md);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 200ms ease, transform 200ms ease;
+}
+
+#toast.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* --- nothing is sold on the apex ------------------------------------------
+ * The kit's signed-in view is built for an app with a $5 unlock: a
+ * "free version" badge, an Unlock button, Restore purchases, and a note
+ * pointing at an app's Settings. None of that means anything here, and the
+ * Unlock button would only answer "no price configured" for the "hub" slug.
+ * Hidden rather than edited so account-ui.js stays byte-identical to the kit.
+ * .account-badge only exists in the signed-in view, so these selectors cannot
+ * touch the sign-in, sign-up, forgot or reset forms. */
+
+#account-sheet .account-badge,
+#account-sheet .account-badge ~ .btn:not(.btn-ghost),
+#account-sheet .account-badge ~ .account-note {
+    display: none;
+}
